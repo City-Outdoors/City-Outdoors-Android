@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    
+    style="@style/main_page" >
+
+    <ImageView
+        android:id="@+id/header"
+        android:layout_alignParentTop="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/home_header" />
+
+   
+   <ImageView
+       android:id="@+id/footer"
+       android:layout_alignParentBottom="true"
+       android:layout_centerHorizontal="true"     
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:src="@drawable/home_footer" />
+   
+   <LinearLayout
+        android:id="@+id/buttons"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp" >
+
+        <Button
+            android:id="@+id/map"
+            style="@style/button"
+            android:clickable="true"
+            android:onClick="onClickBrowseMap"
+            android:text="@string/main_screen_map" />
+
+        <Button
+            android:id="@+id/collections"
+            style="@style/button"
+            android:clickable="true"
+            android:onClick="onClickCollections"
+            android:text="@string/main_screen_collections" />
+
+        <Button
+            android:id="@+id/new_feature_content"
+            style="@style/button"
+            android:clickable="true"
+            android:onClick="onClickNewFeatureContent"
+            android:text="@string/main_screen_new_feature_content" />
+
+        <Button
+            android:id="@+id/new_feature_report"
+            style="@style/button"
+            android:clickable="true"
+            android:onClick="onClickNewFeatureReport"
+            android:text="@string/main_screen_new_feature_report" />
+
+        <Button
+            android:id="@+id/wildlife"
+            style="@style/button"
+            android:clickable="true"
+            android:onClick="onClickWildlife"
+            android:text="@string/main_screen_wildlife" />
+
+        <Button
+            android:id="@+id/whatson"
+            style="@style/button"
+            android:clickable="true"
+            android:onClick="onClickWhatsOn"
+            android:text="@string/main_screen_whatson" />
+
+        <Button
+            android:id="@+id/favourites"
+            style="@style/button"
+            android:clickable="true"
+            android:onClick="onClickFavourites"
+            android:text="@string/main_screen_favourites" />
+
+        <Button
+            android:id="@+id/login"
+            style="@style/button"
+            android:clickable="true"
+            android:onClick="onClickLogIn"
+            android:text="@string/main_screen_login" />
+
+        <Button
+            android:id="@+id/logout"
+            style="@style/button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="5dp"
+            android:clickable="true"
+            android:onClick="onClickLogOut"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:text="@string/main_screen_logout" />
+    </LinearLayout>
+</RelativeLayout>

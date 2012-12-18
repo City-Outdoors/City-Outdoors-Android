@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    style="@style/page" >
+
+	<include layout="@layout/title_bar"/>
+    
+    <EditText
+        android:id="@+id/comment"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:minLines="4"
+        android:maxLines="10"
+        android:gravity="top|left"
+        android:inputType="textMultiLine" >
+
+        <requestFocus />
+    </EditText>
+
+    <!--  <ImageView
+        android:id="@+id/photo_preview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_launcher" />   -->
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:weightSum="1.0"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/take_photo"
+            style="@style/button"
+            android:clickable="true"
+            android:onClick="onClickTakePhoto"
+            android:layout_width="0dp"
+            android:layout_weight=".5" 
+            android:text="Take Photo" />
+
+        <Button
+            android:id="@+id/select_photo"
+            style="@style/button"
+            android:clickable="true"
+            android:onClick="onClickSelectPhoto"
+            android:layout_width="0dp"
+            android:layout_weight=".5" 
+            android:text="Select Photo From Gallery" />
+        
+    </LinearLayout>
+
+	 <LinearLayout 
+	    android:id="@+id/anonymous_user_wrapper"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical" >   
+    
+	    <CheckBox
+	        android:id="@+id/agree_T_and_C"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="I agree to the terms and conditions"
+    		style="@style/checkbox" />
+         
+	     <TextView
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:clickable="true"
+	        android:onClick="onClickViewTAndC"
+	        android:text="View Terms and Conditions"
+    		style="@style/text_link" />
+	
+		 <TextView
+		   android:layout_width="wrap_content"
+		   android:layout_height="wrap_content"
+		   android:text="Optional Name"
+    		style="@style/text" />
+		
+		<EditText
+		    android:id="@+id/name"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:ems="10" />     
+	     
+    </LinearLayout>
+    
+    <Button
+        android:id="@+id/submit"
+        android:onClick="onClickSend"
+		android:clickable="true"               
+        android:text="Send"
+   		style="@style/button" />
+
+</LinearLayout>

@@ -1,0 +1,41 @@
+
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/checkin"
+        android:title="Checkin"/>
+
+    <item
+        android:id="@+id/favourite"
+        android:title="Favourite"/>
+    
+    
+    <item
+        android:id="@+id/comment"
+        android:title="Comment"/>
+    
+    
+    <item
+        android:id="@+id/report"
+        android:title="Report"/>
+    
+    <item
+        android:id="@+id/map"
+        android:title="Map"/>
+     
+    <item
+        android:id="@+id/share"
+        android:title="Share"/>
+    
+    <item
+        android:id="@+id/email"
+        android:title="Email"/>   
+    
+    <item
+        android:id="@+id/phone"
+        android:title="Phone"/>
+    
+</menu>
+
+

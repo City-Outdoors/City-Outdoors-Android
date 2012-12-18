@@ -1,0 +1,56 @@
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/map"
+        android:title="@string/main_screen_map"/>
+
+    <item
+        android:id="@+id/collections"
+        android:title="@string/main_screen_collections"/>
+    
+    <item
+        android:id="@+id/wildlife"
+        android:title="@string/main_screen_wildlife"/>
+    
+    <item
+        android:id="@+id/whatson"
+        android:title="@string/main_screen_whatson"/>
+    
+    
+    <item
+        android:id="@+id/new_feature_content"
+        android:title="@string/main_screen_new_feature_content"/>
+    
+    
+    <item
+        android:id="@+id/new_feature_report"
+        android:title="@string/main_screen_new_feature_report"/>
+    
+ 
+    
+    <item
+        android:id="@+id/favourites"
+        android:title="@string/main_screen_favourites"/>
+    
+    
+    <item
+        android:id="@+id/login"
+        android:title="@string/main_screen_login"/>
+    
+    
+    <item
+        android:id="@+id/logout"
+        android:title="@string/main_screen_logout"/>
+    
+
+ 
+    <item
+        android:id="@+id/update_now"
+        android:title="@string/main_screen_update_now"/>
+        
+    
+</menu>
+
+
+

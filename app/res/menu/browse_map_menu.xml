@@ -1,0 +1,18 @@
+
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/add_content_current_position"
+        android:title="Add a comment at my location"/>
+
+    <item
+        android:id="@+id/report_it_current_position"
+        android:title="Report it at my location"/>
+    
+    <item
+        android:id="@+id/go_to_my_current_location"
+        android:title="View current location"/>
+    
+</menu>
+

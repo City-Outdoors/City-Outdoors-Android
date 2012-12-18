@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    
+    style="@style/main_page" >
+
+    <ImageView
+        android:id="@+id/header"
+        android:layout_alignParentTop="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/home_header" />
+
+   
+   <ImageView
+       android:id="@+id/footer"
+       android:layout_alignParentBottom="true"
+       android:layout_centerHorizontal="true"     
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:src="@drawable/home_footer" />    
+    
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" 
+        android:layout_centerVertical="true"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:orientation="vertical"
+        android:id="@+id/buttons" >
+    
+	    <Button
+	        android:id="@+id/map"
+	        android:onClick="onClickBrowseMap"
+			android:clickable="true"              
+	        android:text="@string/main_screen_map"
+	    	style="@style/button"  />    
+	        
+	     <Button
+	        android:id="@+id/collections"
+	        android:onClick="onClickCollections"
+			android:clickable="true"              
+	        android:text="@string/main_screen_collections"
+	    	style="@style/button"  />   
+		
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:paddingTop="5dp"
+	        android:weightSum="1.0">
+		        	
+			     <Button
+			        android:id="@+id/new_feature_content"
+			        android:onClick="onClickNewFeatureContent"
+			        android:layout_weight=".50"
+					android:clickable="true"
+					android:layout_width="wrap_content"  
+			        android:text="@string/main_screen_new_feature_content"
+			    	style="@style/button"  />        
+			
+			    <Button
+			        android:id="@+id/new_feature_report"
+			        android:layout_alignParentRight="true"
+			        android:onClick="onClickNewFeatureReport"
+			        android:layout_weight=".50"
+					android:clickable="true"     
+					android:layout_width="wrap_content"
+					android:text="@string/main_screen_new_feature_report" 					
+			    	style="@style/button" />   
+			    	
+		   </LinearLayout>
+		
+	      <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:weightSum="1.0" >
+		        	
+			     <Button
+			        android:id="@+id/wildlife"
+			        android:onClick="onClickWildlife"
+					android:clickable="true"            
+					android:layout_width="wrap_content"  
+			        android:text="@string/main_screen_wildlife"
+			        android:layout_weight=".50"
+			    	style="@style/button"  />
+
+			    <Button
+			        android:id="@+id/whatson"
+			        style="@style/button"
+			        android:layout_width="wrap_content"
+			        android:layout_alignParentRight="true"
+			        android:clickable="true"
+			        android:onClick="onClickWhatsOn"
+  		           android:layout_weight=".50"
+			        android:text="@string/main_screen_whatson" />
+			    	
+		   </LinearLayout>
+	    	     	 
+	   <Button
+	        android:id="@+id/favourites"
+	        android:onClick="onClickFavourites"
+			android:clickable="true"              
+	        android:text="@string/main_screen_favourites"
+	    	style="@style/button"  />	 
+	    	  
+	   <Button
+	        android:id="@+id/login"
+	        android:onClick="onClickLogIn"
+			android:clickable="true"              
+	        android:text="@string/main_screen_login"
+	    	style="@style/button"  />
+	    
+	   <Button
+	        android:id="@+id/logout"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="5dp"
+	        android:layout_gravity="center_horizontal"
+	        android:onClick="onClickLogOut"
+			android:clickable="true"              
+	        android:paddingTop="5dp"
+	        android:paddingBottom="5dp"
+	        android:text="@string/main_screen_logout" 
+	    	style="@style/button" />
+
+   </LinearLayout>
+
+
+</RelativeLayout>
