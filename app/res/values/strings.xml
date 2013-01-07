@@ -20,7 +20,13 @@
     <string name="main_screen_update_now">Update Now</string>
     <string name="main_screen_wildlife">Wildlife</string>
     <string name="main_screen_whatson">Whats on</string>
+    <string name="main_screen_preferences">Preferences</string>
     	
+    
+    <string name="preferences_analyticsEnabled_title">Record anonymous usage?</string>
+    <string name="preferences_analyticsEnabled_summary">We record anonymous usage of the app to help us improve.</string>
+    
+    
     <string name="month_1">January</string>
     <string name="month_2">Feburary</string>
     <string name="month_3">March</string>

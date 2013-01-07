@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<resources>
+    <string name="ga_api_key">UA-XXXXX-X</string>
+    <string name="ga_dryRun">true</string>
+	<integer name="ga_dispatchPeriod">1800</integer>
+    <bool name="ga_debug">false</bool>
+    <bool name="ga_reportUncaughtExceptions">true</bool>
+    <bool name="ga_autoActivityTracking">true</bool>
+    
+	<string name="uk.co.jarofgreen.cityoutdoors.UI.MainActivity">MainActivity</string>
+	<string name="uk.co.jarofgreen.cityoutdoors.UI.BrowseMapActivity">BrowseMapActivity</string>
+	<string name="uk.co.jarofgreen.cityoutdoors.UI.FeatureActivity">FeatureActivity</string>
+	<string name="uk.co.jarofgreen.cityoutdoors.UI.FeatureCheckinQuestionsActivity">FeatureCheckinQuestionsActivity</string>
+	<string name="uk.co.jarofgreen.cityoutdoors.UI.LogInActivity">LogInActivity</string>
+	<string name="uk.co.jarofgreen.cityoutdoors.UI.LogInTwitterActivity">LogInTwitterActivity</string>
+	<string name="uk.co.jarofgreen.cityoutdoors.UI.NewFeatureContentActivity">NewFeatureContentActivity</string>
+	<string name="uk.co.jarofgreen.cityoutdoors.UI.NewFeatureReportActivity">NewFeatureReportActivity</string>
+	<string name="uk.co.jarofgreen.cityoutdoors.UI.CollectionsActivity">CollectionsActivity</string>
+	<string name="uk.co.jarofgreen.cityoutdoors.UI.TermsAndConditionsActivity">TermsAndConditionsActivity</string>
+	<string name="uk.co.jarofgreen.cityoutdoors.UI.CollectionActivity">CollectionActivity</string>
+	
+    
+</resources>

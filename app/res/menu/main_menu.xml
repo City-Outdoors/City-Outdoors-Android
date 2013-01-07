@@ -44,6 +44,9 @@
         android:title="@string/main_screen_logout"/>
     
 
+    <item
+        android:id="@+id/prefences"
+        android:title="@string/main_screen_preferences"/>
  
     <item
         android:id="@+id/update_now"

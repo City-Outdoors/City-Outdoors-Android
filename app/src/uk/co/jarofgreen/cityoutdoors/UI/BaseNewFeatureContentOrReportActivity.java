@@ -77,13 +77,13 @@ public class BaseNewFeatureContentOrReportActivity extends BaseActivity  {
     }
     
     @Override
-    protected void onResume() {
+    public void onResume() {
     	super.onResume();
     	if (!hasPosition()) locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
     }
 
     @Override
-    protected void onStop() {
+    public void onStop() {
     	if (locationManager != null) locationManager.removeUpdates(locationListener);
     	super.onStop();
     }

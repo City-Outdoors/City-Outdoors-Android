@@ -162,6 +162,8 @@ public class MainActivity extends BaseActivity  {
     		startService(i2);
     		Toast.makeText(this, "Updating now ...", Toast.LENGTH_SHORT).show();
     		return true;
+    	case R.id.prefences:
+    		startActivity(new Intent(this, PreferencesActivity.class));   		
     	default:
     		return super.onOptionsItemSelected(item);
     	}

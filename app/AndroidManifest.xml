@@ -90,7 +90,12 @@
             android:name=".UI.WhatsOnActivity"
             android:label="@string/app_name" 
             android:theme="@android:style/Theme.NoTitleBar">
-        </activity>                              
+        </activity>                   
+        <activity
+            android:name=".UI.PreferencesActivity"
+            android:label="@string/app_name" 
+            android:theme="@android:style/Theme.NoTitleBar">
+        </activity>                     
 		<service android:name=".Service.LoadDataService" android:exported="false">
 		</service>
         <service android:name=".Service.SendFeatureContentService" android:exported="false">

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" android:title="Settings">
+     
+        <ListPreference
+                android:title="@string/preferences_analyticsEnabled_title"
+                android:summary="@string/preferences_analyticsEnabled_summary"
+                android:key="analyticsEnabled"
+                android:entries="@array/analyticsEnabledPreferenceEntries"
+                android:entryValues="@array/analyticsEnabledPreferenceValues"
+                android:defaultValue="yes" />
+
+        
+</PreferenceScreen>
