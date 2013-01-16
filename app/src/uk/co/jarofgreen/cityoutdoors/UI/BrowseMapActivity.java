@@ -9,7 +9,7 @@ import java.util.Set;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnCameraChangeListener;
-import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -38,7 +38,7 @@ import android.view.MenuItem;
  * @license Open Source under the 3-clause BSD License
  * @url https://github.com/City-Outdoors/City-Outdoors-Android
  */
-public class BrowseMapActivity extends android.support.v4.app.FragmentActivity implements OnMarkerClickListener {
+public class BrowseMapActivity extends android.support.v4.app.FragmentActivity implements OnInfoWindowClickListener {
 	
 	protected GoogleMap map;
 	protected HashMap<Integer, Marker> featureMarkers = new HashMap<Integer, Marker>();	
@@ -155,19 +155,18 @@ public class BrowseMapActivity extends android.support.v4.app.FragmentActivity i
 				new MarkerTask(bounds.northeast.latitude, bounds.southwest.latitude, bounds.southwest.longitude, bounds.northeast.longitude).execute(true);
 			}
 		});
-        map.setOnMarkerClickListener(this);
+        map.setOnInfoWindowClickListener(this);
 		
     }
     
-	public boolean onMarkerClick(Marker marker) {
+	public void onInfoWindowClick(Marker marker) {
 		Set<Integer> keys = featureMarkers.keySet();
 		for(Integer id: keys) {
 			if (marker.equals(featureMarkers.get(id))) {
 				startActivity(new Intent(this, FeatureActivity.class).putExtra("featureID", id)); 
-				return true;
+				return;
 			}
 		}
-		return false;
 	}
 
 	private class MarkerTask extends AsyncTask<Boolean, Void, Boolean> {
@@ -195,7 +194,8 @@ public class BrowseMapActivity extends android.support.v4.app.FragmentActivity i
 					if (!featureMarkers.containsKey(Integer.valueOf(feature.getId()))) {
 						MarkerOptions mo = new MarkerOptions()
 							.position(new LatLng(feature.getLat(), feature.getLng()))
-							.title(feature.getTitle());
+							.title("Click for More Info");
+						// This should be feature.getTitle() but that has no data at the moment.
 						if (collectionIcons.containsKey(feature.getCollectionID())) {
 							mo.icon(collectionIcons.get(feature.getCollectionID()));
 						}
@@ -230,9 +230,4 @@ public class BrowseMapActivity extends android.support.v4.app.FragmentActivity i
         }
     }
 
-
-
-
-	
-    
 }
