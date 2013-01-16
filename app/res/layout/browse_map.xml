@@ -7,13 +7,11 @@
     
  	<include layout="@layout/title_bar_alternative"/>
  
-    <com.google.android.maps.MapView
-        android:id="@+id/mapview"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:clickable="true"
-        android:apiKey="XXXXX_YYYYYYYYYYYYYYYY_ZZZZ"
-    />
-    
+ 	<fragment
+	  android:id="@+id/mapview"
+	  android:name="com.google.android.gms.maps.MapFragment"
+	  android:layout_width="fill_parent"
+	  android:layout_height="fill_parent"
+	  class="com.google.android.gms.maps.SupportMapFragment" />
 
 </LinearLayout>

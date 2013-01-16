@@ -10,9 +10,5 @@
         android:id="@+id/report_it_current_position"
         android:title="Report it at my location"/>
     
-    <item
-        android:id="@+id/go_to_my_current_location"
-        android:title="View current location"/>
-    
 </menu>
 
