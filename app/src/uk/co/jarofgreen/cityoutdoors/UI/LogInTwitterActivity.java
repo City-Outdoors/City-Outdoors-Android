@@ -44,7 +44,7 @@ import android.widget.Toast;
  * @license Open Source under the 3-clause BSD License
  * @url https://github.com/City-Outdoors/City-Outdoors-Android
  */
-public class LogInTwitterActivity extends Activity {
+public class LogInTwitterActivity extends BaseActivity {
 
 	WebView webview;
 	

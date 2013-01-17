@@ -44,7 +44,7 @@ import android.widget.Toast;
  * @license Open Source under the 3-clause BSD License
  * @url https://github.com/City-Outdoors/City-Outdoors-Android
  */
-public class LogInActivity extends Activity {
+public class LogInActivity extends BaseActivity {
 	
 	 ProgressDialog mDialog;
 	 LogInTask logInTask;
