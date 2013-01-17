@@ -127,6 +127,9 @@ public class MainActivity extends BaseActivity  {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch (item.getItemId()) {
+    	case R.id.about:
+    		startActivity(new Intent(this, AboutActivity.class));
+    		return true;
     	case R.id.map:
     		onClickBrowseMap(null);
     		return true;

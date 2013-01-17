@@ -9,7 +9,8 @@
 
     <string name="enter_email">Enter your email address</string>
     <string name="enter_password">Enter your password</string>
-    
+
+    <string name="main_screen_about">About</string>
     <string name="main_screen_map">Map</string>
 	<string name="main_screen_collections">Park Features</string>
 	<string name="main_screen_new_feature_content">Comment</string>
@@ -44,6 +45,10 @@
     <string name="menu_prev_month">Previous Month</string>
     
     <string name="menu_next_image">Next</string>
-    <string name="menu_prev_image">Previous</string>    
+    <string name="menu_prev_image">Previous</string>
+        
+    <string name="about_text">About City Outdoors</string>
+    
+    <string name="about_screen_legal">Legal</string>
     
 </resources>
