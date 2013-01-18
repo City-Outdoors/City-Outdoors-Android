@@ -194,8 +194,7 @@ public class BrowseMapActivity extends android.support.v4.app.FragmentActivity i
 					if (!featureMarkers.containsKey(Integer.valueOf(feature.getId()))) {
 						MarkerOptions mo = new MarkerOptions()
 							.position(new LatLng(feature.getLat(), feature.getLng()))
-							.title("Click for More Info");
-						// This should be feature.getTitle() but that has no data at the moment.
+							.title(feature.getTitle("Click for More Info"));
 						if (collectionIcons.containsKey(feature.getCollectionID())) {
 							mo.icon(collectionIcons.get(feature.getCollectionID()));
 						}

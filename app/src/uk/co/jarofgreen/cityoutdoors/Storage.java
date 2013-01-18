@@ -27,7 +27,7 @@ import android.util.Log;
  */
 public class Storage extends SQLiteOpenHelper {
 	
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 4;
     private static final String DATABASE_NAME = "heresatree.db";
 
     public Storage(Context context) {
@@ -40,12 +40,13 @@ public class Storage extends SQLiteOpenHelper {
 	         BaseColumns._ID + " INTEGER PRIMARY KEY NOT NULL, " +
 	         " lat REAL NOT NULL, "+
 	         " lng REAL NOT NULL, "+
-	         " collectionID INTEGER NULL "+
+	         " collectionID INTEGER NULL, "+
+	         " title VARCHAR(255) NULL " +
 	         ");");
         db.execSQL("CREATE TABLE  feature_favourite ( "+
       	         " feature_id INTEGER NOT NULL, " +
       	         " favourite_at INTEGER NOT NULL, "+
-      	         " server TINYINT NOT NULL DEFAULT 0 "+
+      	         " server TINYINT NOT NULL DEFAULT 0 "+      	         
   	         ");");            
         db.execSQL("CREATE TABLE  collection ( "+
    	         BaseColumns._ID + " INTEGER PRIMARY KEY NOT NULL, " +
@@ -66,7 +67,9 @@ public class Storage extends SQLiteOpenHelper {
 	
 	@Override
 	public void onUpgrade(SQLiteDatabase arg0, int arg1, int arg2) {
-	
+		if (arg1 < 4) {
+			arg0.execSQL("ALTER TABLE feature ADD title VARCHAR(255) NULL " );
+		}
 	
 	}
 	
@@ -77,6 +80,7 @@ public class Storage extends SQLiteOpenHelper {
 		cv.put("lat", feature.getLat());
 		cv.put("lng", feature.getLng());
 		cv.put("collectionID", feature.getCollectionID());
+		cv.put("title", feature.getTitle());
 		String[]  whereArgs = { Integer.toString(feature.getId()) };
 		if (0 == db.update("feature", cv,  BaseColumns._ID+"=?", whereArgs)){
 			
@@ -120,10 +124,10 @@ public class Storage extends SQLiteOpenHelper {
 		List<Feature> features = new ArrayList<Feature>();
         SQLiteDatabase db = getReadableDatabase();
         String[]  d = { };
-        Cursor c = db.rawQuery("SELECT "+BaseColumns._ID+", lat, lng, collectionID FROM feature ", d);
+        Cursor c = db.rawQuery("SELECT "+BaseColumns._ID+", lat, lng, collectionID, title FROM feature ", d);
         for(int i = 0; i < c.getCount(); i++) {
                 c.moveToPosition(i);
-                features.add(new Feature(c.getInt(0),c.getFloat(1),c.getFloat(2),c.getInt(3))); 
+                features.add(new Feature(c.getInt(0),c.getFloat(1),c.getFloat(2),c.getInt(3),c.getString(4))); 
         }
         db.close();
         return features;
@@ -135,10 +139,10 @@ public class Storage extends SQLiteOpenHelper {
 		List<Feature> features = new ArrayList<Feature>();
 		SQLiteDatabase db = getReadableDatabase();
 		String[]  d = { Double.toString(top), Double.toString(bottom),  Double.toString(left), Double.toString(right) };
-		Cursor c = db.rawQuery("SELECT "+BaseColumns._ID+", lat, lng, collectionID FROM feature WHERE lat < ? AND lat > ? AND lng > ? AND lng < ?", d);
+		Cursor c = db.rawQuery("SELECT "+BaseColumns._ID+", lat, lng, collectionID, title FROM feature WHERE lat < ? AND lat > ? AND lng > ? AND lng < ?", d);
 		for(int i = 0; i < c.getCount(); i++) {
 			c.moveToPosition(i);
-			features.add(new Feature(c.getInt(0),c.getFloat(1),c.getFloat(2),c.getInt(3))); 
+			features.add(new Feature(c.getInt(0),c.getFloat(1),c.getFloat(2),c.getInt(3),c.getString(4))); 
 		}
 		db.close();
 		return features;

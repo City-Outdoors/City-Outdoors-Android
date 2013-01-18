@@ -45,6 +45,7 @@ public class FeaturesCall {
 				float lat = Float.parseFloat(attributes.getValue("lat"));
 				float lng = Float.parseFloat(attributes.getValue("lng"));
 				lastFeature = new Feature(id, lat, lng);
+				lastFeature.setTitle(attributes.getValue("title"));
 			}
         });
         feature.setEndElementListener(new EndElementListener() {

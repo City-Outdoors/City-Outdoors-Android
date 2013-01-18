@@ -34,6 +34,15 @@ public class Feature {
 		this.collectionID = collectionID;
 	}
 
+	public Feature(int id, float lat, float lng, int collectionID, String title) {
+		super();
+		this.id = id;
+		this.lat = lat;
+		this.lng = lng;
+		this.collectionID = collectionID;
+		this.title = title;
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -68,6 +77,14 @@ public class Feature {
 		return title;
 	}
 
+	public String getTitle(String defaultValue) {
+		if (title != null && title.length() > 0) {
+			return title;
+		} else {
+			return defaultValue;
+		}
+	}
+	
 	public void setTitle(String title) {
 		this.title = title;
 	}
