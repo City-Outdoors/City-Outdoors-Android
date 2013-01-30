@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 import uk.co.jarofgreen.cityoutdoors.Storage;
+import uk.co.jarofgreen.cityoutdoors.Service.LoadDataIfStaleService;
 import uk.co.jarofgreen.cityoutdoors.Service.LoadDataService;
 import uk.co.jarofgreen.cityoutdoors.Service.SendFeatureFavouriteService;
 import uk.co.jarofgreen.cityoutdoors.R;
@@ -37,7 +38,7 @@ public class MainActivity extends BaseActivity  {
         }
         v.setVisibility(View.GONE);
 
-        startService(new Intent(this, LoadDataService.class));
+        startService(new Intent(this, LoadDataIfStaleService.class));
         startService(new Intent(this, SendFeatureFavouriteService.class));
         
     }
@@ -159,7 +160,6 @@ public class MainActivity extends BaseActivity  {
     		return true; 
     	case R.id.update_now:
     		Intent i1 = new Intent(this, LoadDataService.class);
-    		i1.putExtra("alwaysUpdate", true);
     		startService(i1);
     		Intent i2 = new Intent(this, SendFeatureFavouriteService.class);
     		startService(i2);

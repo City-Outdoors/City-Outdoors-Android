@@ -109,6 +109,8 @@
                             
 		<service android:name=".Service.LoadDataService" android:exported="false">
 		</service>
+		<service android:name=".Service.LoadDataIfStaleService" android:exported="false">
+		</service>		
         <service android:name=".Service.SendFeatureContentService" android:exported="false">
 		</service>
         <service android:name=".Service.SendFeatureReportService" android:exported="false">
