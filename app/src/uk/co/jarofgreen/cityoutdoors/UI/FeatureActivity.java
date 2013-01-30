@@ -244,8 +244,8 @@ public class FeatureActivity extends Activity {
 
 			try{
 
-				call = new FeatureCall();
-				call.execute(FeatureActivity.this, featureID);
+				call = new FeatureCall(FeatureActivity.this);
+				call.execute(featureID);
 
 			} catch(Exception e) {
 				Log.d("ERRORINLOGIN",e.toString());

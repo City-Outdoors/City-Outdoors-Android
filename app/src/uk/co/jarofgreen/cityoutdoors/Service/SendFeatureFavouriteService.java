@@ -38,11 +38,11 @@ public class SendFeatureFavouriteService extends IntentService {
 		Log.d("FAVOURITE","Starting Sending All Unsent");
 		Storage s = new Storage(this);
 		
-		FeatureFavouriteCall call = new FeatureFavouriteCall();
+		FeatureFavouriteCall call = new FeatureFavouriteCall(this);
 		
 		try {
 			for (FeatureFavourite featureFavourite : s.getFeatureFavouritesToSendToServer()) {
-				call.execute(this, featureFavourite);
+				call.execute(featureFavourite);
 			}
 		} catch (Exception e) {
 			Log.d("APIERROR",e.toString());

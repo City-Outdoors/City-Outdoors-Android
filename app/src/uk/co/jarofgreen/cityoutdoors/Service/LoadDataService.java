@@ -39,19 +39,19 @@ public class LoadDataService  extends IntentService {
 	
 		try {
 		
-			IndexCall ic = new IndexCall();
-			ic.execute(this);
+			IndexCall ic = new IndexCall(this);
+			ic.execute();
 	
-			FeaturesCall fc = new FeaturesCall();
-			fc.execute(this);
+			FeaturesCall fc = new FeaturesCall(this);
+			fc.execute();
 	
-			CollectionsCall cc = new CollectionsCall();
-			cc.execute(this);
+			CollectionsCall cc = new CollectionsCall(this);
+			cc.execute();
 	
 			Storage s = new Storage(getApplicationContext());
-			CollectionCall collectionCall = new CollectionCall();
+			CollectionCall collectionCall = new CollectionCall(this);
 			for(Collection collection: s.getCollections()) {
-				collectionCall.execute(getApplicationContext(), collection.getId());
+				collectionCall.execute(collection.getId());
 			}
 	
 			SharedPreferences.Editor editor = settings.edit();

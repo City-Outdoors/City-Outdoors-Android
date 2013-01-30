@@ -101,10 +101,8 @@ public class LogInActivity extends BaseActivity {
         protected Boolean doInBackground(Boolean... dummy) {
         	
             try{
-            	
-            	logInCall = new LogInCall();
-            	return logInCall.execute(LogInActivity.this, Email, Password);
-                
+            	logInCall = new LogInCall(LogInActivity.this);
+            	return logInCall.execute(Email, Password);
             } catch(Exception e) {
             	Log.d("ERRORINLOGIN",e.toString());
             	if (e.getMessage() != null) Log.d("ERRORINLOGIN",e.getMessage());
@@ -118,7 +116,7 @@ public class LogInActivity extends BaseActivity {
         	LogInActivity.this.mDialog.dismiss();
 
         	if (result) {
-        		logInCall.saveResults(LogInActivity.this);
+        		logInCall.saveResults();
         		// send data to server in background
         		LogInActivity.this.startService(new Intent(LogInActivity.this, SendFeatureFavouriteService.class));
         		// start main screen

@@ -1,24 +1,17 @@
 package uk.co.jarofgreen.cityoutdoors.API;
 
-import java.net.URL;
 
 import org.xml.sax.Attributes;
 
 import uk.co.jarofgreen.cityoutdoors.Storage;
 import uk.co.jarofgreen.cityoutdoors.Model.Collection;
-import uk.co.jarofgreen.cityoutdoors.R;
 
-import android.app.IntentService;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.sax.Element;
 import android.sax.EndElementListener;
 import android.sax.EndTextElementListener;
 import android.sax.RootElement;
 import android.sax.StartElementListener;
-import android.util.Log;
-import android.util.Xml;
 
 /**
  * 
@@ -27,12 +20,16 @@ import android.util.Xml;
  * @license Open Source under the 3-clause BSD License
  * @url https://github.com/City-Outdoors/City-Outdoors-Android
  */
-public class CollectionsCall {
+public class CollectionsCall extends BaseCall {
+
+	public CollectionsCall(Context context) {
+		super(context);
+	}
 
 	Collection lastCollection;
 	Storage storage;
 	
-    public void execute(Context context) {
+    public void execute() {
     	storage = new Storage(context);
         RootElement root = new RootElement("data");
         Element collections = root.getChild("collections");
@@ -79,14 +76,10 @@ public class CollectionsCall {
 				lastCollection.setTitle(body);
 			}
 		});     
-                          
-        
-        try {
-            Xml.parse(new URL(context.getString(R.string.server_url) + "/api/v1/collections.php?showLinks=0&").openConnection().getInputStream(), Xml.Encoding.UTF_8, root.getContentHandler());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        
+                   
+        setUpCall("/api/v1/collections.php?showLinks=0&");
+        makeCall(root);
+                
     }
     
 }

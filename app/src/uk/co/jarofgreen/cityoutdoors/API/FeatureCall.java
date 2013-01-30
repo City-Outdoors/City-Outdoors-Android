@@ -1,31 +1,22 @@
 package uk.co.jarofgreen.cityoutdoors.API;
 
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.xml.sax.Attributes;
 
-import uk.co.jarofgreen.cityoutdoors.Storage;
 import uk.co.jarofgreen.cityoutdoors.Model.Content;
 import uk.co.jarofgreen.cityoutdoors.Model.Feature;
 import uk.co.jarofgreen.cityoutdoors.Model.FeatureCheckinQuestion;
 import uk.co.jarofgreen.cityoutdoors.Model.Item;
 import uk.co.jarofgreen.cityoutdoors.Model.ItemField;
-import uk.co.jarofgreen.cityoutdoors.R;
-
-import android.app.IntentService;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.sax.Element;
 import android.sax.EndElementListener;
 import android.sax.EndTextElementListener;
 import android.sax.RootElement;
 import android.sax.StartElementListener;
-import android.util.Log;
-import android.util.Xml;
 
 
 /**
@@ -35,13 +26,14 @@ import android.util.Xml;
  * @license Open Source under the 3-clause BSD License
  * @url https://github.com/City-Outdoors/City-Outdoors-Android
  */
-public class FeatureCall {
+public class FeatureCall extends BaseCall {
 
 	
-	public FeatureCall() {
-		super();
-	}
 
+	public FeatureCall(Context context) {
+		super(context);
+	}
+	
 	Content lastContent = null; 
 	List<Content> content;
 	
@@ -65,7 +57,7 @@ public class FeatureCall {
 		checkinQuestions.add(fq);
 	}
 	
-    public void execute(Context context, Integer featureID) {
+    public void execute(Integer featureID) {
     	feature = new Feature();
 		content = new ArrayList<Content>();
 		items = new ArrayList<Item>();
@@ -182,12 +174,8 @@ public class FeatureCall {
 			}
 		});       
         
-        
-        try {
-            Xml.parse(new URL(context.getString(R.string.server_url) + "/api/v1/feature.php?showLinks=0&fieldInContentArea=mobileapp&id="+Integer.toString(featureID)).openConnection().getInputStream(), Xml.Encoding.UTF_8, root.getContentHandler());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        setUpCall("/api/v1/feature.php?showLinks=0&fieldInContentArea=mobileapp&id="+Integer.toString(featureID));
+        makeCall(root);
         
     }
     

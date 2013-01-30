@@ -130,8 +130,8 @@ public class FeatureCheckinQuestionsActivity extends BaseActivity {
 
 			try{
 
-				call = new FeatureCheckinQuestionsCall();
-				call.execute(FeatureCheckinQuestionsActivity.this, featureID);
+				call = new FeatureCheckinQuestionsCall(FeatureCheckinQuestionsActivity.this);
+				call.execute(featureID);
 
 			} catch(Exception e) {
 				Log.d("ERRORINLOGIN",e.toString());
@@ -203,8 +203,8 @@ public class FeatureCheckinQuestionsActivity extends BaseActivity {
 			
 			try{
 
-				call = new SubmitFeatureCheckinQuestionAnswerCall();
-				call.execute(FeatureCheckinQuestionsActivity.this, featureCheckinQuestionID, answer);
+				call = new SubmitFeatureCheckinQuestionAnswerCall(FeatureCheckinQuestionsActivity.this);
+				call.execute(featureCheckinQuestionID, answer);
 
 			} catch(Exception e) {
 				Log.d("ERRORINLOGIN",e.toString());

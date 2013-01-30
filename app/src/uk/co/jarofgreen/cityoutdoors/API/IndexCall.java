@@ -1,12 +1,10 @@
 package uk.co.jarofgreen.cityoutdoors.API;
 
-import java.net.URL;
+
 
 import org.xml.sax.Attributes;
 
-import uk.co.jarofgreen.cityoutdoors.R;
 
-import android.app.IntentService;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -14,7 +12,7 @@ import android.sax.Element;
 import android.sax.RootElement;
 import android.sax.StartElementListener;
 import android.util.Log;
-import android.util.Xml;
+
 /**
  * 
  * @author James Baster  <james@jarofgreen.co.uk>
@@ -22,14 +20,18 @@ import android.util.Xml;
  * @license Open Source under the 3-clause BSD License
  * @url https://github.com/City-Outdoors/City-Outdoors-Android
  */
-public class IndexCall {
+public class IndexCall extends BaseCall {
 
-	float startingBoundsMinLat;
-	float startingBoundsMaxLat;
-	float startingBoundsMinLng;
-	float startingBoundsMaxLng;
+	public IndexCall(Context context) {
+		super(context);
+	}
+
+	Float startingBoundsMinLat;
+	Float startingBoundsMaxLat;
+	Float startingBoundsMinLng;
+	Float startingBoundsMaxLng;
 	
-    public void execute(Context context) {
+    public void execute() {
         RootElement root = new RootElement("data");
         Element startingBounds = root.getChild("startingBounds");
         startingBounds.setStartElementListener(new StartElementListener(){
@@ -44,19 +46,16 @@ public class IndexCall {
 				Log.d("INDEXCALL","startingBoundsMinLng="+Float.toString(startingBoundsMinLng));
 			}
         });
-
-        try {
-            Xml.parse(new URL(context.getString(R.string.server_url) + "/api/v1/index.php?showLinks=0&").openConnection().getInputStream(), Xml.Encoding.UTF_8, root.getContentHandler());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
         
+        setUpCall("/api/v1/index.php?showLinks=0&");
+        makeCall(root);
+
         SharedPreferences settings=PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = settings.edit();
-        editor.putFloat("startingBoundsMaxLat", startingBoundsMaxLat);
-        editor.putFloat("startingBoundsMinLat", startingBoundsMinLat);
-        editor.putFloat("startingBoundsMaxLng", startingBoundsMaxLng);
-        editor.putFloat("startingBoundsMinLng", startingBoundsMinLng);
+        if (startingBoundsMaxLat != null) editor.putFloat("startingBoundsMaxLat", startingBoundsMaxLat);
+        if (startingBoundsMinLat != null) editor.putFloat("startingBoundsMinLat", startingBoundsMinLat);
+        if (startingBoundsMaxLng != null)  editor.putFloat("startingBoundsMaxLng", startingBoundsMaxLng);
+        if (startingBoundsMinLng != null) editor.putFloat("startingBoundsMinLng", startingBoundsMinLng);
         editor.commit();
     }
 	
