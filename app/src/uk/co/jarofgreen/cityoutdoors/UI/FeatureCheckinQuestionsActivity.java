@@ -61,7 +61,8 @@ public class FeatureCheckinQuestionsActivity extends BaseActivity {
 		} else {
 			setContentView(R.layout.feature_checkin_question_loggedout);
 		}
-
+		TitleBar.populate(this);
+		
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 			featureID = extras.getInt("featureID");

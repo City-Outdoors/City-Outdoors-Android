@@ -18,7 +18,7 @@ public class TermsAndConditionsActivity extends BaseActivity {
 	 public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
 	        setContentView(R.layout.terms_and_conditions);  
-	        
+	        TitleBar.populate(this);
 	        
 	        webview = (WebView)findViewById(R.id.webview);
 	        webview.loadUrl(getString(R.string.server_url)+"/api/v1/termsAndConditions.php");   

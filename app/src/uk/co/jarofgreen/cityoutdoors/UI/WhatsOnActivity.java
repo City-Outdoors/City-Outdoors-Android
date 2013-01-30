@@ -25,7 +25,7 @@ public class WhatsOnActivity extends BaseMonthlyActivity {
 	 public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
 	        setContentView(R.layout.whatson);  
-	        
+	        TitleBar.populate(this);
 	        
 	        titleTextEdit = (TextView)findViewById(R.id.title);
 	        webview = (WebView)findViewById(R.id.webview);

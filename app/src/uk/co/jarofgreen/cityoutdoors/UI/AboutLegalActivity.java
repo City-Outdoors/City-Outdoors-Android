@@ -11,7 +11,7 @@ public class AboutLegalActivity extends BaseActivity {
 	 public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
 	        setContentView(R.layout.about_legal);
-	        
+	        TitleBar.populate(this);
 	        TextView tv =(TextView)findViewById(R.id.google_play);
 	        tv.setText(GooglePlayServicesUtil.getOpenSourceSoftwareLicenseInfo(this));
 	 }

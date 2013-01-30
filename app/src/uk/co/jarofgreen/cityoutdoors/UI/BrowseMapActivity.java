@@ -46,13 +46,13 @@ public class BrowseMapActivity extends android.support.v4.app.FragmentActivity i
 	
 	public static final double STARTING_LAT = (double) 55.95284338416757;
 	public static final double STARTING_LNG = (double) -3.198369775390575;
-
 	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.browse_map);
+        TitleBar.populate(this);
         setUpMapIfNeeded();
     }
 

@@ -51,6 +51,7 @@ public class ViewImageActivity extends BaseActivity  implements OnClickListener 
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.view_image);
+        TitleBar.populate(this);
         
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {

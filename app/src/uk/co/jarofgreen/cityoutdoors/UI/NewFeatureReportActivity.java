@@ -25,6 +25,7 @@ public class NewFeatureReportActivity extends BaseNewFeatureContentOrReportActiv
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_feature_report);  
+        TitleBar.populate(this);
         
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {

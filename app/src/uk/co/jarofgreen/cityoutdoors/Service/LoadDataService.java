@@ -4,6 +4,7 @@ package uk.co.jarofgreen.cityoutdoors.Service;
 import java.util.ArrayList;
 
 import uk.co.jarofgreen.cityoutdoors.Storage;
+import uk.co.jarofgreen.cityoutdoors.API.CheckCurrentUserCall;
 import uk.co.jarofgreen.cityoutdoors.API.CollectionCall;
 import uk.co.jarofgreen.cityoutdoors.API.CollectionsCall;
 import uk.co.jarofgreen.cityoutdoors.API.FeaturesCall;
@@ -54,6 +55,9 @@ public class LoadDataService  extends IntentService {
 				collectionCall.execute(collection.getId());
 			}
 	
+			CheckCurrentUserCall cu = new CheckCurrentUserCall(this);
+			cu.execute();
+			
 			SharedPreferences.Editor editor = settings.edit();
 			editor.putLong("lastDataUpdate", now);
 			editor.commit();

@@ -19,56 +19,43 @@ import android.util.Log;
  * @license Open Source under the 3-clause BSD License
  * @url https://github.com/City-Outdoors/City-Outdoors-Android
  */
-public class LogInCall extends BaseCall {
+public class CheckCurrentUserCall extends BaseCall {
 
-	public LogInCall(Context context) {
+	public CheckCurrentUserCall(Context context) {
 		super(context);
 	}
 	
 	
 	Integer userID = null;
-	String token = null;
 	String name = null;
 	String email = null;
 	Integer score = null;
 	
-    public boolean execute(String email, String password) {
-    	this.email = email;
+    public boolean execute() {
         RootElement root = new RootElement("data");
         Element user = root.getChild("user");
         user.setStartElementListener(new StartElementListener(){
 			public void start(Attributes attributes) {
 				userID = Integer.parseInt(attributes.getValue("id"));
 				score = Integer.parseInt(attributes.getValue("score"));
-				token = attributes.getValue("token");
 				name = attributes.getValue("name");
-				Log.d("LOGINCALL","userID="+Integer.toString(userID));
+				email = attributes.getValue("email");
+				Log.d("CHECKCALL","userID="+Integer.toString(userID));
 			}
         });
 
-        setUpCall("/api/v1/login.php?showLinks=0&");
-        addDataToCall("email", email);
-        addDataToCall("password", password);
+        setUpCall("/api/v1/currentUser.php?showLinks=0&");
+        if (!isUserTokenAttached) {
+        	return false;
+        }
         makeCall(root);
         
         if (userID != null) {
-	        return true;
-        } else {
-        	return false;
-        }
-    }
-    
-    public boolean saveResults() {
-        if (userID != null) {
 	        SharedPreferences settings=PreferenceManager.getDefaultSharedPreferences(context);
 	        SharedPreferences.Editor editor = settings.edit();
-	        editor.putInt("userID", userID);
 	        editor.putInt("userScore", score);
-	        editor.putString("userToken", token);
 	        editor.putString("userDisplayName", name);
-	        editor.putString("userEmail", email);
-	        editor.putString("newFeatureReportName", name);
-	        editor.putString("newFeatureReportEmail", email);	        
+	        editor.putString("userEmail", email);        
 	        editor.commit();
 	        return true;
         } else {

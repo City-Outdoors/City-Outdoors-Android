@@ -22,6 +22,7 @@ public class WildlifeActivity extends BaseMonthlyActivity {
 	 public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
 	        setContentView(R.layout.wildlife);  
+	        TitleBar.populate(this);
 	        
 	        titleTextEdit = (TextView)findViewById(R.id.title);
 	        webview = (WebView)findViewById(R.id.webview);

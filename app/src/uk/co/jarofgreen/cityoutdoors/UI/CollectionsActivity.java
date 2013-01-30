@@ -42,7 +42,7 @@ import android.widget.Toast;
  * @license Open Source under the 3-clause BSD License
  * @url https://github.com/City-Outdoors/City-Outdoors-Android
  */
-public class CollectionsActivity extends ListActivity {
+public class CollectionsActivity extends BaseListActivity {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -54,6 +54,7 @@ public class CollectionsActivity extends ListActivity {
 		View header = layoutInflater.inflate(R.layout.title_bar,null);
 		  
 		listView.addHeaderView(header, new Object(), false);
+		TitleBar.populate(this);
 		
 		listView.setBackgroundResource(R.drawable.background);
 		listView.setCacheColorHint(Color.WHITE);

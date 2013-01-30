@@ -42,7 +42,7 @@ import android.widget.Toast;
  * @license Open Source under the 3-clause BSD License
  * @url https://github.com/City-Outdoors/City-Outdoors-Android
  */
-public class FavouritesActivity extends ListActivity {
+public class FavouritesActivity extends BaseListActivity {
 
 	int collectionID;
 	
@@ -54,7 +54,7 @@ public class FavouritesActivity extends ListActivity {
 		View header = layoutInflater.inflate(R.layout.title_bar,null);
 		ListView listView = getListView();  
 		listView.addHeaderView(header, new Object(), false);
-		
+		TitleBar.populate(this);
 		listView.setBackgroundResource(R.drawable.background);
 		
 		// data		

@@ -45,7 +45,7 @@ import android.widget.Toast;
  * @license Open Source under the 3-clause BSD License
  * @url https://github.com/City-Outdoors/City-Outdoors-Android
  */
-public class FeatureActivity extends Activity {
+public class FeatureActivity extends BaseActivity {
 
 	int featureID;
 	boolean hasCheckinQuestions = false;
@@ -60,6 +60,7 @@ public class FeatureActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.feature);  
+		TitleBar.populate(this);
 
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
