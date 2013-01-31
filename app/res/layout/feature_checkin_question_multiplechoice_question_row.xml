@@ -33,5 +33,15 @@
         android:onClick="onClickAnswerMultipleChoice"
         android:text="Answer"
         android:visibility="invisible" />
-      
+     
+    
+    <Button
+        android:id="@+id/answer_explanation"
+        style="@style/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onClickAnswerExplanation"
+        android:text="See More Information"
+        android:visibility="invisible" />
+       
 </LinearLayout>

@@ -100,7 +100,13 @@ public class FeatureCheckinQuestionsCall extends BaseCall  {
 			}
         });
         
-        
+        Element explanation = question.getChild("explanation");
+        Element explanationValueHTML = explanation.getChild("valueHTML");
+        explanationValueHTML.setEndTextElementListener(new EndTextElementListener(){
+			public void end(String body) {
+				if (lastCheckinQuestion != null) lastCheckinQuestion.setExplanationHTML(body);
+			}
+         });         
         
         setUpCall("/api/v1/featureCheckinQuestions.php?showLinks=0&id="+Integer.toString(featureID));
         makeCall(root);        

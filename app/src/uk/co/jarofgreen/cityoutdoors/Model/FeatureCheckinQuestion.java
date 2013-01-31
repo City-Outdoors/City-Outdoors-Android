@@ -17,6 +17,7 @@ public abstract class FeatureCheckinQuestion {
 	protected boolean hasAnswered = false;
 
 	protected String question;
+	protected String explanationHTML;
 	
 	public FeatureCheckinQuestion(int id) {
 		super();
@@ -49,6 +50,15 @@ public abstract class FeatureCheckinQuestion {
 	
 	public abstract boolean canAnswerMultipleTimes();
 
+	public String getExplanationHTML() {
+		return explanationHTML;
+	}
 
+	public void setExplanationHTML(String explanationHTML) {
+		this.explanationHTML = explanationHTML;
+	}
 	
+	public boolean hasExplanationHTML() {
+		return (this.explanationHTML != null) && (this.explanationHTML.length() > 0);
+	}
 }

@@ -214,6 +214,14 @@ public class FeatureCall extends BaseCall {
 			}
         });
         
+        Element explanation = question.getChild("explanation");
+        Element explanationValueHTML = explanation.getChild("valueHTML");
+        explanationValueHTML.setEndTextElementListener(new EndTextElementListener(){
+			public void end(String body) {
+				if (lastCheckinQuestion != null) lastCheckinQuestion.setExplanationHTML(body);
+			}
+         });               
+        
         setUpCall("/api/v1/feature.php?showLinks=0&fieldInContentArea=mobileapp&id="+Integer.toString(featureID));
         makeCall(root);
         

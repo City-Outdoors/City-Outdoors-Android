@@ -181,6 +181,13 @@ public class FeatureCheckinQuestionsActivity extends BaseActivity {
 		}
 	}		
 	
+	public void onClickAnswerExplanation(View view) {
+		FeatureCheckinQuestion featureCheckinQuestion = (FeatureCheckinQuestion)view.getTag();
+		Intent i = new Intent(this, FeatureCheckinQuestionExplanationActivity.class);
+		i.putExtra("html", featureCheckinQuestion.getExplanationHTML());
+		startActivity(i);
+	}
+	
 	private class FeatureCheckinQuestionsTask extends AsyncTask<Boolean, Void, Boolean> {
 
 		protected int featureID;
@@ -241,6 +248,11 @@ public class FeatureCheckinQuestionsActivity extends BaseActivity {
 				if (featureCheckinQuestion.isHasAnswered()) {
 					if (!featureCheckinQuestion.canAnswerMultipleTimes()) button.setVisibility(View.INVISIBLE);
 					answered.setVisibility(View.VISIBLE);
+					if (featureCheckinQuestion.hasExplanationHTML()) {
+						View ae = child.findViewById(R.id.answer_explanation);
+						ae.setVisibility(View.VISIBLE);
+						ae.setTag(featureCheckinQuestion);
+					}
 				} else {
 					button.setVisibility(View.VISIBLE);
 					button.setTag(featureCheckinQuestion);
