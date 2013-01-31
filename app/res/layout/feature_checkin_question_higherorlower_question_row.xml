@@ -6,26 +6,26 @@
 
     <TextView
         android:id="@+id/question"
+        style="@style/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" 
-    	style="@style/text"/>
+        android:text="TextView" />
 
     <Button
         android:id="@+id/answer"
+        style="@style/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
-        android:onClick="onClickAnswer"
+        android:onClick="onClickAnswerHigherOrLower"
         android:text="Answer"
-    	style="@style/button"  />
-  
-      <TextView
+        android:visibility="invisible" />
+
+    <TextView
         android:id="@+id/answered"
+        style="@style/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="invisible"        
         android:text="You have answered this question already!"
-    	style="@style/text" />  
+        android:visibility="invisible" />
     
 </LinearLayout>

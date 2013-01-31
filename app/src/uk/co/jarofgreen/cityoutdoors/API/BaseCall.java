@@ -10,6 +10,8 @@ import org.apache.http.message.BasicNameValuePair;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.sax.Element;
+import android.sax.EndTextElementListener;
 import android.sax.RootElement;
 import android.util.Xml;
 
@@ -31,6 +33,9 @@ public abstract class BaseCall {
 		this.context = context;
 	}
 
+	protected String errorMessage;
+	
+	
 	protected HttpClient httpclient;
 	protected HttpPost httppost;
 	protected List<NameValuePair> nameValuePairs;
@@ -63,6 +68,13 @@ public abstract class BaseCall {
 	
 	
 	protected void makeCall(RootElement root) {
+		Element displayName = root.getChild("error");
+		displayName.setEndTextElementListener(new EndTextElementListener(){
+			public void end(String body) {
+				errorMessage = body;
+			}
+		}); 
+		
 		try {
         	httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
       	  	response = httpclient.execute(httppost);
@@ -73,6 +85,15 @@ public abstract class BaseCall {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+	}
+
+	public boolean hasErrorMessage() {
+		return (errorMessage != null);
+	}
+	
+	
+	public String getErrorMessage() {
+		return errorMessage;
 	}
 	
 	

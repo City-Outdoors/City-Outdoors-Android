@@ -1,4 +1,8 @@
 package uk.co.jarofgreen.cityoutdoors.Model;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 
  * @author James Baster  <james@jarofgreen.co.uk>
@@ -6,7 +10,7 @@ package uk.co.jarofgreen.cityoutdoors.Model;
  * @license Open Source under the 3-clause BSD License
  * @url https://github.com/City-Outdoors/City-Outdoors-Android
  */
-public class FeatureCheckinQuestion {
+public abstract class FeatureCheckinQuestion {
 
 	protected int id;
 
@@ -18,8 +22,7 @@ public class FeatureCheckinQuestion {
 		super();
 		this.id = id;
 	}
-
-
+	
 	public int getId() {
 		return id;
 	}
@@ -43,5 +46,9 @@ public class FeatureCheckinQuestion {
 	public void setHasAnswered(boolean hasAnswered) {
 		this.hasAnswered = hasAnswered;
 	}
+	
+	public abstract boolean canAnswerMultipleTimes();
+
+
 	
 }

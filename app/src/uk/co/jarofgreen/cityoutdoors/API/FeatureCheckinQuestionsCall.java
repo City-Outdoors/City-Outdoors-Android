@@ -7,9 +7,15 @@ import java.util.List;
 import org.xml.sax.Attributes;
 
 import uk.co.jarofgreen.cityoutdoors.Model.FeatureCheckinQuestion;
+import uk.co.jarofgreen.cityoutdoors.Model.FeatureCheckinQuestionFreeText;
+import uk.co.jarofgreen.cityoutdoors.Model.FeatureCheckinQuestionContent;
+import uk.co.jarofgreen.cityoutdoors.Model.FeatureCheckinQuestionMultipleChoice;
+import uk.co.jarofgreen.cityoutdoors.Model.FeatureCheckinQuestionHigherOrLower;
+import uk.co.jarofgreen.cityoutdoors.Model.FeatureCheckinQuestionPossibleAnswer;
 import android.content.Context;
 import android.sax.Element;
 import android.sax.EndElementListener;
+import android.sax.EndTextElementListener;
 import android.sax.RootElement;
 import android.sax.StartElementListener;
 
@@ -30,6 +36,8 @@ public class FeatureCheckinQuestionsCall extends BaseCall  {
 	}
 
 	FeatureCheckinQuestion lastCheckinQuestion = null;
+	FeatureCheckinQuestionPossibleAnswer lastPossibleAnswer = null;
+	
 	List<FeatureCheckinQuestion> checkinQuestions;
 	protected void addCheckinQuestion(FeatureCheckinQuestion fq) {
 		checkinQuestions.add(fq);
@@ -44,7 +52,20 @@ public class FeatureCheckinQuestionsCall extends BaseCall  {
         Element question = feature.getChild("checkinQuestions").getChild("checkinQuestion");
         question.setStartElementListener(new StartElementListener(){
 			public void start(Attributes attributes) {
-				lastCheckinQuestion = new FeatureCheckinQuestion(Integer.parseInt(attributes.getValue("id")));
+				if (attributes.getValue("type").toUpperCase().compareTo("FREETEXT") == 0) {
+					lastCheckinQuestion = new FeatureCheckinQuestionFreeText(Integer.parseInt(attributes.getValue("id")));
+				} else if (attributes.getValue("type").toUpperCase().compareTo("CONTENT") == 0) {
+					lastCheckinQuestion = new FeatureCheckinQuestionContent(Integer.parseInt(attributes.getValue("id")));
+				} else if (attributes.getValue("type").toUpperCase().compareTo("MULTIPLECHOICE") == 0) {
+					lastCheckinQuestion = new FeatureCheckinQuestionMultipleChoice(Integer.parseInt(attributes.getValue("id")));
+				} else if (attributes.getValue("type").toUpperCase().compareTo("HIGHERORLOWER") == 0) {
+					lastCheckinQuestion = new FeatureCheckinQuestionHigherOrLower(Integer.parseInt(attributes.getValue("id")));
+				} else {
+					// it's a question type we don't know how to handle. Just ignore.
+					lastCheckinQuestion = null;
+					return;
+				}
+				
 				String ha = attributes.getValue("hasAnswered");
 				if (ha != null && Integer.parseInt(ha) > 0) {
 					lastCheckinQuestion.setHasAnswered(true);
@@ -54,9 +75,32 @@ public class FeatureCheckinQuestionsCall extends BaseCall  {
         });
         question.setEndElementListener(new EndElementListener() {
 			public void end() {
-				addCheckinQuestion(lastCheckinQuestion);
+				if (lastCheckinQuestion != null) addCheckinQuestion(lastCheckinQuestion);
 			}
 		});       
+        
+        Element possibleAnswers = question.getChild("possibleAnswers");
+        Element possibleAnswer = possibleAnswers.getChild("possibleAnswer");
+        possibleAnswer.setStartElementListener(new StartElementListener(){
+			public void start(Attributes attributes) {
+				lastPossibleAnswer = new FeatureCheckinQuestionPossibleAnswer(Integer.parseInt(attributes.getValue("id")));
+			}
+        });
+        possibleAnswer.setEndTextElementListener(new EndTextElementListener(){
+			public void end(String body) {
+				lastPossibleAnswer.setAnswer(body);
+			}
+         });     
+        possibleAnswer.setEndElementListener(new EndElementListener() {
+			public void end() {
+				if (lastCheckinQuestion != null) {
+					FeatureCheckinQuestionMultipleChoice fcqmc = (FeatureCheckinQuestionMultipleChoice) lastCheckinQuestion;
+					fcqmc.addPossibleAnswer(lastPossibleAnswer);
+				}
+			}
+        });
+        
+        
         
         setUpCall("/api/v1/featureCheckinQuestions.php?showLinks=0&id="+Integer.toString(featureID));
         makeCall(root);        

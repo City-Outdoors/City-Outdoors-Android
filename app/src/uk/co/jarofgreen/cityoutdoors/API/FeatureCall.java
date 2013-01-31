@@ -9,6 +9,11 @@ import org.xml.sax.Attributes;
 import uk.co.jarofgreen.cityoutdoors.Model.Content;
 import uk.co.jarofgreen.cityoutdoors.Model.Feature;
 import uk.co.jarofgreen.cityoutdoors.Model.FeatureCheckinQuestion;
+import uk.co.jarofgreen.cityoutdoors.Model.FeatureCheckinQuestionContent;
+import uk.co.jarofgreen.cityoutdoors.Model.FeatureCheckinQuestionFreeText;
+import uk.co.jarofgreen.cityoutdoors.Model.FeatureCheckinQuestionHigherOrLower;
+import uk.co.jarofgreen.cityoutdoors.Model.FeatureCheckinQuestionMultipleChoice;
+import uk.co.jarofgreen.cityoutdoors.Model.FeatureCheckinQuestionPossibleAnswer;
 import uk.co.jarofgreen.cityoutdoors.Model.Item;
 import uk.co.jarofgreen.cityoutdoors.Model.ItemField;
 import android.content.Context;
@@ -41,6 +46,7 @@ public class FeatureCall extends BaseCall {
 	List<Item> items;
 	
 	FeatureCheckinQuestion lastCheckinQuestion = null;
+	FeatureCheckinQuestionPossibleAnswer lastPossibleAnswer = null;	
 	List<FeatureCheckinQuestion> checkinQuestions;
 	
 	ItemField lastItemField;
@@ -164,15 +170,49 @@ public class FeatureCall extends BaseCall {
         Element question = featureNode.getChild("checkinQuestions").getChild("checkinQuestion");
         question.setStartElementListener(new StartElementListener(){
 			public void start(Attributes attributes) {
-				lastCheckinQuestion = new FeatureCheckinQuestion(Integer.parseInt(attributes.getValue("id")));
+				if (attributes.getValue("type").toUpperCase().compareTo("FREETEXT") == 0) {
+					lastCheckinQuestion = new FeatureCheckinQuestionFreeText(Integer.parseInt(attributes.getValue("id")));
+				} else if (attributes.getValue("type").toUpperCase().compareTo("CONTENT") == 0) {
+					lastCheckinQuestion = new FeatureCheckinQuestionContent(Integer.parseInt(attributes.getValue("id")));
+				} else if (attributes.getValue("type").toUpperCase().compareTo("MULTIPLECHOICE") == 0) {
+					lastCheckinQuestion = new FeatureCheckinQuestionMultipleChoice(Integer.parseInt(attributes.getValue("id")));
+				} else if (attributes.getValue("type").toUpperCase().compareTo("HIGHERORLOWER") == 0) {
+					lastCheckinQuestion = new FeatureCheckinQuestionHigherOrLower(Integer.parseInt(attributes.getValue("id")));
+				} else {
+					// it's a question type we don't know how to handle. Just ignore.
+					lastCheckinQuestion = null;
+					return;
+				}
 				lastCheckinQuestion.setQuestion(attributes.getValue("question"));
 			}
         });
         question.setEndElementListener(new EndElementListener() {
 			public void end() {
-				addCheckinQuestion(lastCheckinQuestion);
+				if (lastCheckinQuestion != null) addCheckinQuestion(lastCheckinQuestion);
 			}
 		});       
+        
+
+        Element possibleAnswers = question.getChild("possibleAnswers");
+        Element possibleAnswer = possibleAnswers.getChild("possibleAnswer");
+        possibleAnswer.setStartElementListener(new StartElementListener(){
+			public void start(Attributes attributes) {
+				lastPossibleAnswer = new FeatureCheckinQuestionPossibleAnswer(Integer.parseInt(attributes.getValue("id")));
+			}
+        });
+        possibleAnswer.setEndTextElementListener(new EndTextElementListener(){
+			public void end(String body) {
+				lastPossibleAnswer.setAnswer(body);
+			}
+         });     
+        possibleAnswer.setEndElementListener(new EndElementListener() {
+			public void end() {
+				if (lastCheckinQuestion != null) {
+					FeatureCheckinQuestionMultipleChoice fcqmc = (FeatureCheckinQuestionMultipleChoice) lastCheckinQuestion;
+					fcqmc.addPossibleAnswer(lastPossibleAnswer);
+				}
+			}
+        });
         
         setUpCall("/api/v1/feature.php?showLinks=0&fieldInContentArea=mobileapp&id="+Integer.toString(featureID));
         makeCall(root);

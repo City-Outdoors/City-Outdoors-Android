@@ -12,9 +12,16 @@ import uk.co.jarofgreen.cityoutdoors.Storage;
 import uk.co.jarofgreen.cityoutdoors.API.FeatureCall;
 import uk.co.jarofgreen.cityoutdoors.API.FeatureCheckinQuestionsCall;
 import uk.co.jarofgreen.cityoutdoors.API.LogInCall;
-import uk.co.jarofgreen.cityoutdoors.API.SubmitFeatureCheckinQuestionAnswerCall;
+import uk.co.jarofgreen.cityoutdoors.API.SubmitFeatureCheckinQuestionFreeTextAnswerCall;
+import uk.co.jarofgreen.cityoutdoors.API.SubmitFeatureCheckinQuestionHigherOrLowerAnswerCall;
+import uk.co.jarofgreen.cityoutdoors.API.SubmitFeatureCheckinQuestionMultipleChoiceAnswerCall;
 import uk.co.jarofgreen.cityoutdoors.Model.Content;
 import uk.co.jarofgreen.cityoutdoors.Model.FeatureCheckinQuestion;
+import uk.co.jarofgreen.cityoutdoors.Model.FeatureCheckinQuestionContent;
+import uk.co.jarofgreen.cityoutdoors.Model.FeatureCheckinQuestionFreeText;
+import uk.co.jarofgreen.cityoutdoors.Model.FeatureCheckinQuestionHigherOrLower;
+import uk.co.jarofgreen.cityoutdoors.Model.FeatureCheckinQuestionMultipleChoice;
+import uk.co.jarofgreen.cityoutdoors.Model.FeatureCheckinQuestionPossibleAnswer;
 import uk.co.jarofgreen.cityoutdoors.Model.Item;
 import uk.co.jarofgreen.cityoutdoors.Model.ItemField;
 import uk.co.jarofgreen.cityoutdoors.Service.SendFeatureFavouriteService;
@@ -28,12 +35,16 @@ import android.content.DialogInterface.OnCancelListener;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.sax.TextElementListener;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -86,8 +97,8 @@ public class FeatureCheckinQuestionsActivity extends BaseActivity {
 	}
 
 	
-	public void onClickAnswer(View view) {
-		final FeatureCheckinQuestion fcq = (FeatureCheckinQuestion)view.getTag();
+	public void onClickAnswerFreeText(View view) {
+		final FeatureCheckinQuestionFreeText fcq = (FeatureCheckinQuestionFreeText)view.getTag();
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 		
 		alert.setTitle("Enter your answer");
@@ -99,12 +110,10 @@ public class FeatureCheckinQuestionsActivity extends BaseActivity {
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
 				String value = input.getText().toString();
-				
 				mDialog.setMessage("Checking answer, please wait ...");
 				mDialog.show();
-				CheckAnswerTask t = new CheckAnswerTask(fcq.getId(), value);
+				CheckFreeTextAnswerTask t = new CheckFreeTextAnswerTask(fcq, value);
 				t.execute(true);
-				
 			}
 		});
 		
@@ -116,7 +125,62 @@ public class FeatureCheckinQuestionsActivity extends BaseActivity {
 		alert.show();
 		
 	}
+	
+	public void onClickAnswerContent(View view) {
+		Intent i = new Intent(this, NewFeatureContentActivity.class);
+		i.putExtra("featureID", featureID);
+		startActivity(i);
+	}
 
+	public void onClickAnswerHigherOrLower(View view) {
+		final FeatureCheckinQuestionHigherOrLower fcq = (FeatureCheckinQuestionHigherOrLower)view.getTag();
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		
+		alert.setTitle("Enter your answer");
+		alert.setMessage(fcq.getQuestion());
+		
+		final EditText input = new EditText(this);
+		input.setInputType(InputType.TYPE_CLASS_NUMBER);
+		alert.setView(input);
+		
+		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				String value = input.getText().toString();
+				mDialog.setMessage("Checking answer, please wait ...");
+				mDialog.show();
+				CheckHigherOrLowerAnswerTask t = new CheckHigherOrLowerAnswerTask(fcq, value);
+				t.execute(true);
+			}
+		});
+		
+		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+			}
+		});
+		
+		alert.show();
+	}	
+	
+
+	public void onClickAnswerMultipleChoice(View view) {
+		FeatureCheckinQuestionMultipleChoice featureCheckinQuestion = (FeatureCheckinQuestionMultipleChoice)view.getTag();
+		View fcqview = (View)childViews.get(Integer.valueOf(featureCheckinQuestion.getId()));
+		RadioGroup radioGroupView = (RadioGroup)fcqview.findViewById(R.id.possible_answers_radio_group);
+		
+		if (radioGroupView.getCheckedRadioButtonId() > 0) {
+			RadioButton radioButton = (RadioButton)radioGroupView.findViewById(radioGroupView.getCheckedRadioButtonId());
+			FeatureCheckinQuestionPossibleAnswer answer = (FeatureCheckinQuestionPossibleAnswer)radioButton.getTag();
+			
+			mDialog.setMessage("Checking answer, please wait ...");
+			mDialog.show();
+			CheckMultipleChoiceAnswerTask t = new CheckMultipleChoiceAnswerTask(featureCheckinQuestion,answer);
+			t.execute(true);
+			
+		} else {
+			Toast.makeText(getApplicationContext(), "Please select an answer!", Toast.LENGTH_LONG).show();
+		}
+	}		
+	
 	private class FeatureCheckinQuestionsTask extends AsyncTask<Boolean, Void, Boolean> {
 
 		protected int featureID;
@@ -148,90 +212,212 @@ public class FeatureCheckinQuestionsActivity extends BaseActivity {
 
 			LinearLayout parent = (LinearLayout)findViewById(R.id.content_container);
 			
-			LayoutInflater layoutInflater = getLayoutInflater();
-			
 			for (FeatureCheckinQuestion featureCheckinQuestion : call.getCheckinQuestions()) {
-			
-				
-				View child;
-				
-				if (isUserLoggedIn()) {
-					child = layoutInflater.inflate(R.layout.feature_checkin_question_question_row,null);
-					
-					View button = child.findViewById(R.id.answer);
-					View answered = child.findViewById(R.id.answered);
-					if (featureCheckinQuestion.isHasAnswered()) {
-						button.setVisibility(View.INVISIBLE);
-						answered.setVisibility(View.VISIBLE);
-					} else {
-						button.setVisibility(View.VISIBLE);
-						button.setTag(featureCheckinQuestion);
-						answered.setVisibility(View.INVISIBLE);
-					}
-					
-				} else {
-					child = layoutInflater.inflate(R.layout.feature_checkin_question_question_row_loggedout,null);
-				}
-				
-				TextView tv = (TextView)child.findViewById(R.id.question);
-				tv.setText(featureCheckinQuestion.getQuestion());
-				
-				parent.addView(child);
-				
-				childViews.put(Integer.valueOf(featureCheckinQuestion.getId()), child);
+				addQuestionToLayout(featureCheckinQuestion, parent);
 			}
 
+		}
+		
+		protected void addQuestionToLayout(FeatureCheckinQuestion featureCheckinQuestion, LinearLayout parent) {
+			LayoutInflater layoutInflater = getLayoutInflater();
+			
+			View child;
+			
+			if (isUserLoggedIn()) {
+				if (featureCheckinQuestion instanceof FeatureCheckinQuestionFreeText) {
+					child = layoutInflater.inflate(R.layout.feature_checkin_question_freetext_question_row,null);
+				} else if (featureCheckinQuestion instanceof FeatureCheckinQuestionContent) {
+					child = layoutInflater.inflate(R.layout.feature_checkin_question_content_question_row,null);
+				} else if (featureCheckinQuestion instanceof FeatureCheckinQuestionMultipleChoice) {
+					child = layoutInflater.inflate(R.layout.feature_checkin_question_multiplechoice_question_row,null);
+				} else if (featureCheckinQuestion instanceof FeatureCheckinQuestionHigherOrLower) {
+					child = layoutInflater.inflate(R.layout.feature_checkin_question_higherorlower_question_row,null);
+				} else {
+					return; // this should be impossible ...
+				}
+				
+				View button = child.findViewById(R.id.answer);
+				View answered = child.findViewById(R.id.answered);
+				if (featureCheckinQuestion.isHasAnswered()) {
+					if (!featureCheckinQuestion.canAnswerMultipleTimes()) button.setVisibility(View.INVISIBLE);
+					answered.setVisibility(View.VISIBLE);
+				} else {
+					button.setVisibility(View.VISIBLE);
+					button.setTag(featureCheckinQuestion);
+					answered.setVisibility(View.INVISIBLE);
+				}
+				
+			} else {
+				if (featureCheckinQuestion instanceof FeatureCheckinQuestionFreeText) {
+					child = layoutInflater.inflate(R.layout.feature_checkin_question_freetext_question_row_loggedout,null);
+				} else if (featureCheckinQuestion instanceof FeatureCheckinQuestionContent) {
+					child = layoutInflater.inflate(R.layout.feature_checkin_question_content_question_row_loggedout,null);
+				} else if (featureCheckinQuestion instanceof FeatureCheckinQuestionMultipleChoice) {
+					child = layoutInflater.inflate(R.layout.feature_checkin_question_multiplechoice_question_row_loggedout,null);
+				} else if (featureCheckinQuestion instanceof FeatureCheckinQuestionHigherOrLower) {
+					child = layoutInflater.inflate(R.layout.feature_checkin_question_higherorlower_question_row_loggedout,null);
+				} else {
+					return; // this should be impossible ...
+				}
+			}
+			
+			if (featureCheckinQuestion instanceof FeatureCheckinQuestionMultipleChoice) {
+				if (featureCheckinQuestion.isHasAnswered()) {
+					child.findViewById(R.id.answer).setVisibility(View.INVISIBLE);
+					child.findViewById(R.id.possible_answers_radio_group).setVisibility(View.INVISIBLE);
+					child.findViewById(R.id.answered).setVisibility(View.VISIBLE);
+				} else {
+					FeatureCheckinQuestionMultipleChoice fcqmc = (FeatureCheckinQuestionMultipleChoice)featureCheckinQuestion;
+					if (isUserLoggedIn()) {
+						RadioGroup possibleAnswersView = (RadioGroup)child.findViewById(R.id.possible_answers_radio_group);
+						for(FeatureCheckinQuestionPossibleAnswer possibleAnswer : fcqmc.getCheckinQuestionsPossibleAnswers()) {
+							TextView possibleAnswerView = new RadioButton(FeatureCheckinQuestionsActivity.this);
+							possibleAnswerView.setTextAppearance(FeatureCheckinQuestionsActivity.this, R.style.text_radio_button);
+							possibleAnswerView.setText(possibleAnswer.getAnswer());
+							possibleAnswerView.setTag(possibleAnswer);
+							possibleAnswersView.addView(possibleAnswerView);						
+						}
+					} else {
+						LinearLayout possibleAnswersView = (LinearLayout)child.findViewById(R.id.possible_answers_container);
+						for(FeatureCheckinQuestionPossibleAnswer possibleAnswer : fcqmc.getCheckinQuestionsPossibleAnswers()) {
+							View possibleAnswerView = (View)layoutInflater.inflate(R.layout.feature_checkin_question_multiplechoice_question_row_possible_answer_loggedout,null);
+							TextView tv = (TextView)possibleAnswerView.findViewById(R.id.possible_answer);
+							tv.setText(possibleAnswer.getAnswer());
+							possibleAnswersView.addView(possibleAnswerView);
+						}					
+				}
+				}
+			}
+			
+			
+			TextView tv = (TextView)child.findViewById(R.id.question);
+			tv.setText(featureCheckinQuestion.getQuestion());
+			
+			parent.addView(child);		
+			
+			childViews.put(Integer.valueOf(featureCheckinQuestion.getId()), child);
 		}
 
 	}
 	
-	private class CheckAnswerTask extends AsyncTask<Boolean, Void, Boolean> {
-
-		protected int featureCheckinQuestionID;
+	private class CheckFreeTextAnswerTask extends AsyncTask<Boolean, Void, Boolean> {
+		protected FeatureCheckinQuestionFreeText featureCheckinQuestion;
 		protected String answer;
-		protected SubmitFeatureCheckinQuestionAnswerCall call;
+		protected SubmitFeatureCheckinQuestionFreeTextAnswerCall call;
 		
-		public CheckAnswerTask(int featureCheckinQuestionID, String answer) {
+		public CheckFreeTextAnswerTask(FeatureCheckinQuestionFreeText featureCheckinQuestion, String answer) {
 			super();
-			this.featureCheckinQuestionID = featureCheckinQuestionID;
+			this.featureCheckinQuestion = featureCheckinQuestion;
 			this.answer = answer;
 		}
 
 		protected Boolean doInBackground(Boolean... dummy) {
-			
-	    	
-			
-			
 			try{
-
-				call = new SubmitFeatureCheckinQuestionAnswerCall(FeatureCheckinQuestionsActivity.this);
-				call.execute(featureCheckinQuestionID, answer);
-
+				call = new SubmitFeatureCheckinQuestionFreeTextAnswerCall(FeatureCheckinQuestionsActivity.this);
+				call.execute(featureCheckinQuestion, answer);
 			} catch(Exception e) {
 				Log.d("ERRORINLOGIN",e.toString());
 				if (e.getMessage() != null) Log.d("ERRORINLOGIN",e.getMessage());
 			}
-
 			return false;
-
 		}
 
 		protected void onPostExecute(Boolean result) {
 			mDialog.dismiss();
-			
-			if (call.getResult()) {
+			if (call.hasErrorMessage()) {
+				Toast.makeText(getApplicationContext(), "Sorry, an error occured! "+call.getErrorMessage(), Toast.LENGTH_LONG).show();
+			} else if (call.getResult()) {
 				Toast.makeText(getApplicationContext(), "Correct!", Toast.LENGTH_LONG).show();
-
 				// change screen underneath
-				View child = (View)childViews.get(Integer.valueOf(featureCheckinQuestionID));
-				View button = child.findViewById(R.id.answer);
-				View answered = child.findViewById(R.id.answered);				
-				button.setVisibility(View.INVISIBLE);
-				answered.setVisibility(View.VISIBLE);
+				View child = (View)childViews.get(Integer.valueOf(featureCheckinQuestion.getId()));
+				child.findViewById(R.id.answer).setVisibility(View.INVISIBLE);
+				child.findViewById(R.id.answered).setVisibility(View.VISIBLE);				
 			} else {
 				Toast.makeText(getApplicationContext(), "Sorry, that is the wrong answer", Toast.LENGTH_LONG).show();
 			}
 		}
-
 	}
+	
+	
+	private class CheckHigherOrLowerAnswerTask extends AsyncTask<Boolean, Void, Boolean> {
+		protected FeatureCheckinQuestionHigherOrLower featureCheckinQuestion;
+		protected String answer;
+		protected SubmitFeatureCheckinQuestionHigherOrLowerAnswerCall call;
+		
+		public CheckHigherOrLowerAnswerTask(FeatureCheckinQuestionHigherOrLower featureCheckinQuestion, String answer) {
+			super();
+			this.featureCheckinQuestion = featureCheckinQuestion;
+			this.answer = answer;
+		}
+
+		protected Boolean doInBackground(Boolean... dummy) {
+			try{
+				call = new SubmitFeatureCheckinQuestionHigherOrLowerAnswerCall(FeatureCheckinQuestionsActivity.this);
+				call.execute(featureCheckinQuestion, answer);
+			} catch(Exception e) {
+				Log.d("ERRORINLOGIN",e.toString());
+				if (e.getMessage() != null) Log.d("ERRORINLOGIN",e.getMessage());
+			}
+			return false;
+		}
+
+		protected void onPostExecute(Boolean result) {
+			mDialog.dismiss();
+			if (call.hasErrorMessage()) {
+				Toast.makeText(getApplicationContext(), "Sorry, an error occured! "+call.getErrorMessage(), Toast.LENGTH_LONG).show();
+			} else if (call.getResult()) {
+				Toast.makeText(getApplicationContext(), "Correct!", Toast.LENGTH_LONG).show();
+				// change screen underneath
+				View child = (View)childViews.get(Integer.valueOf(featureCheckinQuestion.getId()));
+				child.findViewById(R.id.answer).setVisibility(View.INVISIBLE);
+				child.findViewById(R.id.answered).setVisibility(View.VISIBLE);				
+			} else {
+				if (call.getTrueAnswerCode() == 1) {
+					Toast.makeText(getApplicationContext(), "Sorry, to high! Try a lower answer.", Toast.LENGTH_LONG).show();
+				} else if (call.getTrueAnswerCode() == -1) {
+					Toast.makeText(getApplicationContext(), "Sorry, to low! Try a higher answer.", Toast.LENGTH_LONG).show();
+				} 
+			}
+		}
+	}	
+	
+
+	private class CheckMultipleChoiceAnswerTask extends AsyncTask<Boolean, Void, Boolean> {
+		protected FeatureCheckinQuestionMultipleChoice featureCheckinQuestion;
+		protected FeatureCheckinQuestionPossibleAnswer answer;
+		protected SubmitFeatureCheckinQuestionMultipleChoiceAnswerCall call;
+		
+		public CheckMultipleChoiceAnswerTask(FeatureCheckinQuestionMultipleChoice featureCheckinQuestion, FeatureCheckinQuestionPossibleAnswer answer) {
+			super();
+			this.featureCheckinQuestion = featureCheckinQuestion;
+			this.answer = answer;
+		}
+
+		protected Boolean doInBackground(Boolean... dummy) {
+			try{
+				call = new SubmitFeatureCheckinQuestionMultipleChoiceAnswerCall(FeatureCheckinQuestionsActivity.this);
+				call.execute(featureCheckinQuestion, answer);
+			} catch(Exception e) {
+				Log.d("ERRORINLOGIN",e.toString());
+				if (e.getMessage() != null) Log.d("ERRORINLOGIN",e.getMessage());
+			}
+			return false;
+		}
+
+		protected void onPostExecute(Boolean result) {
+			mDialog.dismiss();
+			if (call.hasErrorMessage()) {
+				Toast.makeText(getApplicationContext(), "Sorry, an error occured! "+call.getErrorMessage(), Toast.LENGTH_LONG).show();
+			} else if (call.getResult()) {
+				Toast.makeText(getApplicationContext(), "Correct!", Toast.LENGTH_LONG).show();
+				// change screen underneath
+				View child = (View)childViews.get(Integer.valueOf(featureCheckinQuestion.getId()));
+				child.findViewById(R.id.answer).setVisibility(View.INVISIBLE);
+				child.findViewById(R.id.possible_answers_radio_group).setVisibility(View.INVISIBLE);
+				child.findViewById(R.id.answered).setVisibility(View.VISIBLE);
+			} else {
+				Toast.makeText(getApplicationContext(), "Sorry, that is the wrong answer", Toast.LENGTH_LONG).show();
+			}
+		}
+	}	
 }
