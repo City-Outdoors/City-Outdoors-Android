@@ -327,7 +327,7 @@ public class FeatureCheckinQuestionsActivity extends BaseActivity {
 			try{
 				call = new SubmitFeatureCheckinQuestionFreeTextAnswerCall(FeatureCheckinQuestionsActivity.this);
 				call.execute(featureCheckinQuestion, answer);
-			} catch(Exception e) {
+			} catch(Exception e) {				
 				Log.d("ERRORINLOGIN",e.toString());
 				if (e.getMessage() != null) Log.d("ERRORINLOGIN",e.getMessage());
 			}
@@ -343,7 +343,12 @@ public class FeatureCheckinQuestionsActivity extends BaseActivity {
 				// change screen underneath
 				View child = (View)childViews.get(Integer.valueOf(featureCheckinQuestion.getId()));
 				child.findViewById(R.id.answer).setVisibility(View.INVISIBLE);
-				child.findViewById(R.id.answered).setVisibility(View.VISIBLE);				
+				child.findViewById(R.id.answered).setVisibility(View.VISIBLE);
+				if (featureCheckinQuestion.hasExplanationHTML()) {
+					View ae = child.findViewById(R.id.answer_explanation);
+					ae.setVisibility(View.VISIBLE);
+					ae.setTag(featureCheckinQuestion);
+				}
 			} else {
 				Toast.makeText(getApplicationContext(), "Sorry, that is the wrong answer", Toast.LENGTH_LONG).show();
 			}
@@ -382,7 +387,12 @@ public class FeatureCheckinQuestionsActivity extends BaseActivity {
 				// change screen underneath
 				View child = (View)childViews.get(Integer.valueOf(featureCheckinQuestion.getId()));
 				child.findViewById(R.id.answer).setVisibility(View.INVISIBLE);
-				child.findViewById(R.id.answered).setVisibility(View.VISIBLE);				
+				child.findViewById(R.id.answered).setVisibility(View.VISIBLE);	
+				if (featureCheckinQuestion.hasExplanationHTML()) {
+					View ae = child.findViewById(R.id.answer_explanation);
+					ae.setVisibility(View.VISIBLE);
+					ae.setTag(featureCheckinQuestion);
+				}				
 			} else {
 				if (call.getTrueAnswerCode() == 1) {
 					Toast.makeText(getApplicationContext(), "Sorry, to high! Try a lower answer.", Toast.LENGTH_LONG).show();
@@ -427,6 +437,11 @@ public class FeatureCheckinQuestionsActivity extends BaseActivity {
 				child.findViewById(R.id.answer).setVisibility(View.INVISIBLE);
 				child.findViewById(R.id.possible_answers_radio_group).setVisibility(View.INVISIBLE);
 				child.findViewById(R.id.answered).setVisibility(View.VISIBLE);
+				if (featureCheckinQuestion.hasExplanationHTML()) {
+					View ae = child.findViewById(R.id.answer_explanation);
+					ae.setVisibility(View.VISIBLE);
+					ae.setTag(featureCheckinQuestion);
+				}
 			} else {
 				Toast.makeText(getApplicationContext(), "Sorry, that is the wrong answer", Toast.LENGTH_LONG).show();
 			}

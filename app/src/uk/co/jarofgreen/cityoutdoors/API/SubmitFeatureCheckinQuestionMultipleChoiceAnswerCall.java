@@ -24,12 +24,8 @@ public class SubmitFeatureCheckinQuestionMultipleChoiceAnswerCall extends BaseCa
 		super(context);
 	}
 
-	public void setResult(String r) {
-		this.result = r;
-	}
-
-	protected String result;
 	protected Integer resultSuccessCode;
+	protected String explanationValueHTML;
 
 	public boolean execute(FeatureCheckinQuestionMultipleChoice featureCheckinQuestion, FeatureCheckinQuestionPossibleAnswer answer) {
 
@@ -41,12 +37,15 @@ public class SubmitFeatureCheckinQuestionMultipleChoiceAnswerCall extends BaseCa
 				resultSuccessCode = Integer.parseInt(attributes.getValue("success"));
 			}
 		});
-		result.setEndTextElementListener(new EndTextElementListener() {
+
+		Element explanationValueHTMLElement = result.getChild("explanation").getChild("valueHTML");
+		explanationValueHTMLElement.setEndTextElementListener(new EndTextElementListener() {
 			public void end(String body) {
-				setResult(body);
+				setExplanationValueHTML(body);
 			}
 		}); 
-
+		
+		
 		setUpCall("/api/v1/submitFeatureCheckinQuestionMultipleChoiceAnswer.php?showLinks=0&id="+Integer.toString(featureCheckinQuestion.getId()));
 		if (!isUserTokenAttached) {
 			return false;
@@ -55,12 +54,18 @@ public class SubmitFeatureCheckinQuestionMultipleChoiceAnswerCall extends BaseCa
 		addDataToCall("answerID", answer.getId());
 		makeCall(root);
 
+		featureCheckinQuestion.setExplanationHTML(explanationValueHTML);
+		
 		return true;
 
 	}
 
 	public boolean getResult() {
 		return (resultSuccessCode != null) && (resultSuccessCode == 1);
+	}
+
+	protected void setExplanationValueHTML(String explanationValueHTML) {
+		this.explanationValueHTML = explanationValueHTML;
 	}
 
 

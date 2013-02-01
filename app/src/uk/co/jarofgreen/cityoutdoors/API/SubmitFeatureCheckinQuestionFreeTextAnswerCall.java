@@ -23,12 +23,9 @@ public class SubmitFeatureCheckinQuestionFreeTextAnswerCall extends BaseCall {
 		super(context);
 	}
 
-	public void setResult(String r) {
-		this.result = r;
-	}
-
-	protected String result;
 	protected Integer resultSuccessCode;
+	protected String explanationValueHTML;
+	
 
 	public boolean execute(FeatureCheckinQuestionFreeText featureCheckinQuestion, String answer) {
 
@@ -40,12 +37,14 @@ public class SubmitFeatureCheckinQuestionFreeTextAnswerCall extends BaseCall {
 				resultSuccessCode = Integer.parseInt(attributes.getValue("success"));
 			}
 		});
-		result.setEndTextElementListener(new EndTextElementListener() {
-			public void end(String body) {
-				setResult(body);
-			}
-		}); 
 
+		Element explanationValueHTMLElement = result.getChild("explanation").getChild("valueHTML");
+		explanationValueHTMLElement.setEndTextElementListener(new EndTextElementListener() {
+			public void end(String body) {
+				setExplanationValueHTML(body);
+			}
+		}); 		
+		
 		setUpCall("/api/v1/submitFeatureCheckinQuestionFreeTextAnswer.php?showLinks=0&id="+Integer.toString(featureCheckinQuestion.getId()));
 		if (!isUserTokenAttached) {
 			return false;
@@ -54,13 +53,17 @@ public class SubmitFeatureCheckinQuestionFreeTextAnswerCall extends BaseCall {
 		addDataToCall("answer", answer);
 		makeCall(root);
 
+		featureCheckinQuestion.setExplanationHTML(explanationValueHTML);
+		
 		return true;
 
 	}
 
 	public boolean getResult() {
-		return (resultSuccessCode == 1);
+		return (resultSuccessCode != null) && (resultSuccessCode == 1);
 	}
 
-
+	protected void setExplanationValueHTML(String explanationValueHTML) {
+		this.explanationValueHTML = explanationValueHTML;
+	}
 }
