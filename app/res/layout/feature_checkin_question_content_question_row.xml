@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onClickAnswerContent"
-        android:text="Answer"
+        android:text="@string/checkin_answer_button"
         android:visibility="invisible" />
 
     <TextView
@@ -25,7 +25,7 @@
         style="@style/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="You have answered this question already!"
+        android:text="@string/checkin_answered_already"
         android:visibility="invisible" />
     
     
@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onClickAnswerExplanation"
-        android:text="See More Information"
+        android:text="@string/checkin_answer_explanation_button"
         android:visibility="invisible" />
     
 </LinearLayout>

@@ -61,7 +61,7 @@ public class LogInActivity extends BaseActivity {
     	logInTask = new LogInTask();
     	
     	mDialog = new ProgressDialog(this);
-    	mDialog.setMessage("Checking, please wait ...");
+    	mDialog.setMessage(getString(R.string.login_checking_data_with_server_wait));
     	mDialog.setOnCancelListener(new OnCancelListener() {
             public void onCancel(DialogInterface arg0) {
             	logInTask.cancel(true);

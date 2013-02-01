@@ -71,7 +71,7 @@ public class ViewImageActivity extends BaseActivity  implements OnClickListener 
 		}
 
     	mDialog = new ProgressDialog(this);
-    	mDialog.setMessage("Loading, please wait ...");
+    	mDialog.setMessage(getString(R.string.loading_data_from_server_wait));
     	mDialog.setOnCancelListener(new OnCancelListener() {
             public void onCancel(DialogInterface arg0) {
             	downLoadImageTask.cancel(true);

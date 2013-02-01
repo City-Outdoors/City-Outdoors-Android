@@ -83,7 +83,7 @@ public class FeatureCheckinQuestionsActivity extends BaseActivity {
 		featureCheckinQuestionsTask = new FeatureCheckinQuestionsTask(featureID);
 		
     	mDialog = new ProgressDialog(this);
-    	mDialog.setMessage("Loading, please wait ...");
+    	mDialog.setMessage(getString(R.string.loading_data_from_server_wait));
     	mDialog.setOnCancelListener(new OnCancelListener() {
             public void onCancel(DialogInterface arg0) {
             	featureCheckinQuestionsTask.cancel(true);
@@ -101,23 +101,23 @@ public class FeatureCheckinQuestionsActivity extends BaseActivity {
 		final FeatureCheckinQuestionFreeText fcq = (FeatureCheckinQuestionFreeText)view.getTag();
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 		
-		alert.setTitle("Enter your answer");
+		alert.setTitle(getString(R.string.checkin_answer_box_title));
 		alert.setMessage(fcq.getQuestion());
 		
 		final EditText input = new EditText(this);
 		alert.setView(input);
 		
-		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+		alert.setPositiveButton(getString(R.string.checkin_answer_box_ok_button), new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
 				String value = input.getText().toString();
-				mDialog.setMessage("Checking answer, please wait ...");
+				mDialog.setMessage(getString(R.string.checkin_checking_answer_with_server_wait));
 				mDialog.show();
 				CheckFreeTextAnswerTask t = new CheckFreeTextAnswerTask(fcq, value);
 				t.execute(true);
 			}
 		});
 		
-		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+		alert.setNegativeButton(getString(R.string.checkin_answer_box_cancel_button), new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
 			}
 		});
@@ -136,24 +136,24 @@ public class FeatureCheckinQuestionsActivity extends BaseActivity {
 		final FeatureCheckinQuestionHigherOrLower fcq = (FeatureCheckinQuestionHigherOrLower)view.getTag();
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 		
-		alert.setTitle("Enter your answer");
+		alert.setTitle(getString(R.string.checkin_answer_box_title));
 		alert.setMessage(fcq.getQuestion());
 		
 		final EditText input = new EditText(this);
 		input.setInputType(InputType.TYPE_CLASS_NUMBER);
 		alert.setView(input);
 		
-		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+		alert.setPositiveButton(getString(R.string.checkin_answer_box_ok_button), new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
 				String value = input.getText().toString();
-				mDialog.setMessage("Checking answer, please wait ...");
+				mDialog.setMessage(getString(R.string.checkin_checking_answer_with_server_wait));
 				mDialog.show();
 				CheckHigherOrLowerAnswerTask t = new CheckHigherOrLowerAnswerTask(fcq, value);
 				t.execute(true);
 			}
 		});
 		
-		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+		alert.setNegativeButton(getString(R.string.checkin_answer_box_cancel_button), new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
 			}
 		});
@@ -171,13 +171,13 @@ public class FeatureCheckinQuestionsActivity extends BaseActivity {
 			RadioButton radioButton = (RadioButton)radioGroupView.findViewById(radioGroupView.getCheckedRadioButtonId());
 			FeatureCheckinQuestionPossibleAnswer answer = (FeatureCheckinQuestionPossibleAnswer)radioButton.getTag();
 			
-			mDialog.setMessage("Checking answer, please wait ...");
+			mDialog.setMessage(getString(R.string.checkin_checking_answer_with_server_wait));
 			mDialog.show();
 			CheckMultipleChoiceAnswerTask t = new CheckMultipleChoiceAnswerTask(featureCheckinQuestion,answer);
 			t.execute(true);
 			
 		} else {
-			Toast.makeText(getApplicationContext(), "Please select an answer!", Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(), getString(R.string.checkin_no_multiplechoice_selected), Toast.LENGTH_LONG).show();
 		}
 	}		
 	
@@ -339,7 +339,7 @@ public class FeatureCheckinQuestionsActivity extends BaseActivity {
 			if (call.hasErrorMessage()) {
 				Toast.makeText(getApplicationContext(), "Sorry, an error occured! "+call.getErrorMessage(), Toast.LENGTH_LONG).show();
 			} else if (call.getResult()) {
-				Toast.makeText(getApplicationContext(), "Correct!", Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), getString(R.string.checkin_result_correct), Toast.LENGTH_LONG).show();
 				// change screen underneath
 				View child = (View)childViews.get(Integer.valueOf(featureCheckinQuestion.getId()));
 				child.findViewById(R.id.answer).setVisibility(View.INVISIBLE);
@@ -350,7 +350,7 @@ public class FeatureCheckinQuestionsActivity extends BaseActivity {
 					ae.setTag(featureCheckinQuestion);
 				}
 			} else {
-				Toast.makeText(getApplicationContext(), "Sorry, that is the wrong answer", Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), getString(R.string.checkin_result_wrong), Toast.LENGTH_LONG).show();
 			}
 		}
 	}
@@ -383,7 +383,7 @@ public class FeatureCheckinQuestionsActivity extends BaseActivity {
 			if (call.hasErrorMessage()) {
 				Toast.makeText(getApplicationContext(), "Sorry, an error occured! "+call.getErrorMessage(), Toast.LENGTH_LONG).show();
 			} else if (call.getResult()) {
-				Toast.makeText(getApplicationContext(), "Correct!", Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), getString(R.string.checkin_result_correct), Toast.LENGTH_LONG).show();
 				// change screen underneath
 				View child = (View)childViews.get(Integer.valueOf(featureCheckinQuestion.getId()));
 				child.findViewById(R.id.answer).setVisibility(View.INVISIBLE);
@@ -395,9 +395,9 @@ public class FeatureCheckinQuestionsActivity extends BaseActivity {
 				}				
 			} else {
 				if (call.getTrueAnswerCode() == 1) {
-					Toast.makeText(getApplicationContext(), "Sorry, to high! Try a lower answer.", Toast.LENGTH_LONG).show();
+					Toast.makeText(getApplicationContext(), getString(R.string.checkin_result_wrong_higherorlower_tohigh), Toast.LENGTH_LONG).show();
 				} else if (call.getTrueAnswerCode() == -1) {
-					Toast.makeText(getApplicationContext(), "Sorry, to low! Try a higher answer.", Toast.LENGTH_LONG).show();
+					Toast.makeText(getApplicationContext(), getString(R.string.checkin_result_wrong_higherorlower_tolow), Toast.LENGTH_LONG).show();
 				} 
 			}
 		}
@@ -431,7 +431,7 @@ public class FeatureCheckinQuestionsActivity extends BaseActivity {
 			if (call.hasErrorMessage()) {
 				Toast.makeText(getApplicationContext(), "Sorry, an error occured! "+call.getErrorMessage(), Toast.LENGTH_LONG).show();
 			} else if (call.getResult()) {
-				Toast.makeText(getApplicationContext(), "Correct!", Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), getString(R.string.checkin_result_correct), Toast.LENGTH_LONG).show();
 				// change screen underneath
 				View child = (View)childViews.get(Integer.valueOf(featureCheckinQuestion.getId()));
 				child.findViewById(R.id.answer).setVisibility(View.INVISIBLE);
@@ -443,7 +443,7 @@ public class FeatureCheckinQuestionsActivity extends BaseActivity {
 					ae.setTag(featureCheckinQuestion);
 				}
 			} else {
-				Toast.makeText(getApplicationContext(), "Sorry, that is the wrong answer", Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), getString(R.string.checkin_result_wrong), Toast.LENGTH_LONG).show();
 			}
 		}
 	}	
