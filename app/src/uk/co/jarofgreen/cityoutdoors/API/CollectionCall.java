@@ -44,6 +44,7 @@ public class CollectionCall extends BaseCall {
 				lastItem.setId(attributes.getValue("id"));
 				lastItem.setSlug(attributes.getValue("slug"));	
 				lastItem.setCollectionId(currentCollectionID);
+				lastItem.setDeleted(attributes.getValue("deleted"));
 			}
         });
         item.setEndElementListener(new EndElementListener() {

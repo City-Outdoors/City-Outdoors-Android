@@ -125,6 +125,7 @@ public class FeatureCall extends BaseCall {
 				lastItem = new Item();
 				lastItem.setId(attributes.getValue("id"));
 				lastItem.setCollectionId(attributes.getValue("collectionID"));
+				lastItem.setDeleted(attributes.getValue("deleted"));
 			}
         });
         item.setEndElementListener(new EndElementListener() {

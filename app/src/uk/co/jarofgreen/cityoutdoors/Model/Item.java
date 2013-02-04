@@ -17,6 +17,7 @@ public class Item {
 	private String slug;
 	private String title;
 	private List<ItemField> fields;
+	private boolean deleted = false;
 	
 	
 	
@@ -78,6 +79,20 @@ public class Item {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+
+	public void setDeleted(String deleted) {
+		if (deleted != null) {
+			this.deleted = (deleted.compareTo("1") == 0 || deleted.compareTo("yes") == 0);
+		}
 	}
 	
 	

@@ -98,24 +98,24 @@ public class Storage extends SQLiteOpenHelper {
 	
 	public void storeItem(Item item) {
 		SQLiteDatabase db = this.getWritableDatabase();
-		
-		ContentValues cv = new ContentValues();
-		cv.put("collection_id", item.getCollectionId());
-		cv.put("feature_id", item.getFeatureId());
-		cv.put("slug", item.getSlug());
-		cv.put("title", item.getTitle());
 		String[]  whereArgs = { Integer.toString(item.getId()) };
-		if (0 == db.update("item", cv,  BaseColumns._ID+"=?", whereArgs)){
-			
-			cv.put(BaseColumns._ID,item.getId());
-			db.insert("item", null, cv);
-			Log.d("STORAGE","Inserted Item "+Integer.toString(item.getId()));
-			
+		if (item.isDeleted()) {
+			db.delete("item", BaseColumns._ID+"=?", whereArgs);
+			Log.d("STORAGE","Deleted Item "+Integer.toString(item.getId()));
 		} else {
-			Log.d("STORAGE","Updated Item "+Integer.toString(item.getId()));
+			ContentValues cv = new ContentValues();
+			cv.put("collection_id", item.getCollectionId());
+			cv.put("feature_id", item.getFeatureId());
+			cv.put("slug", item.getSlug());
+			cv.put("title", item.getTitle());
+			if (0 == db.update("item", cv,  BaseColumns._ID+"=?", whereArgs)){
+				cv.put(BaseColumns._ID,item.getId());
+				db.insert("item", null, cv);
+				Log.d("STORAGE","Inserted Item "+Integer.toString(item.getId()));
+			} else {
+				Log.d("STORAGE","Updated Item "+Integer.toString(item.getId()));
+			}
 		}
-		
-		
 		db.close();
 	}	
 	

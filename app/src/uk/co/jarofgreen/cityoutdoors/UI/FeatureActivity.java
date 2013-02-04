@@ -272,46 +272,47 @@ public class FeatureActivity extends BaseActivity {
 			LayoutInflater layoutInflater = getLayoutInflater();
 			
 			for (Item item: call.getItems()) {
-				LinearLayout child = (LinearLayout) layoutInflater.inflate(R.layout.item_on_feature,null);
+				if (!item.isDeleted()) {
+					LinearLayout child = (LinearLayout) layoutInflater.inflate(R.layout.item_on_feature,null);
+					for (ItemField itemField: item.getFields()) {
 						
-				for (ItemField itemField: item.getFields()) {
-					
-					if (itemField.isHasValue()) {
-					
-						LinearLayout fieldView;
-												
-						if (itemField.isTypePhone()) {
-							fieldView = (LinearLayout) layoutInflater.inflate(R.layout.item_field_phone,null);
-							TextView tv3 = (TextView)fieldView.findViewById(R.id.value);
-							tv3.setText(itemField.getValueText());
-							tv3.setTag(itemField.getValueText());
-							telephone = itemField.getValueText();
-						} else if (itemField.isTypeEmail()) {
-							fieldView = (LinearLayout) layoutInflater.inflate(R.layout.item_field_email,null);
-							TextView tv3 = (TextView)fieldView.findViewById(R.id.value);
-							tv3.setText(itemField.getValueText());
-							tv3.setTag(itemField.getValueText());
-							email = itemField.getValueText();
-							tv3.setPaintFlags(tv3.getPaintFlags() |   Paint.UNDERLINE_TEXT_FLAG);							
-						} else if (itemField.isTypeHTML()) {
-							fieldView = (LinearLayout) layoutInflater.inflate(R.layout.item_field_html,null);
-							WebView tv3 = (WebView)fieldView.findViewById(R.id.value);
-							tv3.loadData(itemField.getValueHTML(), "text/html", "utf-8");							
-						} else {
-							fieldView = (LinearLayout) layoutInflater.inflate(R.layout.item_field,null);
-							TextView tv3 = (TextView)fieldView.findViewById(R.id.value);
-							tv3.setText(itemField.getValueText());
-						}						
-
-						TextView tv2 = (TextView)fieldView.findViewById(R.id.title);
-						tv2.setText(itemField.getTitle());			
+						if (itemField.isHasValue()) {
 						
-						child.addView(fieldView);
+							LinearLayout fieldView;
+													
+							if (itemField.isTypePhone()) {
+								fieldView = (LinearLayout) layoutInflater.inflate(R.layout.item_field_phone,null);
+								TextView tv3 = (TextView)fieldView.findViewById(R.id.value);
+								tv3.setText(itemField.getValueText());
+								tv3.setTag(itemField.getValueText());
+								telephone = itemField.getValueText();
+							} else if (itemField.isTypeEmail()) {
+								fieldView = (LinearLayout) layoutInflater.inflate(R.layout.item_field_email,null);
+								TextView tv3 = (TextView)fieldView.findViewById(R.id.value);
+								tv3.setText(itemField.getValueText());
+								tv3.setTag(itemField.getValueText());
+								email = itemField.getValueText();
+								tv3.setPaintFlags(tv3.getPaintFlags() |   Paint.UNDERLINE_TEXT_FLAG);							
+							} else if (itemField.isTypeHTML()) {
+								fieldView = (LinearLayout) layoutInflater.inflate(R.layout.item_field_html,null);
+								WebView tv3 = (WebView)fieldView.findViewById(R.id.value);
+								tv3.loadData(itemField.getValueHTML(), "text/html", "utf-8");							
+							} else {
+								fieldView = (LinearLayout) layoutInflater.inflate(R.layout.item_field,null);
+								TextView tv3 = (TextView)fieldView.findViewById(R.id.value);
+								tv3.setText(itemField.getValueText());
+							}						
+	
+							TextView tv2 = (TextView)fieldView.findViewById(R.id.title);
+							tv2.setText(itemField.getTitle());			
+							
+							child.addView(fieldView);
+						}
+						
 					}
 					
+					parent.addView(child);
 				}
-				
-				parent.addView(child);
 				
 			}			
 			
