@@ -220,7 +220,9 @@ public class FeatureCheckinQuestionsActivity extends BaseActivity {
 			LinearLayout parent = (LinearLayout)findViewById(R.id.content_container);
 			
 			for (FeatureCheckinQuestion featureCheckinQuestion : call.getCheckinQuestions()) {
-				addQuestionToLayout(featureCheckinQuestion, parent);
+				if (featureCheckinQuestion.isActive() && !featureCheckinQuestion.isDeleted()) {
+					addQuestionToLayout(featureCheckinQuestion, parent);
+				}
 			}
 
 		}

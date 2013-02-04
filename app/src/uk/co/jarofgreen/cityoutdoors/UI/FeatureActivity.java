@@ -351,7 +351,7 @@ public class FeatureActivity extends BaseActivity {
 				
 			}
 
-			hasCheckinQuestions = call.hasCheckinQuestions();
+			hasCheckinQuestions = call.hasActiveCheckinQuestions();
 			
 			downloadImagesTask = new DownloadImagesTask(imagesToDownload);
 			downloadImagesTask.execute(true);

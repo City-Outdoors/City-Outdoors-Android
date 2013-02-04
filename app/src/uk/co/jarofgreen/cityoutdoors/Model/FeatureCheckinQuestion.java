@@ -18,6 +18,8 @@ public abstract class FeatureCheckinQuestion {
 
 	protected String question;
 	protected String explanationHTML;
+	private boolean deleted = false;
+	private boolean active = true;
 	
 	public FeatureCheckinQuestion(int id) {
 		super();
@@ -76,4 +78,32 @@ public abstract class FeatureCheckinQuestion {
 	public boolean hasExplanationHTML() {
 		return (this.explanationHTML != null) && (this.explanationHTML.length() > 0);
 	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+
+	public void setDeleted(String deleted) {
+		if (deleted != null) {
+			this.deleted = (deleted.compareTo("1") == 0 || deleted.compareTo("yes") == 0);
+		}
+	}	
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	public void setActive(String active) {
+		if (active != null) {
+			this.active = (active.compareTo("1") == 0 || active.compareTo("yes") == 0);
+		}
+	}	
 }

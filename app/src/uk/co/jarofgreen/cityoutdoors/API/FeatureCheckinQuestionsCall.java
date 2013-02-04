@@ -72,6 +72,8 @@ public class FeatureCheckinQuestionsCall extends BaseCall  {
 					lastCheckinQuestion = null;
 					return;
 				}
+				lastCheckinQuestion.setActive(attributes.getValue("active"));
+				lastCheckinQuestion.setDeleted(attributes.getValue("deleted"));
 				lastCheckinQuestion.setId(attributes.getValue("id"));
 				lastCheckinQuestion.setHasAnswered(attributes.getValue("hasAnswered"));
 				lastCheckinQuestion.setQuestion(attributes.getValue("question"));

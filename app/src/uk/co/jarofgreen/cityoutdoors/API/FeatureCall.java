@@ -187,6 +187,8 @@ public class FeatureCall extends BaseCall {
 					lastCheckinQuestion = null;
 					return;
 				}
+				lastCheckinQuestion.setActive(attributes.getValue("active"));
+				lastCheckinQuestion.setDeleted(attributes.getValue("deleted"));
 				lastCheckinQuestion.setId(attributes.getValue("id"));
 				lastCheckinQuestion.setHasAnswered(attributes.getValue("hasAnswered"));
 				lastCheckinQuestion.setQuestion(attributes.getValue("question"));
@@ -248,6 +250,14 @@ public class FeatureCall extends BaseCall {
     public boolean hasCheckinQuestions() {    	
     	return (checkinQuestions.size() > 0);
     }
+    
+    public boolean hasActiveCheckinQuestions() {
+    	for (FeatureCheckinQuestion featureCheckinQuestion : checkinQuestions) {
+    		if (featureCheckinQuestion.isActive() && !featureCheckinQuestion.isDeleted()) return true;
+    	}
+    	return false;
+    }
+
 	public Feature getFeature() {
 		return feature;
 	}
