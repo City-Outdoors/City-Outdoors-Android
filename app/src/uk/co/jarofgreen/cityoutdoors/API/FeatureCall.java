@@ -74,7 +74,7 @@ public class FeatureCall extends BaseCall {
         
         featureNode.setStartElementListener(new StartElementListener(){
 			public void start(Attributes attributes) {
-				feature.setId(Integer.valueOf(attributes.getValue("id")));
+				feature.setId(attributes.getValue("id"));
 				feature.setShareURL(attributes.getValue("shareURL"));
 				feature.setTitle(attributes.getValue("title"));
 			}
@@ -86,12 +86,8 @@ public class FeatureCall extends BaseCall {
         content.setStartElementListener(new StartElementListener(){
 			public void start(Attributes attributes) {
 				lastContent = new Content();
-				lastContent.setId(Integer.parseInt(attributes.getValue("id")));
-				if (attributes.getValue("hasPicture").compareTo("yes") == 0) {
-					lastContent.setHasPicture(true);
-				} else {
-					lastContent.setHasPicture(false);
-				}
+				lastContent.setId(attributes.getValue("id"));
+				lastContent.setHasPicture(attributes.getValue("hasPicture"));
 			}
         });
         content.setEndElementListener(new EndElementListener() {
@@ -127,8 +123,8 @@ public class FeatureCall extends BaseCall {
         item.setStartElementListener(new StartElementListener(){
 			public void start(Attributes attributes) {
 				lastItem = new Item();
-				lastItem.setId(Integer.parseInt(attributes.getValue("id")));
-				lastItem.setCollectionId(Integer.parseInt(attributes.getValue("collectionID")));
+				lastItem.setId(attributes.getValue("id"));
+				lastItem.setCollectionId(attributes.getValue("collectionID"));
 			}
         });
         item.setEndElementListener(new EndElementListener() {
@@ -141,9 +137,9 @@ public class FeatureCall extends BaseCall {
         field.setStartElementListener(new StartElementListener(){
 			public void start(Attributes attributes) {
 				lastItemField = new ItemField();
-				lastItemField.setId(Integer.parseInt(attributes.getValue("id")));
+				lastItemField.setId(attributes.getValue("id"));
 				lastItemField.setTitle(attributes.getValue("title"));
-				lastItemField.setHasValue(attributes.getValue("hasValue").compareTo("yes") == 0);
+				lastItemField.setHasValue(attributes.getValue("hasValue"));
 				lastItemField.setType(attributes.getValue("type"));
 			}
         });
@@ -170,19 +166,28 @@ public class FeatureCall extends BaseCall {
         Element question = featureNode.getChild("checkinQuestions").getChild("checkinQuestion");
         question.setStartElementListener(new StartElementListener(){
 			public void start(Attributes attributes) {
-				if (attributes.getValue("type").toUpperCase().compareTo("FREETEXT") == 0) {
-					lastCheckinQuestion = new FeatureCheckinQuestionFreeText(Integer.parseInt(attributes.getValue("id")));
-				} else if (attributes.getValue("type").toUpperCase().compareTo("CONTENT") == 0) {
-					lastCheckinQuestion = new FeatureCheckinQuestionContent(Integer.parseInt(attributes.getValue("id")));
-				} else if (attributes.getValue("type").toUpperCase().compareTo("MULTIPLECHOICE") == 0) {
-					lastCheckinQuestion = new FeatureCheckinQuestionMultipleChoice(Integer.parseInt(attributes.getValue("id")));
-				} else if (attributes.getValue("type").toUpperCase().compareTo("HIGHERORLOWER") == 0) {
-					lastCheckinQuestion = new FeatureCheckinQuestionHigherOrLower(Integer.parseInt(attributes.getValue("id")));
+				String type = attributes.getValue("type");
+				if (type != null) {
+					if (type.toUpperCase().compareTo("FREETEXT") == 0) {
+						lastCheckinQuestion = new FeatureCheckinQuestionFreeText();
+					} else if (type.toUpperCase().compareTo("CONTENT") == 0) {
+						lastCheckinQuestion = new FeatureCheckinQuestionContent();
+					} else if (type.toUpperCase().compareTo("MULTIPLECHOICE") == 0) {
+						lastCheckinQuestion = new FeatureCheckinQuestionMultipleChoice();
+					} else if (type.toUpperCase().compareTo("HIGHERORLOWER") == 0) {
+						lastCheckinQuestion = new FeatureCheckinQuestionHigherOrLower();
+					} else {
+						// it's a question type we don't know how to handle. Just ignore.
+						lastCheckinQuestion = null;
+						return;
+					}
 				} else {
-					// it's a question type we don't know how to handle. Just ignore.
+					// The API has not told us the type. Just ignore.
 					lastCheckinQuestion = null;
 					return;
 				}
+				lastCheckinQuestion.setId(attributes.getValue("id"));
+				lastCheckinQuestion.setHasAnswered(attributes.getValue("hasAnswered"));
 				lastCheckinQuestion.setQuestion(attributes.getValue("question"));
 			}
         });

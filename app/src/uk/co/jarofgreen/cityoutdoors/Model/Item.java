@@ -32,12 +32,19 @@ public class Item {
 		this.id = id;
 	}
 	
+	public void setId(String id) {
+		if (id != null) this.id = Integer.parseInt(id);
+	}	
+	
 	public int getCollectionId() {
 		return collection_id;
 	}
 	public void setCollectionId(int collection_id) {
 		this.collection_id = collection_id;
 	}
+	public void setCollectionId(String collection_id) {
+		if (collection_id != null) this.collection_id = Integer.parseInt(collection_id);
+	}		
 	
 	public String getSlug() {
 		return slug;
@@ -52,6 +59,10 @@ public class Item {
 	public void setFeatureId(int feature_id) {
 		this.feature_id = feature_id;
 	}
+	
+	public void setFeatureId(String feature_id) {
+		if (feature_id != null) this.feature_id = Integer.parseInt(feature_id);
+	}	
 	
 	public void addField(ItemField field) {
 		fields.add(field);

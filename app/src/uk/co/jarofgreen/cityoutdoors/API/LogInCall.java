@@ -38,8 +38,8 @@ public class LogInCall extends BaseCall {
         Element user = root.getChild("user");
         user.setStartElementListener(new StartElementListener(){
 			public void start(Attributes attributes) {
-				userID = Integer.parseInt(attributes.getValue("id"));
-				score = Integer.parseInt(attributes.getValue("score"));
+				if (attributes.getValue("id") != null) userID = Integer.parseInt(attributes.getValue("id"));
+				if (attributes.getValue("score") != null) score = Integer.parseInt(attributes.getValue("score"));
 				token = attributes.getValue("token");
 				name = attributes.getValue("name");
 				Log.d("LOGINCALL","userID="+Integer.toString(userID));

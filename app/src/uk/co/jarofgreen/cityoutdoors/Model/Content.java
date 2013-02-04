@@ -8,8 +8,6 @@ package uk.co.jarofgreen.cityoutdoors.Model;
  */
 public class Content {
 
-	
-	
 	int id;
 	boolean hasPicture;
 	String body;
@@ -18,7 +16,6 @@ public class Content {
 	String pictureFullURL;
 	String pictureNormalURL;
 	String pictureThumbURL;
-
 	
 	public String getPictureFullURL() {
 		return pictureFullURL;
@@ -44,12 +41,20 @@ public class Content {
 	public void setId(int id) {
 		this.id = id;
 	}
+	public void setId(String id) {
+		if (id != null) this.id = Integer.parseInt(id);
+	}			
 	public boolean isHasPicture() {
 		return hasPicture;
 	}
 	public void setHasPicture(boolean hasPicture) {
 		this.hasPicture = hasPicture;
 	}
+	public void setHasPicture(String hasPicture) {
+		if (hasPicture != null) {
+			this.hasPicture = (hasPicture.compareTo("1") == 0 || hasPicture.compareTo("yes") == 0);
+		}
+	}	
 	public String getBody() {
 		return body;
 	}

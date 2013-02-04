@@ -36,7 +36,7 @@ public class SubmitFeatureCheckinQuestionHigherOrLowerAnswerCall extends BaseCal
 		Element result = root.getChild("result");
 		result.setStartElementListener(new StartElementListener(){
 			public void start(Attributes attributes) {
-				resultSuccessCode = Integer.parseInt(attributes.getValue("success"));
+				if (attributes.getValue("success") != null) resultSuccessCode = Integer.parseInt(attributes.getValue("success"));
 				if (attributes.getValue("trueAnswer") != null) trueAnswerCode = Integer.parseInt(attributes.getValue("trueAnswer"));
 			}
 		});

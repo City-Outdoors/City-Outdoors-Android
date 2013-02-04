@@ -23,6 +23,9 @@ public class ItemField {
 	public void setId(int id) {
 		this.id = id;
 	}
+	public void setId(String id) {
+		if (id != null) this.id = Integer.parseInt(id);
+	}	
 	public String getTitle() {
 		return title;
 	}
@@ -48,6 +51,11 @@ public class ItemField {
 	public void setHasValue(boolean hasValue) {
 		this.hasValue = hasValue;
 	}
+	public void setHasValue(String hasValue) {
+		if (hasValue != null) {
+			this.hasValue = (hasValue.compareTo("yes") == 0);
+		}
+	}		
 	public String getType() {
 		return type;
 	}

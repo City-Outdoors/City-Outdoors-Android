@@ -34,7 +34,7 @@ public class SubmitFeatureCheckinQuestionFreeTextAnswerCall extends BaseCall {
 		Element result = root.getChild("result");
 		result.setStartElementListener(new StartElementListener(){
 			public void start(Attributes attributes) {
-				resultSuccessCode = Integer.parseInt(attributes.getValue("success"));
+				if (attributes.getValue("success") != null) resultSuccessCode = Integer.parseInt(attributes.getValue("success"));
 			}
 		});
 

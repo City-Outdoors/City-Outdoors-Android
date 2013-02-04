@@ -41,7 +41,7 @@ public class CollectionCall extends BaseCall {
         item.setStartElementListener(new StartElementListener(){
 			public void start(Attributes attributes) {
 				lastItem = new Item();
-				lastItem.setId(Integer.parseInt(attributes.getValue("id")));
+				lastItem.setId(attributes.getValue("id"));
 				lastItem.setSlug(attributes.getValue("slug"));	
 				lastItem.setCollectionId(currentCollectionID);
 			}
@@ -55,7 +55,7 @@ public class CollectionCall extends BaseCall {
         Element feature = item.getChild("feature"); 
         feature.setStartElementListener(new StartElementListener(){
 			public void start(Attributes attributes) {
-				lastItem.setFeatureId(Integer.parseInt(attributes.getValue("id")));
+				lastItem.setFeatureId(attributes.getValue("id"));
 			}
         });
         

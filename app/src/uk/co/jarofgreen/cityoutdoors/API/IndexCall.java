@@ -36,27 +36,37 @@ public class IndexCall extends BaseCall {
         Element startingBounds = root.getChild("startingBounds");
         startingBounds.setStartElementListener(new StartElementListener(){
 			public void start(Attributes attributes) {
-				startingBoundsMaxLat = Float.parseFloat(attributes.getValue("maxLat"));
-				startingBoundsMinLat = Float.parseFloat(attributes.getValue("minLat"));
-				startingBoundsMaxLng = Float.parseFloat(attributes.getValue("maxLng"));
-				startingBoundsMinLng = Float.parseFloat(attributes.getValue("minLng"));
-				Log.d("INDEXCALL","startingBoundsMaxLat="+Float.toString(startingBoundsMaxLat));
-				Log.d("INDEXCALL","startingBoundsMinLat="+Float.toString(startingBoundsMinLat));
-				Log.d("INDEXCALL","startingBoundsMaxLng="+Float.toString(startingBoundsMaxLng));
-				Log.d("INDEXCALL","startingBoundsMinLng="+Float.toString(startingBoundsMinLng));
+				if (attributes.getValue("maxLat") != null) {
+					startingBoundsMaxLat = Float.parseFloat(attributes.getValue("maxLat"));
+					Log.d("INDEXCALL","startingBoundsMaxLat="+Float.toString(startingBoundsMaxLat));
+				}
+				if (attributes.getValue("minLat") != null) {
+					startingBoundsMinLat = Float.parseFloat(attributes.getValue("minLat"));
+					Log.d("INDEXCALL","startingBoundsMinLat="+Float.toString(startingBoundsMinLat));
+				}
+				if (attributes.getValue("maxLng") != null) {
+					startingBoundsMaxLng = Float.parseFloat(attributes.getValue("maxLng"));
+					Log.d("INDEXCALL","startingBoundsMaxLng="+Float.toString(startingBoundsMaxLng));
+				}
+				if (attributes.getValue("minLng") != null) {
+					startingBoundsMinLng = Float.parseFloat(attributes.getValue("minLng"));
+					Log.d("INDEXCALL","startingBoundsMinLng="+Float.toString(startingBoundsMinLng));
+				}
 			}
         });
         
         setUpCall("/api/v1/index.php?showLinks=0&");
         makeCall(root);
 
-        SharedPreferences settings=PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor editor = settings.edit();
-        if (startingBoundsMaxLat != null) editor.putFloat("startingBoundsMaxLat", startingBoundsMaxLat);
-        if (startingBoundsMinLat != null) editor.putFloat("startingBoundsMinLat", startingBoundsMinLat);
-        if (startingBoundsMaxLng != null)  editor.putFloat("startingBoundsMaxLng", startingBoundsMaxLng);
-        if (startingBoundsMinLng != null) editor.putFloat("startingBoundsMinLng", startingBoundsMinLng);
-        editor.commit();
+        if (startingBoundsMaxLat != null && startingBoundsMinLat != null && startingBoundsMaxLng != null && startingBoundsMinLng != null) {
+	        SharedPreferences settings=PreferenceManager.getDefaultSharedPreferences(context);
+	        SharedPreferences.Editor editor = settings.edit();
+        	editor.putFloat("startingBoundsMaxLat", startingBoundsMaxLat);
+        	editor.putFloat("startingBoundsMinLat", startingBoundsMinLat);
+        	editor.putFloat("startingBoundsMaxLng", startingBoundsMaxLng);
+        	editor.putFloat("startingBoundsMinLng", startingBoundsMinLng);
+        	editor.commit();
+        }
     }
 	
 }

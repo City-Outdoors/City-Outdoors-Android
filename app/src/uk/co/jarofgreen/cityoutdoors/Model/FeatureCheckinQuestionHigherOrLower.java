@@ -13,5 +13,9 @@ public class FeatureCheckinQuestionHigherOrLower extends FeatureCheckinQuestion 
 		super(id);
 	}
 
+	public FeatureCheckinQuestionHigherOrLower() {
+		super();
+	}
+	
 	public boolean canAnswerMultipleTimes() { return false; }
 }

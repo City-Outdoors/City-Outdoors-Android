@@ -12,7 +12,11 @@ public class FeatureCheckinQuestionFreeText extends FeatureCheckinQuestion  {
 	public FeatureCheckinQuestionFreeText(int id) {
 		super(id);
 	}
-
+	
+	public FeatureCheckinQuestionFreeText() {
+		super();
+	}
+	
 	public boolean canAnswerMultipleTimes() { return false; }
 
 }

@@ -48,6 +48,11 @@ public class Collection {
 		this.id = id;
 	}
 
+	public void setId(String id) {
+		if (id != null) this.id = Integer.parseInt(id);
+	}
+
+	
 	public String getSlug() {
 		return slug;
 	}

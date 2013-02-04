@@ -36,8 +36,8 @@ public class CheckCurrentUserCall extends BaseCall {
         Element user = root.getChild("user");
         user.setStartElementListener(new StartElementListener(){
 			public void start(Attributes attributes) {
-				userID = Integer.parseInt(attributes.getValue("id"));
-				score = Integer.parseInt(attributes.getValue("score"));
+				if (attributes.getValue("id") != null) userID = Integer.parseInt(attributes.getValue("id"));
+				if (attributes.getValue("score") != null) score = Integer.parseInt(attributes.getValue("score"));
 				name = attributes.getValue("name");
 				email = attributes.getValue("email");
 				Log.d("CHECKCALL","userID="+Integer.toString(userID));

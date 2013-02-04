@@ -52,24 +52,28 @@ public class FeatureCheckinQuestionsCall extends BaseCall  {
         Element question = feature.getChild("checkinQuestions").getChild("checkinQuestion");
         question.setStartElementListener(new StartElementListener(){
 			public void start(Attributes attributes) {
-				if (attributes.getValue("type").toUpperCase().compareTo("FREETEXT") == 0) {
-					lastCheckinQuestion = new FeatureCheckinQuestionFreeText(Integer.parseInt(attributes.getValue("id")));
-				} else if (attributes.getValue("type").toUpperCase().compareTo("CONTENT") == 0) {
-					lastCheckinQuestion = new FeatureCheckinQuestionContent(Integer.parseInt(attributes.getValue("id")));
-				} else if (attributes.getValue("type").toUpperCase().compareTo("MULTIPLECHOICE") == 0) {
-					lastCheckinQuestion = new FeatureCheckinQuestionMultipleChoice(Integer.parseInt(attributes.getValue("id")));
-				} else if (attributes.getValue("type").toUpperCase().compareTo("HIGHERORLOWER") == 0) {
-					lastCheckinQuestion = new FeatureCheckinQuestionHigherOrLower(Integer.parseInt(attributes.getValue("id")));
+				String type = attributes.getValue("type");
+				if (type != null) {
+					if (type.toUpperCase().compareTo("FREETEXT") == 0) {
+						lastCheckinQuestion = new FeatureCheckinQuestionFreeText();
+					} else if (type.toUpperCase().compareTo("CONTENT") == 0) {
+						lastCheckinQuestion = new FeatureCheckinQuestionContent();
+					} else if (type.toUpperCase().compareTo("MULTIPLECHOICE") == 0) {
+						lastCheckinQuestion = new FeatureCheckinQuestionMultipleChoice();
+					} else if (type.toUpperCase().compareTo("HIGHERORLOWER") == 0) {
+						lastCheckinQuestion = new FeatureCheckinQuestionHigherOrLower();
+					} else {
+						// it's a question type we don't know how to handle. Just ignore.
+						lastCheckinQuestion = null;
+						return;
+					}
 				} else {
-					// it's a question type we don't know how to handle. Just ignore.
+					// The API has not told us the type. Just ignore.
 					lastCheckinQuestion = null;
 					return;
 				}
-				
-				String ha = attributes.getValue("hasAnswered");
-				if (ha != null && Integer.parseInt(ha) > 0) {
-					lastCheckinQuestion.setHasAnswered(true);
-				}
+				lastCheckinQuestion.setId(attributes.getValue("id"));
+				lastCheckinQuestion.setHasAnswered(attributes.getValue("hasAnswered"));
 				lastCheckinQuestion.setQuestion(attributes.getValue("question"));
 			}
         });
@@ -83,7 +87,8 @@ public class FeatureCheckinQuestionsCall extends BaseCall  {
         Element possibleAnswer = possibleAnswers.getChild("possibleAnswer");
         possibleAnswer.setStartElementListener(new StartElementListener(){
 			public void start(Attributes attributes) {
-				lastPossibleAnswer = new FeatureCheckinQuestionPossibleAnswer(Integer.parseInt(attributes.getValue("id")));
+				lastPossibleAnswer = new FeatureCheckinQuestionPossibleAnswer();
+				lastPossibleAnswer.setId(attributes.getValue("id"));
 			}
         });
         possibleAnswer.setEndTextElementListener(new EndTextElementListener(){

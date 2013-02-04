@@ -50,11 +50,30 @@ public class Feature {
 	public float getLat() {
 		return lat;
 	}
+	
+	public void setLat(float lat) {
+		this.lat = lat;
+	}
 
+	public void setLat(String lat) {
+		if (lat != null) {
+			this.lat = Float.parseFloat(lat);
+		}
+	}	
+	
 	public float getLng() {
 		return lng;
 	}
+	
+	public void setLng(float lng) {
+		this.lng = lng;
+	}
 
+	public void setLng(String lng) {
+		if (lng != null) {
+			this.lng = Float.parseFloat(lng);
+		}
+	}	
 
 	public int getCollectionID() {
 		return collectionID;
@@ -93,6 +112,13 @@ public class Feature {
 		this.id = id;
 	}
 	
+	public void setId(String id) {
+		if (id != null) this.id = Integer.parseInt(id);
+	}
+
+
+
+		
 	
 	
 	

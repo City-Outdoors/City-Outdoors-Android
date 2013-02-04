@@ -42,11 +42,10 @@ public class FeaturesCall extends BaseCall {
         
         feature.setStartElementListener(new StartElementListener(){
 			public void start(Attributes attributes) {
-				int id = Integer.parseInt(attributes.getValue("id"));
-				float lat = Float.parseFloat(attributes.getValue("lat"));
-				float lng = Float.parseFloat(attributes.getValue("lng"));
-				lastFeature = new Feature(id, lat, lng);
-				lastFeature.setTitle(attributes.getValue("title"));
+				lastFeature = new Feature();
+				lastFeature.setId(attributes.getValue("id"));
+				lastFeature.setLat(attributes.getValue("lat"));
+				lastFeature.setLng(attributes.getValue("lng"));
 			}
         });
         feature.setEndElementListener(new EndElementListener() {

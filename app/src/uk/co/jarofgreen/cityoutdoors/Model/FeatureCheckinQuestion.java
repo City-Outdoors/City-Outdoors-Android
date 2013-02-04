@@ -24,10 +24,20 @@ public abstract class FeatureCheckinQuestion {
 		this.id = id;
 	}
 	
+	public FeatureCheckinQuestion() {
+		super();
+	}	
+	
 	public int getId() {
 		return id;
 	}
-
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public void setId(String id) {
+		if (id != null) this.id = Integer.parseInt(id);
+	}
 
 	public String getQuestion() {
 		return question;
@@ -46,6 +56,11 @@ public abstract class FeatureCheckinQuestion {
 
 	public void setHasAnswered(boolean hasAnswered) {
 		this.hasAnswered = hasAnswered;
+	}
+	public void setHasAnswered(String hasAnswered) {
+		if (hasAnswered != null) {
+			this.hasAnswered = (hasAnswered.compareTo("1") == 0 || hasAnswered.compareTo("yes") == 0);
+		}
 	}
 	
 	public abstract boolean canAnswerMultipleTimes();

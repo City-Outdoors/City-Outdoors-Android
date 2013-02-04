@@ -21,6 +21,10 @@ public class FeatureCheckinQuestionMultipleChoice extends FeatureCheckinQuestion
 		checkinQuestionsPossibleAnswers = new ArrayList<FeatureCheckinQuestionPossibleAnswer>();
 	}
 	
+	public FeatureCheckinQuestionMultipleChoice() {
+		super();
+		checkinQuestionsPossibleAnswers = new ArrayList<FeatureCheckinQuestionPossibleAnswer>();
+	}	
 
 	public void addPossibleAnswer(FeatureCheckinQuestionPossibleAnswer a) {
 		checkinQuestionsPossibleAnswers.add(a);

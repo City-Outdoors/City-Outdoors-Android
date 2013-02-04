@@ -13,6 +13,10 @@ public class FeatureCheckinQuestionContent  extends FeatureCheckinQuestion {
 		super(id);
 	}
 	
+	public FeatureCheckinQuestionContent() {
+		super();
+	}	
+	
 	public boolean canAnswerMultipleTimes() { return true; }
 	
 }

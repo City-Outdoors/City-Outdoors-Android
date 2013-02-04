@@ -9,7 +9,11 @@ public class FeatureCheckinQuestionPossibleAnswer {
 		super();
 		this.id = id;
 	}
-
+	
+	public FeatureCheckinQuestionPossibleAnswer() {
+		super();
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -17,6 +21,10 @@ public class FeatureCheckinQuestionPossibleAnswer {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	public void setId(String id) {
+		if (id != null) this.id = Integer.parseInt(id);
+	}		
 
 	public String getAnswer() {
 		return answer;

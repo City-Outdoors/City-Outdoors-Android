@@ -39,7 +39,7 @@ public class CollectionsCall extends BaseCall {
         collection.setStartElementListener(new StartElementListener(){
 			public void start(Attributes attributes) {
 				lastCollection = new Collection();
-				lastCollection.setId(Integer.parseInt(attributes.getValue("id")));
+				lastCollection.setId(attributes.getValue("id"));
 				lastCollection.setSlug(attributes.getValue("slug"));				
 			}
         });
