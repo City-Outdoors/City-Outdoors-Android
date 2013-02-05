@@ -22,6 +22,7 @@ import android.sax.EndElementListener;
 import android.sax.EndTextElementListener;
 import android.sax.RootElement;
 import android.sax.StartElementListener;
+import android.util.Log;
 
 
 /**
@@ -180,11 +181,13 @@ public class FeatureCall extends BaseCall {
 					} else {
 						// it's a question type we don't know how to handle. Just ignore.
 						lastCheckinQuestion = null;
+						Log.d("FEATURECHECKINQUESTION","Got a type we don't recognise: "+type);
 						return;
 					}
 				} else {
 					// The API has not told us the type. Just ignore.
 					lastCheckinQuestion = null;
+					Log.d("FEATURECHECKINQUESTION","API did not tell us a type!");
 					return;
 				}
 				lastCheckinQuestion.setActive(attributes.getValue("active"));
