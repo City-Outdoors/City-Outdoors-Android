@@ -24,6 +24,7 @@ import uk.co.jarofgreen.cityoutdoors.Model.FeatureCheckinQuestionMultipleChoice;
 import uk.co.jarofgreen.cityoutdoors.Model.FeatureCheckinQuestionPossibleAnswer;
 import uk.co.jarofgreen.cityoutdoors.Model.Item;
 import uk.co.jarofgreen.cityoutdoors.Model.ItemField;
+import uk.co.jarofgreen.cityoutdoors.Service.LoadUserDataService;
 import uk.co.jarofgreen.cityoutdoors.Service.SendFeatureFavouriteService;
 import uk.co.jarofgreen.cityoutdoors.R;
 import android.app.Activity;
@@ -299,7 +300,7 @@ public class FeatureCheckinQuestionsActivity extends BaseActivity {
 							tv.setText(possibleAnswer.getAnswer());
 							possibleAnswersView.addView(possibleAnswerView);
 						}					
-				}
+					}
 				}
 			}
 			
@@ -342,6 +343,8 @@ public class FeatureCheckinQuestionsActivity extends BaseActivity {
 				Toast.makeText(getApplicationContext(), "Sorry, an error occured! "+call.getErrorMessage(), Toast.LENGTH_LONG).show();
 			} else if (call.getResult()) {
 				Toast.makeText(getApplicationContext(), getString(R.string.checkin_result_correct), Toast.LENGTH_LONG).show();
+				// load new user data to get new score and other data 
+				FeatureCheckinQuestionsActivity.this.startService(new Intent(FeatureCheckinQuestionsActivity.this, LoadUserDataService.class));
 				// change screen underneath
 				View child = (View)childViews.get(Integer.valueOf(featureCheckinQuestion.getId()));
 				child.findViewById(R.id.answer).setVisibility(View.INVISIBLE);
@@ -386,6 +389,8 @@ public class FeatureCheckinQuestionsActivity extends BaseActivity {
 				Toast.makeText(getApplicationContext(), "Sorry, an error occured! "+call.getErrorMessage(), Toast.LENGTH_LONG).show();
 			} else if (call.getResult()) {
 				Toast.makeText(getApplicationContext(), getString(R.string.checkin_result_correct), Toast.LENGTH_LONG).show();
+				// load new user data to get new score and other data 
+				FeatureCheckinQuestionsActivity.this.startService(new Intent(FeatureCheckinQuestionsActivity.this, LoadUserDataService.class));
 				// change screen underneath
 				View child = (View)childViews.get(Integer.valueOf(featureCheckinQuestion.getId()));
 				child.findViewById(R.id.answer).setVisibility(View.INVISIBLE);
@@ -434,6 +439,8 @@ public class FeatureCheckinQuestionsActivity extends BaseActivity {
 				Toast.makeText(getApplicationContext(), "Sorry, an error occured! "+call.getErrorMessage(), Toast.LENGTH_LONG).show();
 			} else if (call.getResult()) {
 				Toast.makeText(getApplicationContext(), getString(R.string.checkin_result_correct), Toast.LENGTH_LONG).show();
+				// load new user data to get new score and other data 
+				FeatureCheckinQuestionsActivity.this.startService(new Intent(FeatureCheckinQuestionsActivity.this, LoadUserDataService.class));
 				// change screen underneath
 				View child = (View)childViews.get(Integer.valueOf(featureCheckinQuestion.getId()));
 				child.findViewById(R.id.answer).setVisibility(View.INVISIBLE);

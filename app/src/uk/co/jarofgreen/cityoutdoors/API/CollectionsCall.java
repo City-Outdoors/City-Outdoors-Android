@@ -56,6 +56,13 @@ public class CollectionsCall extends BaseCall {
 			}
         });
         
+        Element questionIcon = collection.getChild("questionIcon");
+        questionIcon.setStartElementListener(new StartElementListener(){
+			public void start(Attributes attributes) {			
+				lastCollection.setQuestionIconURL(attributes.getValue("url"));				
+			}
+        });
+        
         Element thumbnail = collection.getChild("thumbnail");
         thumbnail.setStartElementListener(new StartElementListener(){
 			public void start(Attributes attributes) {			

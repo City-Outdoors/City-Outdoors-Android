@@ -14,6 +14,7 @@ public class Feature {
 	protected int collectionID;
 	protected String shareURL;
 	protected String title;
+	protected boolean answeredAllQuestions = true;
 	
 	public Feature() {
 		super();
@@ -42,6 +43,17 @@ public class Feature {
 		this.collectionID = collectionID;
 		this.title = title;
 	}
+	
+	public Feature(int id, float lat, float lng, int collectionID, String title, int answeredAllQuestions) {
+		super();
+		this.id = id;
+		this.lat = lat;
+		this.lng = lng;
+		this.collectionID = collectionID;
+		this.title = title;
+		this.answeredAllQuestions = (answeredAllQuestions > 0);
+	}	
+	
 	
 	public int getId() {
 		return id;
@@ -116,7 +128,19 @@ public class Feature {
 		if (id != null) this.id = Integer.parseInt(id);
 	}
 
+	public boolean isAnsweredAllQuestions() {
+		return answeredAllQuestions;
+	}
 
+	public void setAnsweredAllQuestions(boolean answeredAllQuestions) {
+		this.answeredAllQuestions = answeredAllQuestions;
+	}
+
+	public void setAnsweredAllQuestions(String answeredAllQuestions) {
+		if (answeredAllQuestions != null) {
+			this.answeredAllQuestions = (answeredAllQuestions.compareTo("1") == 0 || answeredAllQuestions.compareTo("yes") == 0);
+		}
+	}
 
 		
 	

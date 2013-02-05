@@ -43,6 +43,7 @@ public class BrowseMapActivity extends android.support.v4.app.FragmentActivity i
 	protected GoogleMap map;
 	protected HashMap<Integer, Marker> featureMarkers = new HashMap<Integer, Marker>();	
 	protected HashMap<Integer, BitmapDescriptor> collectionIcons = new HashMap<Integer, BitmapDescriptor>();
+	protected HashMap<Integer, BitmapDescriptor> collectionQuestionIcons = new HashMap<Integer, BitmapDescriptor>();
 	
 	public static final double STARTING_LAT = (double) 55.95284338416757;
 	public static final double STARTING_LNG = (double) -3.198369775390575;
@@ -130,6 +131,7 @@ public class BrowseMapActivity extends android.support.v4.app.FragmentActivity i
 
 		Storage s = new Storage(this);
 		for (Collection collection : s.getCollections()) {
+			// normal icon
 			BitmapDescriptor icon = null;
 			if (collection.getIconURL().contains("park")) {
 				icon = BitmapDescriptorFactory.fromResource(R.drawable.marker_park);
@@ -145,7 +147,23 @@ public class BrowseMapActivity extends android.support.v4.app.FragmentActivity i
 			if (icon != null) {
 				collectionIcons.put(collection.getId(), icon);
 			}
-			
+			// question icon
+			BitmapDescriptor questionIcon = null;
+			if (collection.getQuestionIconURL().contains("park")) {
+				questionIcon = BitmapDescriptorFactory.fromResource(R.drawable.marker_park_question);
+			} else if (collection.getQuestionIconURL().contains("tree")) {
+				questionIcon = BitmapDescriptorFactory.fromResource(R.drawable.marker_tree_question);
+			} else if (collection.getQuestionIconURL().contains("monument")) {
+				questionIcon = BitmapDescriptorFactory.fromResource(R.drawable.marker_monument_question);
+			} else if (collection.getQuestionIconURL().contains("play")) {
+				questionIcon = BitmapDescriptorFactory.fromResource(R.drawable.marker_playground_question);
+			}
+			if (questionIcon != null) {
+				collectionQuestionIcons.put(collection.getId(), questionIcon);
+			} else if (icon != null) {
+				// if we don't have a question icon but we have a normal icon, just reuse that.
+				collectionQuestionIcons.put(collection.getId(), icon);
+			}
 		}
 		
 		// markers
@@ -195,8 +213,14 @@ public class BrowseMapActivity extends android.support.v4.app.FragmentActivity i
 						MarkerOptions mo = new MarkerOptions()
 							.position(new LatLng(feature.getLat(), feature.getLng()))
 							.title(feature.getTitle("Click for More Info"));
-						if (collectionIcons.containsKey(feature.getCollectionID())) {
-							mo.icon(collectionIcons.get(feature.getCollectionID()));
+						if (feature.isAnsweredAllQuestions()) {
+							if (collectionIcons.containsKey(feature.getCollectionID())) {
+								mo.icon(collectionIcons.get(feature.getCollectionID()));
+							}							
+						} else {
+							if (collectionQuestionIcons.containsKey(feature.getCollectionID())) {
+								mo.icon(collectionQuestionIcons.get(feature.getCollectionID()));
+							}							
 						}
 
 						Marker m = map.addMarker(mo);

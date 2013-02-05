@@ -17,6 +17,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.NameValuePair;
 
 import uk.co.jarofgreen.cityoutdoors.API.LogInCall;
+import uk.co.jarofgreen.cityoutdoors.Service.LoadUserDataService;
 import uk.co.jarofgreen.cityoutdoors.Service.SendFeatureFavouriteService;
 import uk.co.jarofgreen.cityoutdoors.R;
 
@@ -117,8 +118,9 @@ public class LogInActivity extends BaseActivity {
 
         	if (result) {
         		logInCall.saveResults();
-        		// send data to server in background
+        		// send data to and get data from server in background
         		LogInActivity.this.startService(new Intent(LogInActivity.this, SendFeatureFavouriteService.class));
+        		LogInActivity.this.startService(new Intent(LogInActivity.this, LoadUserDataService.class));
         		// start main screen
         		Intent i = new Intent(LogInActivity.this, MainActivity.class);
         		LogInActivity.this.startActivity(i);

@@ -27,7 +27,7 @@ import android.util.Log;
  */
 public class Storage extends SQLiteOpenHelper {
 	
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
     private static final String DATABASE_NAME = "heresatree.db";
 
     public Storage(Context context) {
@@ -41,7 +41,8 @@ public class Storage extends SQLiteOpenHelper {
 	         " lat REAL NOT NULL, "+
 	         " lng REAL NOT NULL, "+
 	         " collectionID INTEGER NULL, "+
-	         " title VARCHAR(255) NULL " +
+	         " title VARCHAR(255) NULL, " +
+	         " answeredAllQuestions BOOLEAN NOT NULL DEFAULT 1 " +
 	         ");");
         db.execSQL("CREATE TABLE  feature_favourite ( "+
       	         " feature_id INTEGER NOT NULL, " +
@@ -53,6 +54,7 @@ public class Storage extends SQLiteOpenHelper {
    	         " title VARCHAR(255) NOT NULL, "+
    	         " slug VARCHAR(255) NOT NULL, "+
    	         " iconURL VARCHAR(255) NULL, "+
+   	         " questionIconURL VARCHAR(255) NULL, "+
    	         " thumbnailURL VARCHAR(255) NULL, "+
    	         " description TEXT NULL "+
    	         ");");
@@ -70,6 +72,10 @@ public class Storage extends SQLiteOpenHelper {
 		if (arg1 < 4) {
 			arg0.execSQL("ALTER TABLE feature ADD title VARCHAR(255) NULL " );
 		}
+		if (arg1 < 5) {
+			arg0.execSQL("ALTER TABLE feature ADD answeredAllQuestions BOOLEAN NOT NULL DEFAULT 1 " );
+			arg0.execSQL("ALTER TABLE collection ADD questionIconURL VARCHAR(255) NULL " );
+		}
 	
 	}
 	
@@ -81,6 +87,7 @@ public class Storage extends SQLiteOpenHelper {
 		cv.put("lng", feature.getLng());
 		cv.put("collectionID", feature.getCollectionID());
 		cv.put("title", feature.getTitle());
+		cv.put("answeredAllQuestions", feature.isAnsweredAllQuestions());
 		String[]  whereArgs = { Integer.toString(feature.getId()) };
 		if (0 == db.update("feature", cv,  BaseColumns._ID+"=?", whereArgs)){
 			
@@ -124,10 +131,10 @@ public class Storage extends SQLiteOpenHelper {
 		List<Feature> features = new ArrayList<Feature>();
         SQLiteDatabase db = getReadableDatabase();
         String[]  d = { };
-        Cursor c = db.rawQuery("SELECT "+BaseColumns._ID+", lat, lng, collectionID, title FROM feature ", d);
+        Cursor c = db.rawQuery("SELECT "+BaseColumns._ID+", lat, lng, collectionID, title, answeredAllQuestions FROM feature ", d);
         for(int i = 0; i < c.getCount(); i++) {
                 c.moveToPosition(i);
-                features.add(new Feature(c.getInt(0),c.getFloat(1),c.getFloat(2),c.getInt(3),c.getString(4))); 
+                features.add(new Feature(c.getInt(0),c.getFloat(1),c.getFloat(2),c.getInt(3),c.getString(4),c.getInt(5))); 
         }
         db.close();
         return features;
@@ -139,10 +146,10 @@ public class Storage extends SQLiteOpenHelper {
 		List<Feature> features = new ArrayList<Feature>();
 		SQLiteDatabase db = getReadableDatabase();
 		String[]  d = { Double.toString(top), Double.toString(bottom),  Double.toString(left), Double.toString(right) };
-		Cursor c = db.rawQuery("SELECT "+BaseColumns._ID+", lat, lng, collectionID, title FROM feature WHERE lat < ? AND lat > ? AND lng > ? AND lng < ?", d);
+		Cursor c = db.rawQuery("SELECT "+BaseColumns._ID+", lat, lng, collectionID, title, answeredAllQuestions FROM feature WHERE lat < ? AND lat > ? AND lng > ? AND lng < ?", d);
 		for(int i = 0; i < c.getCount(); i++) {
 			c.moveToPosition(i);
-			features.add(new Feature(c.getInt(0),c.getFloat(1),c.getFloat(2),c.getInt(3),c.getString(4))); 
+			features.add(new Feature(c.getInt(0),c.getFloat(1),c.getFloat(2),c.getInt(3),c.getString(4),c.getInt(5))); 
 		}
 		db.close();
 		return features;
@@ -152,10 +159,10 @@ public class Storage extends SQLiteOpenHelper {
 		Feature f = null;
 		SQLiteDatabase db = getReadableDatabase();
 		String[]  d = { Integer.toString(id) };
-		Cursor c = db.rawQuery("SELECT "+BaseColumns._ID+", lat, lng, collectionID FROM feature WHERE "+BaseColumns._ID+"=?", d);
+		Cursor c = db.rawQuery("SELECT "+BaseColumns._ID+", lat, lng, collectionID, title, answeredAllQuestions  FROM feature WHERE "+BaseColumns._ID+"=?", d);
 		if (c.getCount() > 0){
 			c.moveToPosition(0);
-			f = new Feature(c.getInt(0),c.getFloat(1),c.getFloat(2),c.getInt(3));
+			f = new Feature(c.getInt(0),c.getFloat(1),c.getFloat(2),c.getInt(3),c.getString(4),c.getInt(5));
 		}
 		db.close();
 		return f;
@@ -167,10 +174,10 @@ public class Storage extends SQLiteOpenHelper {
 		List<Collection> collections = new ArrayList<Collection>();
         SQLiteDatabase db = getReadableDatabase();
         String[]  d = { };
-        Cursor c = db.rawQuery("SELECT "+BaseColumns._ID+", slug, title, thumbnailURL, iconURL, description FROM collection ", d);
+        Cursor c = db.rawQuery("SELECT "+BaseColumns._ID+", slug, title, thumbnailURL, iconURL, questionIconURL, description FROM collection ", d);
         for(int i = 0; i < c.getCount(); i++) {
                 c.moveToPosition(i);
-                collections.add(new Collection(c.getInt(0),c.getString(1),c.getString(2),c.getString(3),c.getString(4),c.getString(5))); 
+                collections.add(new Collection(c.getInt(0),c.getString(1),c.getString(2),c.getString(3),c.getString(4),c.getString(5),c.getString(6))); 
         }
         db.close();
         return collections;
@@ -200,6 +207,7 @@ public class Storage extends SQLiteOpenHelper {
 		cv.put("title", collection.getTitle());
 		cv.put("slug", collection.getSlug());
 		cv.put("iconURL", collection.getIconURL());
+		cv.put("questionIconURL", collection.getQuestionIconURL());
 		cv.put("thumbnailURL", collection.getThumbnailURL());
 		cv.put("description", collection.getDescription());
 		String[]  whereArgs = { Integer.toString(collection.getId()) };
@@ -265,10 +273,9 @@ public class Storage extends SQLiteOpenHelper {
 	
 	public void deleteUserData() {
 		SQLiteDatabase db = this.getWritableDatabase();
-
 		String[]  d2 = { };
 		db.execSQL("DELETE FROM feature_favourite", d2);
-
+		db.execSQL("UPDATE feature SET answeredAllQuestions=1", d2 );
 		db.close();			
 	}
 

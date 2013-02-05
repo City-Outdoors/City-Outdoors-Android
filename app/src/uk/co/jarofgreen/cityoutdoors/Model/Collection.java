@@ -13,22 +13,24 @@ public class Collection {
 	protected String title;
 	
 	protected String thumbnailURL;
-
+	
 
 	protected String iconURL;
+	protected String questionIconURL;
 	protected String description;
 
 	public Collection() {
 		super();
 	}
 
-	public Collection(int id, String slug, String title, String thumbnailURL, String iconURL, String description) {
+	public Collection(int id, String slug, String title, String thumbnailURL, String iconURL, String questionIconURL, String description) {
 		super();
 		this.id = id;
 		this.slug = slug;
 		this.title = title;
 		this.thumbnailURL = thumbnailURL;
 		this.iconURL = iconURL;
+		this.questionIconURL = questionIconURL;
 		this.description = description;
 	}
 
@@ -83,6 +85,14 @@ public class Collection {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public String getQuestionIconURL() {
+		return questionIconURL;
+	}
+
+	public void setQuestionIconURL(String questionIconURL) {
+		this.questionIconURL = questionIconURL;
 	}	
 	
 	
