@@ -1,7 +1,6 @@
 package uk.co.jarofgreen.cityoutdoors.Service;
 
 
-import java.util.ArrayList;
 
 import uk.co.jarofgreen.cityoutdoors.Storage;
 import uk.co.jarofgreen.cityoutdoors.API.CheckCurrentUserCall;
@@ -10,14 +9,9 @@ import uk.co.jarofgreen.cityoutdoors.API.CollectionsCall;
 import uk.co.jarofgreen.cityoutdoors.API.FeaturesCall;
 import uk.co.jarofgreen.cityoutdoors.API.IndexCall;
 import uk.co.jarofgreen.cityoutdoors.Model.Collection;
-import uk.co.jarofgreen.cityoutdoors.Model.Content;
-import uk.co.jarofgreen.cityoutdoors.Model.Item;
 import android.app.IntentService;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 /**

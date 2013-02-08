@@ -1,6 +1,5 @@
 package uk.co.jarofgreen.cityoutdoors.UI;
 
-import com.google.android.gms.common.GooglePlayServicesUtil;
 
 import android.content.Intent;
 import android.os.Bundle;

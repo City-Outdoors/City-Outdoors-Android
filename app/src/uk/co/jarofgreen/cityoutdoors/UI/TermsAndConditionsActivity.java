@@ -3,7 +3,6 @@ package uk.co.jarofgreen.cityoutdoors.UI;
 import uk.co.jarofgreen.cityoutdoors.R;
 import android.os.Bundle;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 /**
  * 
  * @author James Baster  <james@jarofgreen.co.uk>

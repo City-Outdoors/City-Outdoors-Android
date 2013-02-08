@@ -1,7 +1,5 @@
 package uk.co.jarofgreen.cityoutdoors.Model;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 

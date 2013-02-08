@@ -7,7 +7,6 @@ import uk.co.jarofgreen.cityoutdoors.Model.Content;
 import uk.co.jarofgreen.cityoutdoors.Model.Feature;
 
 import android.app.Application;
-import android.util.Log;
 /**
  * 
  * @author James Baster <james@jarofgreen.co.uk>

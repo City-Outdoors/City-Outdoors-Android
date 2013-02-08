@@ -1,51 +1,35 @@
 package uk.co.jarofgreen.cityoutdoors.UI;
 
 
-import java.io.InputStream;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
-
-import uk.co.jarofgreen.cityoutdoors.Storage;
-import uk.co.jarofgreen.cityoutdoors.API.FeatureCall;
 import uk.co.jarofgreen.cityoutdoors.API.FeatureCheckinQuestionsCall;
 import uk.co.jarofgreen.cityoutdoors.API.SubmitFeatureCheckinQuestionFreeTextAnswerCall;
 import uk.co.jarofgreen.cityoutdoors.API.SubmitFeatureCheckinQuestionHigherOrLowerAnswerCall;
 import uk.co.jarofgreen.cityoutdoors.API.SubmitFeatureCheckinQuestionMultipleChoiceAnswerCall;
-import uk.co.jarofgreen.cityoutdoors.Model.Content;
 import uk.co.jarofgreen.cityoutdoors.Model.FeatureCheckinQuestion;
 import uk.co.jarofgreen.cityoutdoors.Model.FeatureCheckinQuestionContent;
 import uk.co.jarofgreen.cityoutdoors.Model.FeatureCheckinQuestionFreeText;
 import uk.co.jarofgreen.cityoutdoors.Model.FeatureCheckinQuestionHigherOrLower;
 import uk.co.jarofgreen.cityoutdoors.Model.FeatureCheckinQuestionMultipleChoice;
 import uk.co.jarofgreen.cityoutdoors.Model.FeatureCheckinQuestionPossibleAnswer;
-import uk.co.jarofgreen.cityoutdoors.Model.Item;
-import uk.co.jarofgreen.cityoutdoors.Model.ItemField;
 import uk.co.jarofgreen.cityoutdoors.Service.LoadUserDataService;
-import uk.co.jarofgreen.cityoutdoors.Service.SendFeatureFavouriteService;
 import uk.co.jarofgreen.cityoutdoors.R;
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.DialogInterface.OnCancelListener;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.sax.TextElementListener;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 

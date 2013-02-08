@@ -2,7 +2,6 @@ package uk.co.jarofgreen.cityoutdoors.UI;
 
 import com.google.analytics.tracking.android.EasyTracker;
 
-import uk.co.jarofgreen.cityoutdoors.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;

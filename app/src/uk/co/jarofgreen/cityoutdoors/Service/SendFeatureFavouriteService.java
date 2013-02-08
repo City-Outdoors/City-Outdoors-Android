@@ -1,11 +1,8 @@
 package uk.co.jarofgreen.cityoutdoors.Service;
 
-import java.util.List;
 
 import uk.co.jarofgreen.cityoutdoors.Storage;
 import uk.co.jarofgreen.cityoutdoors.API.FeatureFavouriteCall;
-import uk.co.jarofgreen.cityoutdoors.Model.Feature;
-import uk.co.jarofgreen.cityoutdoors.Model.FeatureCheckin;
 import uk.co.jarofgreen.cityoutdoors.Model.FeatureFavourite;
 import android.app.IntentService;
 import android.content.Intent;

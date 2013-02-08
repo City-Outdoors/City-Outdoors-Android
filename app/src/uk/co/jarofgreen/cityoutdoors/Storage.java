@@ -6,13 +6,11 @@ import java.util.List;
 
 import uk.co.jarofgreen.cityoutdoors.Model.Collection;
 import uk.co.jarofgreen.cityoutdoors.Model.Feature;
-import uk.co.jarofgreen.cityoutdoors.Model.FeatureCheckin;
 import uk.co.jarofgreen.cityoutdoors.Model.FeatureFavourite;
 import uk.co.jarofgreen.cityoutdoors.Model.Item;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteCursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;

@@ -1,13 +1,10 @@
 package uk.co.jarofgreen.cityoutdoors.UI;
 
-import uk.co.jarofgreen.cityoutdoors.Service.LoadDataService;
-import uk.co.jarofgreen.cityoutdoors.Service.SendFeatureFavouriteService;
+
 import uk.co.jarofgreen.cityoutdoors.R;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;

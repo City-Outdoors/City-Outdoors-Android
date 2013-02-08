@@ -1,9 +1,8 @@
 package uk.co.jarofgreen.cityoutdoors.UI;
 
-import android.content.Context;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
