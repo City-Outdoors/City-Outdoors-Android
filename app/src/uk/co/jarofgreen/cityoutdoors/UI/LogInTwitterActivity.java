@@ -32,6 +32,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -61,6 +63,14 @@ public class LogInTwitterActivity extends BaseActivity {
         // But this is the new name.
         webview.addJavascriptInterface(ji, "CityOutdoors");
         webview.setWebViewClient(new WebViewClient());
+        
+        // Remove all cookies. This is so if the last Twitter user checked "remember me" it won't.
+        // Because if you do, Twitter logs you straight in which is a security risk. 
+        // Even if the last user remembered they checked "remember me" and tried to return to 
+        //     the twitter site to logout, there is no way to do that.
+        CookieSyncManager.createInstance(this); 
+        CookieManager cookieManager = CookieManager.getInstance();
+        cookieManager.removeAllCookie();
         
         WebSettings webSettings = webview.getSettings();
         webSettings.setJavaScriptEnabled(true);
