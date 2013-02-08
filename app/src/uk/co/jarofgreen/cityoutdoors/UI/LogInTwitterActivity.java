@@ -17,6 +17,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.NameValuePair;
 
 import uk.co.jarofgreen.cityoutdoors.API.LogInCall;
+import uk.co.jarofgreen.cityoutdoors.Service.LoadUserDataService;
 import uk.co.jarofgreen.cityoutdoors.Service.SendFeatureFavouriteService;
 import uk.co.jarofgreen.cityoutdoors.R;
 
@@ -53,8 +54,12 @@ public class LogInTwitterActivity extends BaseActivity {
         setContentView(R.layout.login_twitter);
         
         webview = (WebView)findViewById(R.id.webview);
-        webview.loadUrl(getString(R.string.server_url)+"/android/loginTwitter.php");   
-        webview.addJavascriptInterface(new JavaScriptInterface(this), "HeresATree");
+        webview.loadUrl(getString(R.string.server_url)+"/android/loginTwitter.php");
+        JavaScriptInterface ji = new JavaScriptInterface(this);
+        // Old servers may have the old name, leave for backwards compatability
+        webview.addJavascriptInterface(ji, "HeresATree");
+        // But this is the new name.
+        webview.addJavascriptInterface(ji, "CityOutdoors");
         webview.setWebViewClient(new WebViewClient());
         
         WebSettings webSettings = webview.getSettings();
@@ -80,22 +85,15 @@ public class LogInTwitterActivity extends BaseActivity {
 
     		Toast.makeText(mContext, "Logged in!", Toast.LENGTH_SHORT).show();
 
-    		LogInTwitterActivity.this.runOnUiThread(new AuthDone());
-    	}
-    }
-    
-    private class AuthDone implements Runnable {
-        public void run() {
-        	// send data to server in background
+    		// send data to and get data from server in background
         	LogInTwitterActivity.this.startService(new Intent(LogInTwitterActivity.this, SendFeatureFavouriteService.class));
+        	LogInTwitterActivity.this.startService(new Intent(LogInTwitterActivity.this, LoadUserDataService.class));
     		// start main screen
     		Intent i = new Intent(LogInTwitterActivity.this, MainActivity.class);
     		LogInTwitterActivity.this.startActivity(i);
     		// kill login screen
     		LogInTwitterActivity.this.finish();
-        }
+    	}
     }
-    
-    
 	
 }
