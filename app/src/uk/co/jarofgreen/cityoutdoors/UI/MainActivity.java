@@ -50,7 +50,7 @@ public class MainActivity extends BaseActivity  {
     }
     
     public void onClickLogIn(View v) {
-    	Intent i = new Intent(this, LogInActivity.class);
+    	Intent i = new Intent(this, LogInOrSignUpActivity.class);
     	startActivity(i);
     }    
     

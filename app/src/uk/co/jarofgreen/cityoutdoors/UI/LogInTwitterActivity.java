@@ -16,7 +16,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.NameValuePair;
 
-import uk.co.jarofgreen.cityoutdoors.API.LogInCall;
 import uk.co.jarofgreen.cityoutdoors.Service.LoadUserDataService;
 import uk.co.jarofgreen.cityoutdoors.Service.SendFeatureFavouriteService;
 import uk.co.jarofgreen.cityoutdoors.R;

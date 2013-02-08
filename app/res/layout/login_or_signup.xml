@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" 
+    style="@style/page">
+    
+	<include layout="@layout/title_bar" />
+
+	<TextView
+	    style="@style/text"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_margin="5dp"
+	    android:text="@string/enter_email" />
+
+	<EditText
+	    android:id="@+id/email"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_margin="5dp"
+	    android:ems="10"
+	    android:inputType="textEmailAddress"
+	    android:text="" >
+
+	    <requestFocus />
+	</EditText>
+
+	<TextView
+	    style="@style/text"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_margin="5dp"
+	    android:text="@string/enter_password" />
+
+	<EditText
+	    android:id="@+id/password"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_margin="5dp"
+	    android:ems="10"
+	    android:inputType="textPassword" />
+
+	<Button
+	    android:id="@+id/submit"
+	    style="@style/button"
+	    android:clickable="true"
+	    android:onClick="onClickLogIn"
+	    android:text="Log In or Sign Up" />
+
+	<TextView
+	    android:id="@+id/textView2"
+	    style="@style/text_link"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:clickable="true"
+	    android:onClick="onClickForgotPassword"
+	    android:text="Forgotten your password?" />
+
+	<Button
+	    style="@style/button"
+	    android:clickable="true"
+	    android:onClick="onClickLogInTwitter"
+	    android:text="Log In With Twitter Instead" />
+    
+</LinearLayout>

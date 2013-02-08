@@ -19,9 +19,9 @@ import android.util.Log;
  * @license Open Source under the 3-clause BSD License
  * @url https://github.com/City-Outdoors/City-Outdoors-Android
  */
-public class LogInCall extends BaseCall {
+public class LogInOrSignUpCall extends BaseCall {
 
-	public LogInCall(Context context) {
+	public LogInOrSignUpCall(Context context) {
 		super(context);
 	}
 	
@@ -46,7 +46,7 @@ public class LogInCall extends BaseCall {
 			}
         });
 
-        setUpCall("/api/v1/login.php?showLinks=0&");
+        setUpCall("/api/v1/logInOrSignUp.php?showLinks=0&");
         addDataToCall("email", email);
         addDataToCall("password", password);
         makeCall(root);

@@ -11,7 +11,6 @@ import java.util.List;
 import uk.co.jarofgreen.cityoutdoors.Storage;
 import uk.co.jarofgreen.cityoutdoors.API.FeatureCall;
 import uk.co.jarofgreen.cityoutdoors.API.FeatureCheckinQuestionsCall;
-import uk.co.jarofgreen.cityoutdoors.API.LogInCall;
 import uk.co.jarofgreen.cityoutdoors.API.SubmitFeatureCheckinQuestionFreeTextAnswerCall;
 import uk.co.jarofgreen.cityoutdoors.API.SubmitFeatureCheckinQuestionHigherOrLowerAnswerCall;
 import uk.co.jarofgreen.cityoutdoors.API.SubmitFeatureCheckinQuestionMultipleChoiceAnswerCall;
@@ -339,7 +338,7 @@ public class FeatureCheckinQuestionsActivity extends BaseActivity {
 
 		protected void onPostExecute(Boolean result) {
 			mDialog.dismiss();
-			if (call.hasErrorMessage()) {
+			if (call.hasError()) {
 				Toast.makeText(getApplicationContext(), "Sorry, an error occured! "+call.getErrorMessage(), Toast.LENGTH_LONG).show();
 			} else if (call.getResult()) {
 				Toast.makeText(getApplicationContext(), getString(R.string.checkin_result_correct), Toast.LENGTH_LONG).show();
@@ -385,7 +384,7 @@ public class FeatureCheckinQuestionsActivity extends BaseActivity {
 
 		protected void onPostExecute(Boolean result) {
 			mDialog.dismiss();
-			if (call.hasErrorMessage()) {
+			if (call.hasError()) {
 				Toast.makeText(getApplicationContext(), "Sorry, an error occured! "+call.getErrorMessage(), Toast.LENGTH_LONG).show();
 			} else if (call.getResult()) {
 				Toast.makeText(getApplicationContext(), getString(R.string.checkin_result_correct), Toast.LENGTH_LONG).show();
@@ -435,7 +434,7 @@ public class FeatureCheckinQuestionsActivity extends BaseActivity {
 
 		protected void onPostExecute(Boolean result) {
 			mDialog.dismiss();
-			if (call.hasErrorMessage()) {
+			if (call.hasError()) {
 				Toast.makeText(getApplicationContext(), "Sorry, an error occured! "+call.getErrorMessage(), Toast.LENGTH_LONG).show();
 			} else if (call.getResult()) {
 				Toast.makeText(getApplicationContext(), getString(R.string.checkin_result_correct), Toast.LENGTH_LONG).show();

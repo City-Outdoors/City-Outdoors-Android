@@ -16,7 +16,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.NameValuePair;
 
-import uk.co.jarofgreen.cityoutdoors.API.LogInCall;
+import uk.co.jarofgreen.cityoutdoors.API.LogInOrSignUpCall;
 import uk.co.jarofgreen.cityoutdoors.Service.LoadUserDataService;
 import uk.co.jarofgreen.cityoutdoors.Service.SendFeatureFavouriteService;
 import uk.co.jarofgreen.cityoutdoors.R;
@@ -45,7 +45,7 @@ import android.widget.Toast;
  * @license Open Source under the 3-clause BSD License
  * @url https://github.com/City-Outdoors/City-Outdoors-Android
  */
-public class LogInActivity extends BaseActivity {
+public class LogInOrSignUpActivity extends BaseActivity {
 	
 	 ProgressDialog mDialog;
 	 LogInTask logInTask;
@@ -54,7 +54,7 @@ public class LogInActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);  
+        setContentView(R.layout.login_or_signup);  
     }
     
     
@@ -80,12 +80,6 @@ public class LogInActivity extends BaseActivity {
     	Intent i = new Intent(this, LogInTwitterActivity.class);
     	startActivity(i);  	
     }
-    
-    
-    public void onClickCreateAnAccount(View v) {
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.server_url)+"/signup.php"));
-        startActivity(browserIntent);  
-    }
 
     public void onClickForgotPassword(View v) {
     	Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.server_url)+"/forgottenPassword.php"));
@@ -97,13 +91,13 @@ public class LogInActivity extends BaseActivity {
 		protected String Email;
     	protected String Password;
     	
-    	protected LogInCall logInCall;
+    	protected LogInOrSignUpCall logInOrSignUpCall;
     	
         protected Boolean doInBackground(Boolean... dummy) {
         	
             try{
-            	logInCall = new LogInCall(LogInActivity.this);
-            	return logInCall.execute(Email, Password);
+            	logInOrSignUpCall = new LogInOrSignUpCall(LogInOrSignUpActivity.this);
+            	return logInOrSignUpCall.execute(Email, Password);
             } catch(Exception e) {
             	Log.d("ERRORINLOGIN",e.toString());
             	if (e.getMessage() != null) Log.d("ERRORINLOGIN",e.getMessage());
@@ -114,20 +108,20 @@ public class LogInActivity extends BaseActivity {
         }
 
         protected void onPostExecute(Boolean result) {
-        	LogInActivity.this.mDialog.dismiss();
+        	LogInOrSignUpActivity.this.mDialog.dismiss();
 
         	if (result) {
-        		logInCall.saveResults();
+        		logInOrSignUpCall.saveResults();
         		// send data to and get data from server in background
-        		LogInActivity.this.startService(new Intent(LogInActivity.this, SendFeatureFavouriteService.class));
-        		LogInActivity.this.startService(new Intent(LogInActivity.this, LoadUserDataService.class));
+        		LogInOrSignUpActivity.this.startService(new Intent(LogInOrSignUpActivity.this, SendFeatureFavouriteService.class));
+        		LogInOrSignUpActivity.this.startService(new Intent(LogInOrSignUpActivity.this, LoadUserDataService.class));
         		// start main screen
-        		Intent i = new Intent(LogInActivity.this, MainActivity.class);
-        		LogInActivity.this.startActivity(i);
+        		Intent i = new Intent(LogInOrSignUpActivity.this, MainActivity.class);
+        		LogInOrSignUpActivity.this.startActivity(i);
         		// kill login screen
-        		LogInActivity.this.finish();
+        		LogInOrSignUpActivity.this.finish();
         	} else {
-        		Toast.makeText(LogInActivity.this, "Login failed", Toast.LENGTH_LONG).show();
+        		Toast.makeText(LogInOrSignUpActivity.this, "Sorry! "+logInOrSignUpCall.getErrorMessage(), Toast.LENGTH_LONG).show();
         	}
 
         }

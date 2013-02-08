@@ -7,7 +7,6 @@ import java.util.List;
 
 import uk.co.jarofgreen.cityoutdoors.Storage;
 import uk.co.jarofgreen.cityoutdoors.API.FeatureCall;
-import uk.co.jarofgreen.cityoutdoors.API.LogInCall;
 import uk.co.jarofgreen.cityoutdoors.Model.Content;
 import uk.co.jarofgreen.cityoutdoors.Service.SendFeatureFavouriteService;
 import uk.co.jarofgreen.cityoutdoors.R;
