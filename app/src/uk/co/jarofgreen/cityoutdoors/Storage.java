@@ -26,6 +26,7 @@ import android.util.Log;
 public class Storage extends SQLiteOpenHelper {
 	
     private static final int DATABASE_VERSION = 5;
+    /** This is the old name for the project that now has to be left for backwards-compatibility reasons. **/
     private static final String DATABASE_NAME = "heresatree.db";
 
     public Storage(Context context) {
