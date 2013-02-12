@@ -47,6 +47,7 @@ public class FeaturesCall extends BaseCall {
 				lastFeature.setId(attributes.getValue("id"));
 				lastFeature.setLat(attributes.getValue("lat"));
 				lastFeature.setLng(attributes.getValue("lng"));
+				lastFeature.setTitle(attributes.getValue("title"));
 				lastFeature.setAnsweredAllQuestions(attributes.getValue("answeredAllQuestions"));
 			}
         });
