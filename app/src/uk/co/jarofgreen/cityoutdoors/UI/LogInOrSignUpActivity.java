@@ -101,7 +101,7 @@ public class LogInOrSignUpActivity extends BaseActivity {
         		// kill login screen
         		LogInOrSignUpActivity.this.finish();
         	} else {
-        		Toast.makeText(LogInOrSignUpActivity.this, "Sorry! "+logInOrSignUpCall.getErrorMessage(), Toast.LENGTH_LONG).show();
+        		Toast.makeText(LogInOrSignUpActivity.this, LogInOrSignUpActivity.this.getString(R.string.login_or_signup_result_fail)+" "+logInOrSignUpCall.getErrorMessage(), Toast.LENGTH_LONG).show();
         	}
 
         }

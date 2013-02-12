@@ -163,7 +163,7 @@ public class MainActivity extends BaseActivity  {
     		startService(i1);
     		Intent i2 = new Intent(this, SendFeatureFavouriteService.class);
     		startService(i2);
-    		Toast.makeText(this, "Updating now ...", Toast.LENGTH_SHORT).show();
+    		Toast.makeText(this, getString(R.string.main_screen_update_now), Toast.LENGTH_SHORT).show();
     		return true;
     	case R.id.prefences:
     		startActivity(new Intent(this, PreferencesActivity.class));   		

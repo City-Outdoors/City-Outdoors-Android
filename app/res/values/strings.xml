@@ -22,7 +22,7 @@
     <string name="main_screen_wildlife">Wildlife</string>
     <string name="main_screen_whatson">Whats on</string>
     <string name="main_screen_preferences">Preferences</string>
-    	
+    <string name="main_screen_updating_now">Updating now ...</string>
     
     <string name="preferences_analyticsEnabled_title">Record anonymous usage?</string>
     <string name="preferences_analyticsEnabled_summary">We record anonymous usage of the app to help us improve.</string>
@@ -64,27 +64,37 @@
     <string name="checkin_result_wrong_higherorlower_tolow">Sorry, to low! Try a higher answer.</string>
     <string name="checkin_result_wrong_higherorlower_tohigh">Sorry, to high! Try a lower answer.</string>
     
+    <string name="feature_add_to_favourites_result_success">This has been added to your favourites</string>  
+    <string name="feature_share_chooser_title">How do you want to share?</string>
+    <string name="feature_email_chooser_title">Send mail...</string>
+    <string name="feature_no_email_clients_error">There are no email clients installed.</string>
+    <string name="feature_content_posted_by">Posted by </string>
     
+        
     <string name="new_feature_report_take_photo">Take Photo</string>
     <string name="new_feature_report_select_photo">Select Photo from Gallery</string>
     <string name="new_feature_report_agree_T_and_C">I agree to the terms and conditions</string>
+    <string name="new_feature_report_must_agree_T_and_C">You must agree to the terms and conditions!</string>
     <string name="new_feature_report_view_T_and_C">View Terms and Conditions</string>
     <string name="new_feature_report_name_label">Optional Name</string>
     <string name="new_feature_report_email_label">Optional Email</string>
     <string name="new_feature_report_submit">Send</string>
-    
+    <string name="new_feature_report_still_getting_position">We are still trying to get your current position; please wait a second and try again.</string>
 
     <string name="new_feature_content_take_photo">Take Photo</string>
     <string name="new_feature_content_select_photo">Select Photo from Gallery</string>
     <string name="new_feature_content_agree_T_and_C">I agree to the terms and conditions</string>
+    <string name="new_feature_content_must_agree_T_and_C">You must agree to the terms and conditions!</string>
     <string name="new_feature_content_view_T_and_C">View Terms and Conditions</string>
     <string name="new_feature_content_name_label">Optional Name</string>
     <string name="new_feature_content_submit">Send</string>    
+    <string name="new_feature_content_still_getting_position">We are still trying to get your current position; please wait a second and try again.</string>
     
     <string name="login_or_signup_submit">Log In or Sign Up</string>   
     <string name="login_or_signup_forgot_password">Forgotten your password?</string>
     <string name="login_or_signup_use_twitter">Log In With Twitter Instead</string>
-        
+    <string name="login_or_signup_result_fail">Sorry! </string>
+           
     <string name="loading_data_from_server_wait">Loading, please wait ...</string>
     <string name="login_checking_data_with_server_wait">Checking, please wait ...</string>
 </resources>

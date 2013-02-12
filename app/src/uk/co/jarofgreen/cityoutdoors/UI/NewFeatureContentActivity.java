@@ -54,13 +54,13 @@ public class NewFeatureContentActivity extends BaseNewFeatureContentOrReportActi
     	if (!isUserLoggedIn()) {
     		CheckBox tandc = (CheckBox)findViewById(R.id.agree_T_and_C);
     		if (!(tandc.isChecked())) {
-    			Toast.makeText(this, "You must agree to the terms and conditions!", Toast.LENGTH_LONG).show();
+    			Toast.makeText(this, getString(R.string.new_feature_content_must_agree_T_and_C), Toast.LENGTH_LONG).show();
     			return;
     		}
     	}
     	
     	if (!hasPosition()) {
-    		Toast.makeText(this, "We are still trying to get your current position; please wait a second and try again.", Toast.LENGTH_LONG).show();
+    		Toast.makeText(this, getString(R.string.new_feature_content_still_getting_position), Toast.LENGTH_LONG).show();
 			return;
 		}
     	

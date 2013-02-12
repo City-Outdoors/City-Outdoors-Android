@@ -90,7 +90,7 @@ public class FeatureActivity extends BaseActivity {
 		Storage s = new Storage(this);
 		s.featureFavourite(featureID, false);
 		startService(new Intent(this, SendFeatureFavouriteService.class));
-		Toast.makeText(this, "This has been added to your favourites", Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, getString(R.string.feature_add_to_favourites_result_success), Toast.LENGTH_SHORT).show();
 	}
 	
 	public void onClickShare(View v) {
@@ -102,7 +102,7 @@ public class FeatureActivity extends BaseActivity {
 		intent.putExtra(Intent.EXTRA_SUBJECT, shareTxt);
 		intent.putExtra(Intent.EXTRA_TEXT, shareTxt);
 		
-		startActivity(Intent.createChooser(intent, "How do you want to share?"));
+		startActivity(Intent.createChooser(intent, getString(R.string.feature_share_chooser_title)));
 	}	
 	
 	public void onClickAction(View v) {
@@ -156,9 +156,9 @@ public class FeatureActivity extends BaseActivity {
 		//intent.putExtra(Intent.EXTRA_SUBJECT, ''); 
 		
 		try {
-			startActivity(Intent.createChooser(intent, "Send mail..."));
+			startActivity(Intent.createChooser(intent, getString(R.string.feature_email_chooser_title)));
 		} catch (android.content.ActivityNotFoundException ex) {
-			Toast.makeText(this,"There are no email clients installed.",Toast.LENGTH_SHORT).show();
+			Toast.makeText(this,getString(R.string.feature_no_email_clients_error),Toast.LENGTH_SHORT).show();
 		}
 	}
 	
@@ -340,7 +340,7 @@ public class FeatureActivity extends BaseActivity {
 				tv.setText(content.getBody());
 
 				TextView tvdetails = (TextView)child.findViewById(R.id.details);
-				tvdetails.setText("Posted by " + content.getDisplayName());
+				tvdetails.setText(getString(R.string.feature_content_posted_by) + " " + content.getDisplayName());
 				
 				parent.addView(child);
 				
