@@ -7,7 +7,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import uk.co.jarofgreen.cityoutdoors.R;
-
+/**
+ * 
+ * @author James Baster  <james@jarofgreen.co.uk>
+ * @copyright City of Edinburgh Council & James Baster
+ * @license Open Source under the 3-clause BSD License
+ * @url https://github.com/City-Outdoors/City-Outdoors-Android
+ */
 public class AboutActivity extends BaseActivity {
 
 	public void onCreate(Bundle savedInstanceState) {

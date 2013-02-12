@@ -5,7 +5,13 @@ import com.google.analytics.tracking.android.EasyTracker;
 import android.app.ListActivity;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-
+/**
+ * 
+ * @author James Baster  <james@jarofgreen.co.uk>
+ * @copyright City of Edinburgh Council & James Baster
+ * @license Open Source under the 3-clause BSD License
+ * @url https://github.com/City-Outdoors/City-Outdoors-Android
+ */
 public class BaseListActivity extends ListActivity {
 
 

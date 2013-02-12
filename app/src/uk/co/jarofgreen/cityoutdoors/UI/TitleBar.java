@@ -5,7 +5,13 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.widget.TextView;
-
+/**
+ * 
+ * @author James Baster  <james@jarofgreen.co.uk>
+ * @copyright City of Edinburgh Council & James Baster
+ * @license Open Source under the 3-clause BSD License
+ * @url https://github.com/City-Outdoors/City-Outdoors-Android
+ */
 public class TitleBar {
 
 	public static void populate(Activity activity ) {
