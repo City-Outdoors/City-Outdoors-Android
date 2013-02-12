@@ -64,6 +64,27 @@
     <string name="checkin_result_wrong_higherorlower_tolow">Sorry, to low! Try a higher answer.</string>
     <string name="checkin_result_wrong_higherorlower_tohigh">Sorry, to high! Try a lower answer.</string>
     
+    
+    <string name="new_feature_report_take_photo">Take Photo</string>
+    <string name="new_feature_report_select_photo">Select Photo from Gallery</string>
+    <string name="new_feature_report_agree_T_and_C">I agree to the terms and conditions</string>
+    <string name="new_feature_report_view_T_and_C">View Terms and Conditions</string>
+    <string name="new_feature_report_name_label">Optional Name</string>
+    <string name="new_feature_report_email_label">Optional Email</string>
+    <string name="new_feature_report_submit">Send</string>
+    
+
+    <string name="new_feature_content_take_photo">Take Photo</string>
+    <string name="new_feature_content_select_photo">Select Photo from Gallery</string>
+    <string name="new_feature_content_agree_T_and_C">I agree to the terms and conditions</string>
+    <string name="new_feature_content_view_T_and_C">View Terms and Conditions</string>
+    <string name="new_feature_content_name_label">Optional Name</string>
+    <string name="new_feature_content_submit">Send</string>    
+    
+    <string name="login_or_signup_submit">Log In or Sign Up</string>   
+    <string name="login_or_signup_forgot_password">Forgotten your password?</string>
+    <string name="login_or_signup_use_twitter">Log In With Twitter Instead</string>
+        
     <string name="loading_data_from_server_wait">Loading, please wait ...</string>
     <string name="login_checking_data_with_server_wait">Checking, please wait ...</string>
 </resources>

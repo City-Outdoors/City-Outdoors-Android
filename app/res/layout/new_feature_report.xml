@@ -39,7 +39,7 @@
             android:onClick="onClickTakePhoto"
             android:layout_width="0dp"
             android:layout_weight=".5"             
-            android:text="Take Photo" />
+            android:text="@string/new_feature_report_take_photo" />
 
         <Button
             android:id="@+id/select_photo"
@@ -48,7 +48,7 @@
             android:onClick="onClickSelectPhoto"
             android:layout_width="0dp"
             android:layout_weight=".5"             
-            android:text="Select Photo From Gallery" />
+            android:text="@string/new_feature_report_select_photo" />
     </LinearLayout>
     
 	<LinearLayout 
@@ -61,7 +61,7 @@
 	        android:id="@+id/agree_T_and_C"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:text="I agree to the terms and conditions"
+	        android:text="@string/new_feature_report_agree_T_and_C"
     		style="@style/checkbox" />
          
 	     <TextView
@@ -69,7 +69,7 @@
 	        android:layout_height="wrap_content"
 	        android:clickable="true"
 	        android:onClick="onClickViewTAndC"
-	        android:text="View Terms and Conditions"
+	        android:text="@string/new_feature_report_view_T_and_C"
     		style="@style/text_link" />
 	     
     </LinearLayout>
@@ -77,7 +77,7 @@
    <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="Optional Name"
+      android:text="@string/new_feature_report_name_label"
       style="@style/text" />
 
    <EditText
@@ -89,7 +89,7 @@
    <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="Optional Email"
+      android:text="@string/new_feature_report_email_label"
       style="@style/text" />
 
    <EditText
@@ -103,7 +103,7 @@
         android:id="@+id/submit"
         android:onClick="onClickSend"
 		android:clickable="true"               
-        android:text="Send"
+        android:text="@string/new_feature_report_submit"
    		style="@style/button" />
 
 </LinearLayout>

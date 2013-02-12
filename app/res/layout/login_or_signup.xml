@@ -46,7 +46,7 @@
 	    style="@style/button"
 	    android:clickable="true"
 	    android:onClick="onClickLogIn"
-	    android:text="Log In or Sign Up" />
+	    android:text="@string/login_or_signup_submit" />
 
 	<TextView
 	    android:id="@+id/textView2"
@@ -55,12 +55,12 @@
 	    android:layout_height="wrap_content"
 	    android:clickable="true"
 	    android:onClick="onClickForgotPassword"
-	    android:text="Forgotten your password?" />
+	    android:text="@string/login_or_signup_forgot_password" />
 
 	<Button
 	    style="@style/button"
 	    android:clickable="true"
 	    android:onClick="onClickLogInTwitter"
-	    android:text="Log In With Twitter Instead" />
+	    android:text="@string/login_or_signup_use_twitter" />
     
 </LinearLayout>
