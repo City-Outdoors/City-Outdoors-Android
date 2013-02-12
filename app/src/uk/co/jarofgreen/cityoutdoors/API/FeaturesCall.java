@@ -43,6 +43,7 @@ public class FeaturesCall extends BaseCall {
         feature.setStartElementListener(new StartElementListener(){
 			public void start(Attributes attributes) {
 				lastFeature = new Feature();
+				lastFeature.setDeleted(attributes.getValue("deleted"));
 				lastFeature.setId(attributes.getValue("id"));
 				lastFeature.setLat(attributes.getValue("lat"));
 				lastFeature.setLng(attributes.getValue("lng"));

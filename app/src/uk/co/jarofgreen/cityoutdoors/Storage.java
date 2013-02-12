@@ -79,25 +79,27 @@ public class Storage extends SQLiteOpenHelper {
 	
 	public void storeFeature(Feature feature) {
 		SQLiteDatabase db = this.getWritableDatabase();
-		
-		ContentValues cv = new ContentValues();
-		cv.put("lat", feature.getLat());
-		cv.put("lng", feature.getLng());
-		cv.put("collectionID", feature.getCollectionID());
-		cv.put("title", feature.getTitle());
-		cv.put("answeredAllQuestions", feature.isAnsweredAllQuestions());
 		String[]  whereArgs = { Integer.toString(feature.getId()) };
-		if (0 == db.update("feature", cv,  BaseColumns._ID+"=?", whereArgs)){
-			
-			cv.put(BaseColumns._ID,feature.getId());
-			db.insert("feature", null, cv);
-			Log.d("STORAGE","Inserted Feature "+Integer.toString(feature.getId()));
-			
+		if (feature.isDeleted()) {
+			db.delete("feature", BaseColumns._ID+"=?", whereArgs);
+			db.delete("feature_favourite", "feature_id=?", whereArgs);
+			db.delete("item", "feature_id=?", whereArgs);			
+			Log.d("STORAGE","Deleted Feature "+Integer.toString(feature.getId()));
 		} else {
-			Log.d("STORAGE","Updated Feature "+Integer.toString(feature.getId()));
-		}
-		
-		
+			ContentValues cv = new ContentValues();
+			cv.put("lat", feature.getLat());
+			cv.put("lng", feature.getLng());
+			cv.put("collectionID", feature.getCollectionID());
+			cv.put("title", feature.getTitle());
+			cv.put("answeredAllQuestions", feature.isAnsweredAllQuestions());
+			if (0 == db.update("feature", cv,  BaseColumns._ID+"=?", whereArgs)){
+				cv.put(BaseColumns._ID,feature.getId());
+				db.insert("feature", null, cv);
+				Log.d("STORAGE","Inserted Feature "+Integer.toString(feature.getId()));
+			} else {
+				Log.d("STORAGE","Updated Feature "+Integer.toString(feature.getId()));
+			}
+		}		
 		db.close();
 	}
 	

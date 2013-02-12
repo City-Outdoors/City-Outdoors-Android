@@ -15,6 +15,7 @@ public class Feature {
 	protected String shareURL;
 	protected String title;
 	protected boolean answeredAllQuestions = true;
+	private boolean deleted = false;
 	
 	public Feature() {
 		super();
@@ -142,7 +143,20 @@ public class Feature {
 		}
 	}
 
-		
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+
+	public void setDeleted(String deleted) {
+		if (deleted != null) {
+			this.deleted = (deleted.compareTo("1") == 0 || deleted.compareTo("yes") == 0);
+		}
+	}	
 	
 	
 	
