@@ -63,12 +63,12 @@ public class LogInOrSignUpCall extends BaseCall {
 	        SharedPreferences settings=PreferenceManager.getDefaultSharedPreferences(context);
 	        SharedPreferences.Editor editor = settings.edit();
 	        editor.putInt("userID", userID);
-	        editor.putInt("userScore", score);
-	        editor.putString("userToken", token);
-	        editor.putString("userDisplayName", name);
-	        editor.putString("userEmail", email);
-	        editor.putString("newFeatureReportName", name);
-	        editor.putString("newFeatureReportEmail", email);	        
+	        if (score != null) editor.putInt("userScore", score);
+	        if (token != null) editor.putString("userToken", token);
+	        if (name != null) editor.putString("userDisplayName", name);
+	        if (email != null) editor.putString("userEmail", email);
+	        if (name != null) editor.putString("newFeatureReportName", name);
+	        if (email != null) editor.putString("newFeatureReportEmail", email);	          
 	        editor.commit();
 	        return true;
         } else {

@@ -53,9 +53,9 @@ public class CheckCurrentUserCall extends BaseCall {
         if (userID != null) {
 	        SharedPreferences settings=PreferenceManager.getDefaultSharedPreferences(context);
 	        SharedPreferences.Editor editor = settings.edit();
-	        editor.putInt("userScore", score);
-	        editor.putString("userDisplayName", name);
-	        editor.putString("userEmail", email);        
+	        if (score != null) editor.putInt("userScore", score);
+	        if (name != null) editor.putString("userDisplayName", name);
+	        if (email != null) editor.putString("userEmail", email);     
 	        editor.commit();
 	        return true;
         } else {
