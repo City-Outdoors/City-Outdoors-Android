@@ -12,7 +12,7 @@
 	<string name="uk.co.jarofgreen.cityoutdoors.UI.BrowseMapActivity">BrowseMapActivity</string>
 	<string name="uk.co.jarofgreen.cityoutdoors.UI.FeatureActivity">FeatureActivity</string>
 	<string name="uk.co.jarofgreen.cityoutdoors.UI.FeatureCheckinQuestionsActivity">FeatureCheckinQuestionsActivity</string>
-	<string name="uk.co.jarofgreen.cityoutdoors.UI.LogInActivity">LogInActivity</string>
+	<string name="uk.co.jarofgreen.cityoutdoors.UI.LogInOrSignUpActivity">LogInOrSignUpActivity</string>
 	<string name="uk.co.jarofgreen.cityoutdoors.UI.LogInTwitterActivity">LogInTwitterActivity</string>
 	<string name="uk.co.jarofgreen.cityoutdoors.UI.NewFeatureContentActivity">NewFeatureContentActivity</string>
 	<string name="uk.co.jarofgreen.cityoutdoors.UI.NewFeatureReportActivity">NewFeatureReportActivity</string>
