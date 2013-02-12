@@ -133,30 +133,34 @@ public class BrowseMapActivity extends android.support.v4.app.FragmentActivity i
 		for (Collection collection : s.getCollections()) {
 			// normal icon
 			BitmapDescriptor icon = null;
-			if (collection.getIconURL().contains("park")) {
-				icon = BitmapDescriptorFactory.fromResource(R.drawable.marker_park);
-			} else if (collection.getIconURL().contains("tree")) {
-				icon = BitmapDescriptorFactory.fromResource(R.drawable.marker_tree);
-			} else if (collection.getIconURL().contains("monument")) {
-				icon = BitmapDescriptorFactory.fromResource(R.drawable.marker_monument);
-			} else if (collection.getIconURL().contains("wc")) {
-				icon = BitmapDescriptorFactory.fromResource(R.drawable.marker_wc);
-			} else if (collection.getIconURL().contains("play")) {
-				icon = BitmapDescriptorFactory.fromResource(R.drawable.marker_playground);
+			if (collection.getIconURL() != null) {
+				if (collection.getIconURL().contains("park")) {
+					icon = BitmapDescriptorFactory.fromResource(R.drawable.marker_park);
+				} else if (collection.getIconURL().contains("tree")) {
+					icon = BitmapDescriptorFactory.fromResource(R.drawable.marker_tree);
+				} else if (collection.getIconURL().contains("monument")) {
+					icon = BitmapDescriptorFactory.fromResource(R.drawable.marker_monument);
+				} else if (collection.getIconURL().contains("wc")) {
+					icon = BitmapDescriptorFactory.fromResource(R.drawable.marker_wc);
+				} else if (collection.getIconURL().contains("play")) {
+					icon = BitmapDescriptorFactory.fromResource(R.drawable.marker_playground);
+				}
 			}
 			if (icon != null) {
 				collectionIcons.put(collection.getId(), icon);
 			}
 			// question icon
 			BitmapDescriptor questionIcon = null;
-			if (collection.getQuestionIconURL().contains("park")) {
-				questionIcon = BitmapDescriptorFactory.fromResource(R.drawable.marker_park_question);
-			} else if (collection.getQuestionIconURL().contains("tree")) {
-				questionIcon = BitmapDescriptorFactory.fromResource(R.drawable.marker_tree_question);
-			} else if (collection.getQuestionIconURL().contains("monument")) {
-				questionIcon = BitmapDescriptorFactory.fromResource(R.drawable.marker_monument_question);
-			} else if (collection.getQuestionIconURL().contains("play")) {
-				questionIcon = BitmapDescriptorFactory.fromResource(R.drawable.marker_playground_question);
+			if (collection.getQuestionIconURL() != null) {
+				if (collection.getQuestionIconURL().contains("park")) {
+					questionIcon = BitmapDescriptorFactory.fromResource(R.drawable.marker_park_question);
+				} else if (collection.getQuestionIconURL().contains("tree")) {
+					questionIcon = BitmapDescriptorFactory.fromResource(R.drawable.marker_tree_question);
+				} else if (collection.getQuestionIconURL().contains("monument")) {
+					questionIcon = BitmapDescriptorFactory.fromResource(R.drawable.marker_monument_question);
+				} else if (collection.getQuestionIconURL().contains("play")) {
+					questionIcon = BitmapDescriptorFactory.fromResource(R.drawable.marker_playground_question);
+				}
 			}
 			if (questionIcon != null) {
 				collectionQuestionIcons.put(collection.getId(), questionIcon);
