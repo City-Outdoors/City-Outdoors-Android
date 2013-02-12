@@ -70,8 +70,6 @@ public class LogInTwitterActivity extends BaseActivity {
     		editor.putString("userToken", token);
     		editor.commit();
 
-    		Toast.makeText(mContext, "Logged in!", Toast.LENGTH_SHORT).show();
-
     		// send data to and get data from server in background
         	LogInTwitterActivity.this.startService(new Intent(LogInTwitterActivity.this, SendFeatureFavouriteService.class));
         	LogInTwitterActivity.this.startService(new Intent(LogInTwitterActivity.this, LoadUserDataService.class));
