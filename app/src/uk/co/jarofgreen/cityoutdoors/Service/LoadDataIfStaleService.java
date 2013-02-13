@@ -47,7 +47,7 @@ public class LoadDataIfStaleService  extends IntentService {
 				interval = 1000*60*60*24*7;
 			} else {
 				Log.d("UPDATE","No WiFi so 1 month");
-				interval = 1000*60*60*24*7;
+				interval = 1000*60*60*24*30;
 			}
 			
 			if ((now - last) > interval) {
