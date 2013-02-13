@@ -23,51 +23,61 @@
         <activity
             android:name="uk.co.jarofgreen.cityoutdoors.UI.BrowseMapActivity"
             android:label="@string/app_name"
+            android:configChanges="orientation"
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
         <activity
             android:name="uk.co.jarofgreen.cityoutdoors.UI.FeatureActivity"
             android:label="@string/app_name" 
+            android:configChanges="orientation"
             android:theme="@android:style/Theme.NoTitleBar">
         </activity>
         <activity
             android:name="uk.co.jarofgreen.cityoutdoors.UI.FeatureCheckinQuestionsActivity"
             android:label="@string/app_name" 
+            android:configChanges="orientation"
             android:theme="@android:style/Theme.NoTitleBar">
         </activity>               
         <activity
             android:name="uk.co.jarofgreen.cityoutdoors.UI.LogInOrSignUpActivity"
             android:label="@string/app_name"
+            android:configChanges="orientation"
             android:theme="@android:style/Theme.NoTitleBar" >        
         </activity>
         <activity
             android:name="uk.co.jarofgreen.cityoutdoors.UI.LogInTwitterActivity"
             android:label="@string/app_name" 
+            android:configChanges="orientation"
             android:theme="@android:style/Theme.NoTitleBar">        
         </activity>
         <activity
             android:name="uk.co.jarofgreen.cityoutdoors.UI.NewFeatureContentActivity"   
             android:label="@string/app_name"
+            android:configChanges="orientation"
             android:theme="@android:style/Theme.NoTitleBar" >        
         </activity>
         <activity
             android:name="uk.co.jarofgreen.cityoutdoors.UI.NewFeatureReportActivity"   
             android:label="@string/app_name" 
+            android:configChanges="orientation"
             android:theme="@android:style/Theme.NoTitleBar">        
         </activity>        
         <activity
             android:name="uk.co.jarofgreen.cityoutdoors.UI.CollectionsActivity"
             android:label="@string/app_name"
+            android:configChanges="orientation"
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
         <activity
             android:name="uk.co.jarofgreen.cityoutdoors.UI.TermsAndConditionsActivity"
             android:label="@string/app_name"
+            android:configChanges="orientation"
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>      
         <activity
             android:name="uk.co.jarofgreen.cityoutdoors.UI.CollectionActivity"
             android:label="@string/app_name" 
+            android:configChanges="orientation"
             android:theme="@android:style/Theme.NoTitleBar">
         </activity>        
         <activity
@@ -79,36 +89,43 @@
         <activity
             android:name="uk.co.jarofgreen.cityoutdoors.UI.FavouritesActivity"
             android:label="@string/app_name" 
+            android:configChanges="orientation"
             android:theme="@android:style/Theme.NoTitleBar">
         </activity>
         <activity
             android:name="uk.co.jarofgreen.cityoutdoors.UI.WildlifeActivity"
             android:label="@string/app_name" 
+            android:configChanges="orientation"
             android:theme="@android:style/Theme.NoTitleBar">
         </activity>   
         <activity
             android:name="uk.co.jarofgreen.cityoutdoors.UI.WhatsOnActivity"
             android:label="@string/app_name" 
+            android:configChanges="orientation"
             android:theme="@android:style/Theme.NoTitleBar">
         </activity>                   
         <activity
             android:name="uk.co.jarofgreen.cityoutdoors.UI.PreferencesActivity"
             android:label="@string/app_name"
+            android:configChanges="orientation"
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
         <activity
             android:name="uk.co.jarofgreen.cityoutdoors.UI.AboutActivity"
             android:label="@string/app_name"
+            android:configChanges="orientation"
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
          <activity
             android:name="uk.co.jarofgreen.cityoutdoors.UI.AboutLegalActivity"
             android:label="@string/app_name"
+            android:configChanges="orientation"
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
         <activity
             android:name="uk.co.jarofgreen.cityoutdoors.UI.FeatureCheckinQuestionExplanationActivity"
             android:label="@string/app_name"
+            android:configChanges="orientation"
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
 		<service android:name="uk.co.jarofgreen.cityoutdoors.Service.LoadDataService" android:exported="false">
