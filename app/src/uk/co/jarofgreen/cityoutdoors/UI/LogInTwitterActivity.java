@@ -62,6 +62,10 @@ public class LogInTwitterActivity extends BaseActivity {
     		mContext = c;
     	}
 
+		/** 
+		* For later Android versions we will need some extra security stuff here, see:
+		* http://android-developers.blogspot.co.uk/2013/02/security-enhancements-in-jelly-bean.html
+		*/
     	public void authDone(int userID, String token) {
 
     		SharedPreferences settings=PreferenceManager.getDefaultSharedPreferences(mContext);
