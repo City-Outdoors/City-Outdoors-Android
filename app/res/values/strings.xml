@@ -97,4 +97,17 @@
            
     <string name="loading_data_from_server_wait">Loading, please wait ...</string>
     <string name="login_checking_data_with_server_wait">Checking, please wait ...</string>
+    
+    <string name="browse_map_menu_add_content_current_position">Add a comment at my location</string>
+    <string name="browse_map_menu_report_it_current_position">Report it at my location</string>
+    
+    <string name="feature_menu_checkin">Checkin</string>
+    <string name="feature_menu_favourite">Favourite</string>
+    <string name="feature_menu_comment">Comment</string>
+    <string name="feature_menu_report">Report</string>
+    <string name="feature_menu_map">Map</string>
+    <string name="feature_menu_share">Share</string>
+    <string name="feature_menu_email">Email</string>
+    <string name="feature_menu_phone">Phone</string>
+    
 </resources>

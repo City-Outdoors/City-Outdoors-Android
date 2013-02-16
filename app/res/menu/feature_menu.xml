@@ -4,37 +4,37 @@
 
     <item
         android:id="@+id/checkin"
-        android:title="Checkin"/>
+        android:title="@string/feature_menu_checkin"/>
 
     <item
         android:id="@+id/favourite"
-        android:title="Favourite"/>
+        android:title="@string/feature_menu_favourite"/>
     
     
     <item
         android:id="@+id/comment"
-        android:title="Comment"/>
+        android:title="@string/feature_menu_comment"/>
     
     
     <item
         android:id="@+id/report"
-        android:title="Report"/>
+        android:title="@string/feature_menu_report"/>
     
     <item
         android:id="@+id/map"
-        android:title="Map"/>
+        android:title="@string/feature_menu_map"/>
      
     <item
         android:id="@+id/share"
-        android:title="Share"/>
+        android:title="@string/feature_menu_share"/>
     
     <item
         android:id="@+id/email"
-        android:title="Email"/>   
+        android:title="@string/feature_menu_email"/>   
     
     <item
         android:id="@+id/phone"
-        android:title="Phone"/>
+        android:title="@string/feature_menu_phone"/>
     
 </menu>
 

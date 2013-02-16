@@ -4,11 +4,11 @@
 
     <item
         android:id="@+id/add_content_current_position"
-        android:title="Add a comment at my location"/>
+        android:title="@string/browse_map_menu_add_content_current_position"/>
 
     <item
         android:id="@+id/report_it_current_position"
-        android:title="Report it at my location"/>
+        android:title="@string/browse_map_menu_report_it_current_position"/>
     
 </menu>
 
