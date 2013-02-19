@@ -4,6 +4,9 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
  
+    <View 
+        style="@style/hr" />
+    
     <TextView
         android:id="@+id/question"
         style="@style/text"
