@@ -31,13 +31,7 @@
             android:label="@string/app_name" 
             android:configChanges="orientation"
             android:theme="@android:style/Theme.NoTitleBar">
-        </activity>
-        <activity
-            android:name="uk.co.jarofgreen.cityoutdoors.UI.FeatureCheckinQuestionsActivity"
-            android:label="@string/app_name" 
-            android:configChanges="orientation"
-            android:theme="@android:style/Theme.NoTitleBar">
-        </activity>               
+        </activity>             
         <activity
             android:name="uk.co.jarofgreen.cityoutdoors.UI.LogInOrSignUpActivity"
             android:label="@string/app_name"
