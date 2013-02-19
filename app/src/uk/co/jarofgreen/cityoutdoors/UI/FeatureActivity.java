@@ -392,7 +392,15 @@ public class FeatureActivity extends BaseActivity {
 			}
 			
 			// content
+			boolean firstContentWithImage = true;
 			for (Content content : call.getContent()) {
+				if (content.isHasPicture()) {
+					if (firstContentWithImage) {
+						ImageView featureHeaderImageView = (ImageView)findViewById(R.id.feature_header_image_view);
+						imagesToDownload.add(new ImageToDownload(featureHeaderImageView, content.getPictureNormalURL()));
+					}
+					firstContentWithImage = false;
+				}
 				addContentToLayout(content, parent, imagesToDownload);
 			}
 			
