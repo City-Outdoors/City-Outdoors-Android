@@ -30,9 +30,11 @@ public class IndexCall extends BaseCall {
 	Float startingBoundsMaxLat;
 	Float startingBoundsMinLng;
 	Float startingBoundsMaxLng;
+	Integer uploadsMaxSize;
 	
     public void execute() {
         RootElement root = new RootElement("data");
+        
         Element startingBounds = root.getChild("startingBounds");
         startingBounds.setStartElementListener(new StartElementListener(){
 			public void start(Attributes attributes) {
@@ -54,19 +56,34 @@ public class IndexCall extends BaseCall {
 				}
 			}
         });
+
+        Element uploads = root.getChild("uploads");
+        uploads.setStartElementListener(new StartElementListener(){
+			public void start(Attributes attributes) {
+				if (attributes.getValue("maxSize") != null) {
+					uploadsMaxSize = Integer.parseInt(attributes.getValue("maxSize"));
+					Log.d("MAXUPLOADSSIZE","uploadsMaxSize="+Integer.toString(uploadsMaxSize));
+				}
+			}
+        });
+        
         
         setUpCall("/api/v1/index.php?showLinks=0&");
         makeCall(root);
 
+        SharedPreferences settings=PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = settings.edit();
         if (startingBoundsMaxLat != null && startingBoundsMinLat != null && startingBoundsMaxLng != null && startingBoundsMinLng != null) {
-	        SharedPreferences settings=PreferenceManager.getDefaultSharedPreferences(context);
-	        SharedPreferences.Editor editor = settings.edit();
         	editor.putFloat("startingBoundsMaxLat", startingBoundsMaxLat);
         	editor.putFloat("startingBoundsMinLat", startingBoundsMinLat);
         	editor.putFloat("startingBoundsMaxLng", startingBoundsMaxLng);
         	editor.putFloat("startingBoundsMinLng", startingBoundsMinLng);
-        	editor.commit();
         }
+        if (uploadsMaxSize != null) {
+        	editor.putInt("uploadsMaxSize", uploadsMaxSize);
+        }
+        editor.commit();
+        
     }
 	
 }
