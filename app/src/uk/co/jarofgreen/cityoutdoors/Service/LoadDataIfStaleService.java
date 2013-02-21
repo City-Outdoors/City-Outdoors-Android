@@ -47,8 +47,10 @@ public class LoadDataIfStaleService  extends IntentService {
 				interval = 1000*60*60*24*7;
 			} else {
 				Log.d("UPDATE","No WiFi so 1 month");
-				interval = 1000*60*60*24*30;
+				interval = (long)1000*(long)60*(long)60*(long)24*(long)30; // cast everything to a long; if maths done as int it overflows!
+				
 			}
+			Log.d("UPDATEINTERVAL",String.valueOf(interval));
 			
 			if ((now - last) > interval) {
 				updateNeeded = true;
