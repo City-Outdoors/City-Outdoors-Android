@@ -1,6 +1,8 @@
 package uk.co.jarofgreen.cityoutdoors.UI;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -88,21 +90,36 @@ public class MainActivity extends BaseActivity  {
     }
     
     public void onClickLogOut(View v) {
-    	SharedPreferences settings=PreferenceManager.getDefaultSharedPreferences(this);
-    	SharedPreferences.Editor editor = settings.edit();
-    	editor.remove("userID");
-    	editor.remove("userToken");
-    	editor.commit();
+    	AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
-    	Storage s = new Storage(this);
-    	s.deleteUserData();
+    	alert.setTitle(getString(R.string.main_screen_log_out_confirm_title));
+    	alert.setMessage(getString(R.string.main_screen_log_out_confirm_message));
 
-    	View vb;
-	 	vb = findViewById(R.id.logout);
-	 	vb.setVisibility(View.GONE);    	
-	 	vb = findViewById(R.id.login);
-	 	vb.setVisibility(View.VISIBLE);
+    	alert.setPositiveButton(getString(R.string.main_screen_log_out_confirm_ok_button), new DialogInterface.OnClickListener() {
+    		public void onClick(DialogInterface dialog, int whichButton) {
+    			SharedPreferences settings=PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+    			SharedPreferences.Editor editor = settings.edit();
+    			editor.remove("userID");
+    			editor.remove("userToken");
+    			editor.commit();
 
+    			Storage s = new Storage(MainActivity.this);
+    			s.deleteUserData();
+
+    			View vb;
+    			vb = findViewById(R.id.logout);
+    			vb.setVisibility(View.GONE);    	
+    			vb = findViewById(R.id.login);
+    			vb.setVisibility(View.VISIBLE);
+    		}
+    	});
+
+    	alert.setNegativeButton(getString(R.string.main_screen_log_out_confirm_cancel_button), new DialogInterface.OnClickListener() {
+    		public void onClick(DialogInterface dialog, int whichButton) {
+    		}
+    	});
+
+    	alert.show();
     }
     
 

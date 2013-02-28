@@ -24,6 +24,11 @@
     <string name="main_screen_preferences">Preferences</string>
     <string name="main_screen_updating_now">Updating now ...</string>
     
+    <string name="main_screen_log_out_confirm_title">Log out</string>
+    <string name="main_screen_log_out_confirm_message">Are you sure you want to log out?</string>
+    <string name="main_screen_log_out_confirm_ok_button">OK</string>
+    <string name="main_screen_log_out_confirm_cancel_button">Cancel</string>
+    
     <string name="preferences_analyticsEnabled_title">Record anonymous usage?</string>
     <string name="preferences_analyticsEnabled_summary">We record anonymous usage of the app to help us improve.</string>
     
