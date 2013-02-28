@@ -88,6 +88,9 @@ public class NewFeatureContentActivity extends BaseNewFeatureContentOrReportActi
     	}
     	
     	startService(i);
+    	
+    	Toast.makeText(this, getString(R.string.new_feature_content_starting_to_send), Toast.LENGTH_LONG).show();
+    	
     	finish();
     }
 
