@@ -30,6 +30,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.content.SharedPreferences;
+import android.os.Handler;
+import android.preference.PreferenceManager;
 
 /**
  * 
@@ -47,6 +50,7 @@ public class BrowseMapActivity extends android.support.v4.app.FragmentActivity i
 	
 	public static final double STARTING_LAT = (double) 55.95284338416757;
 	public static final double STARTING_LNG = (double) -3.198369775390575;
+	public static final int STARTING_ZOOM = 12;
 	
     /** Called when the activity is first created. */
     @Override
@@ -123,8 +127,34 @@ public class BrowseMapActivity extends android.support.v4.app.FragmentActivity i
 			}
 		}
 		
+
 		if (!zoomed) {
-			map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(STARTING_LAT,STARTING_LNG), 14));
+			// We can't call newLatLngBounds at this point, the map isn't sized and app crashes.
+			// So first we set the map to our hard coded range so it's at least sensible.
+			map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(STARTING_LAT,STARTING_LNG), STARTING_ZOOM));
+
+			// now set up a handler to zoom to correct place a second later. This feels like a bad hack.
+			Handler handler=new Handler();
+			final Runnable r = new Runnable() {
+				public void run() {
+					SharedPreferences settings=PreferenceManager.getDefaultSharedPreferences(BrowseMapActivity.this);
+					float startingBoundsMaxLat = settings.getFloat("startingBoundsMaxLat", 0);
+					float startingBoundsMinLat = settings.getFloat("startingBoundsMinLat", 0);
+					float startingBoundsMaxLng = settings.getFloat("startingBoundsMaxLng", 0);
+					float startingBoundsMinLng = settings.getFloat("startingBoundsMinLng", 0);
+
+					if (!(startingBoundsMaxLat == 0 && startingBoundsMinLat == 0 && startingBoundsMaxLng == 0 && startingBoundsMinLng == 0)) {
+						LatLng southwest = new LatLng(startingBoundsMinLat, startingBoundsMinLng);
+						LatLng northeast = new LatLng(startingBoundsMaxLat, startingBoundsMaxLng);
+						try {
+							map.moveCamera(CameraUpdateFactory.newLatLngBounds(new LatLngBounds(southwest, northeast), 10));
+						} catch (Exception e) {
+							// this feels like a bad hack, so if it crashes just ignore it. We will still be zoomed to sensible bounds.
+						}
+					}
+				}
+			};
+			handler.postDelayed(r, 250);			
 		}
 
 		// icons
