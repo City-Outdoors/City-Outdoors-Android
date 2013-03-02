@@ -20,11 +20,11 @@
         <requestFocus />
     </EditText>
 
-    <!--  <ImageView
+    <ImageView
         android:id="@+id/photo_preview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_launcher" />   -->
+        android:visibility="gone" /> 
 
     <LinearLayout
         android:layout_width="wrap_content"

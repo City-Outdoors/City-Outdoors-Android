@@ -11,6 +11,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -21,6 +23,7 @@ import android.provider.MediaStore;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 /**
  * 
  * @author James Baster  <james@jarofgreen.co.uk>
@@ -180,6 +183,27 @@ public class BaseNewFeatureContentOrReportActivity extends BaseActivity  {
             hasPhoto = true;
             
     		
+    	}
+    	
+    	
+    	if (photoFileName != null) {
+			Bitmap bitmap = new BitmapDrawable(photoFileName).getBitmap();
+			//Log.i("OLDWIDTH",Integer.toString(bitmap.getWidth()));
+			//Log.i("OLDHEIGHT",Integer.toString(bitmap.getHeight()));
+			
+			float scale = Math.max(1.0f,Math.max((float)bitmap.getWidth()/200f, (float)bitmap.getHeight()/200f));
+			//Log.i("SCALE", Float.toString(scale));
+			
+			int scaleWidth = (int)(bitmap.getWidth() / scale);
+			int scaleHeight = (int)(bitmap.getHeight() / scale);
+			//Log.i("NEWWIDTH",Integer.toString(scaleWidth));
+			//Log.i("NEWHEIGHT",Integer.toString(scaleHeight));
+
+			Bitmap newBitmap = Bitmap.createScaledBitmap(bitmap, scaleWidth, scaleHeight, true);
+			
+			ImageView ivPhoto = (ImageView)findViewById(R.id.photo_preview);
+			ivPhoto.setImageBitmap(newBitmap);
+			ivPhoto.setVisibility(View.VISIBLE);
     	}
     }
     
