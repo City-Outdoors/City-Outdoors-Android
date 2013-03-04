@@ -70,13 +70,17 @@ public class SendFeatureContentService extends IntentService {
 
 	private boolean sendFeatureContent(int featureID, float lat, float lng, String comment, String name, String photoFileName) {
 		int attempt = 0;
+		SubmitFeatureContentCall call = new SubmitFeatureContentCall(this);
+		call.setUpCall(featureID, lat, lng, comment, name, photoFileName);
 		while (true) { 
 			if (attempt < 20) attempt += 1;
 			Log.d("SENDFEATURECONTENT","Trying to send feature content ...");
 			try {
-				SubmitFeatureContentCall call = new SubmitFeatureContentCall(this);
-				call.execute(featureID, lat, lng, comment, name, photoFileName);
-				if (call.getWasResultASuccess()) return true;
+				call.execute();
+				if (call.getWasResultASuccess()) {
+					call.cleanUp();
+					return true;
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 				if (e.getMessage() != null) Log.d("SENDFEATURECONTENT",e.getMessage());
