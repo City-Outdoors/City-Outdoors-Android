@@ -69,26 +69,32 @@ public abstract class BaseCall {
 	}
 	
 	protected void addDataToCall(String key, String value) {
-		try {
-			multipartEntity.addPart(key, new StringBody(value));
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
+		if (value != null) {
+			try {
+				multipartEntity.addPart(key, new StringBody(value));
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
 	protected void addDataToCall(String key, Integer value) {
-		try {
-			multipartEntity.addPart(key, new StringBody(Integer.toString(value)));
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
+		if (value != null) {
+			try {
+				multipartEntity.addPart(key, new StringBody(Integer.toString(value)));
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
 	protected void addDataToCall(String key, Float value) {
-		try {
-			multipartEntity.addPart(key, new StringBody(Float.toString(value)));
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
+		if (value != null) {
+			try {
+				multipartEntity.addPart(key, new StringBody(Float.toString(value)));
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	

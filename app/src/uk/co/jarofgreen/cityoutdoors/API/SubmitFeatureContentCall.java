@@ -11,7 +11,7 @@ import android.sax.Element;
 import android.sax.RootElement;
 import android.sax.StartElementListener;
 
-public class SubmitFeatureContentCall extends BaseCall {
+public class SubmitFeatureContentCall extends BaseSubmitContentOrReportCall {
 
 	public SubmitFeatureContentCall(Context context) {
 		super(context);
@@ -19,7 +19,25 @@ public class SubmitFeatureContentCall extends BaseCall {
 
 	String resultSuccess;
 
-	public void execute(int featureID, float lat, float lng, String comment, String name, String photoFileName) {
+	
+	public void setUpCall(int featureID, float lat, float lng, String comment, String name, String photoFileName) {
+		this.featureID = featureID;
+		this.lat = lat;
+		this.lng = lng;
+		this.comment = comment;
+		this.name = name;
+		this.photoFileName = photoFileName;
+			
+		if (photoFileName != null) {
+			try {
+				photoDetails = getPhotoDetailsForSending(photoFileName);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void execute() {
 		RootElement root = new RootElement("data");
 		Element result = root.getChild("result");
 		result.setStartElementListener(new StartElementListener(){
@@ -42,14 +60,13 @@ public class SubmitFeatureContentCall extends BaseCall {
 		addDataToCall("name", name);
 
 		if (photoFileName != null) {
-			addFileToCall("photo", photoFileName);
+			addFileToCall("photo", photoDetails.fileName);
 		}
-
-
 
 		makeCall(root);
 
 	}
+
 	
 	public boolean getWasResultASuccess() {
 		return resultSuccess != null && resultSuccess.compareTo("yes") == 0;

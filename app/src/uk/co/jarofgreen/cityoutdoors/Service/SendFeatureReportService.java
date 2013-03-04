@@ -70,13 +70,17 @@ public class SendFeatureReportService extends IntentService {
 	
 	private boolean sendFeatureContent(int featureID, float lat, float lng, String comment, String name, String email, String photoFileName) {
 		int attempt = 0;
+		SubmitFeatureReportCall call = new SubmitFeatureReportCall(this);
+		call.setUpCall(featureID, lat, lng, comment, name, email, photoFileName);
 		while (true) { 
 			if (attempt < 20) attempt += 1;
 			Log.d("SENDFEATUREREPORT","Trying to send feature report ...");
 			try {
-				SubmitFeatureReportCall call = new SubmitFeatureReportCall(this);
-				call.execute(featureID, lat, lng, comment, name, email, photoFileName);
-				if (call.getWasResultASuccess()) return true;
+				call.execute();
+				if (call.getWasResultASuccess()) {
+					call.cleanUp();
+					return true;
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 				if (e.getMessage() != null) Log.d("SENDFEATUREREPORT",e.getMessage());

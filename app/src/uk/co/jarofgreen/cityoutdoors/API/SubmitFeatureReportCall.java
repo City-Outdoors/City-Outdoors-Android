@@ -2,12 +2,13 @@ package uk.co.jarofgreen.cityoutdoors.API;
 
 import org.xml.sax.Attributes;
 
+
 import android.content.Context;
 import android.sax.Element;
 import android.sax.RootElement;
 import android.sax.StartElementListener;
 
-public class SubmitFeatureReportCall extends BaseCall {
+public class SubmitFeatureReportCall extends BaseSubmitContentOrReportCall {
 
 	public SubmitFeatureReportCall(Context context) {
 		super(context);
@@ -15,7 +16,27 @@ public class SubmitFeatureReportCall extends BaseCall {
 
 	String resultSuccess;
 
-	public void execute(int featureID, float lat, float lng, String comment, String name, String email, String photoFileName) {
+	protected String email;
+	
+	public void setUpCall(int featureID, float lat, float lng, String comment, String name, String email, String photoFileName) {
+		this.featureID = featureID;
+		this.lat = lat;
+		this.lng = lng;
+		this.comment = comment;
+		this.name = name;
+		this.email = email;
+		this.photoFileName = photoFileName;
+			
+		if (photoFileName != null) {
+			try {
+				photoDetails = getPhotoDetailsForSending(photoFileName);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void execute() {
 		RootElement root = new RootElement("data");
 		Element result = root.getChild("result");
 		result.setStartElementListener(new StartElementListener(){
@@ -37,11 +58,11 @@ public class SubmitFeatureReportCall extends BaseCall {
 		addDataToCall("comment", comment);
 		addDataToCall("name", name);
 		addDataToCall("email", email);
-
+		
 		if (photoFileName != null) {
-			addFileToCall("photo", photoFileName);
+			addFileToCall("photo", photoDetails.fileName);
 		}
-
+		
 		makeCall(root);
 
 	}
