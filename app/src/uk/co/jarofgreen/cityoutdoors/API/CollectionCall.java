@@ -67,7 +67,7 @@ public class CollectionCall extends BaseCall {
 			}
 		});       
         
-        setUpCall("/api/v1/collection.php?showLinks=0&id=" + collectionID);
+        setUpCall("/api/v1/collection.php?showLinks=0&showDeleted=1&id=" + collectionID);
         makeCall(root);
         
     }

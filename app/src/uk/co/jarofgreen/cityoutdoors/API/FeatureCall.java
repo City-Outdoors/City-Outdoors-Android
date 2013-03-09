@@ -233,7 +233,7 @@ public class FeatureCall extends BaseCall {
 			}
          });               
         
-        setUpCall("/api/v1/feature.php?showLinks=0&fieldInContentArea=mobileapp&id="+Integer.toString(featureID));
+        setUpCall("/api/v1/feature.php?showLinks=0&showDeleted=1&fieldInContentArea=mobileapp&id="+Integer.toString(featureID));
         makeCall(root);
         
     }
