@@ -157,6 +157,11 @@ public class BaseNewFeatureContentOrReportActivity extends BaseActivity  {
     }
     
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+    	if (resultCode != RESULT_OK) {
+    		photoFileName= null;
+    		return;
+    	}
+    	
     	if (requestCode == ACTION_TAKE_PHOTO && resultCode == RESULT_OK) {
     		Log.d("PHOTO","Got Photo Back (Taken)");
     		
