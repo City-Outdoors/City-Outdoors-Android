@@ -508,17 +508,16 @@ public class FeatureActivity extends BaseActivity {
 				if (featureCheckinQuestion.isHasAnswered()) {
 					if (!featureCheckinQuestion.canAnswerMultipleTimes()) button.setVisibility(View.INVISIBLE);
 					answered.setVisibility(View.VISIBLE);
-					if (featureCheckinQuestion.hasExplanationHTML()) {
-						View ae = child.findViewById(R.id.answer_explanation);
-						ae.setVisibility(View.VISIBLE);
-						ae.setTag(featureCheckinQuestion);
-					}
 				} else {
 					button.setVisibility(View.VISIBLE);
 					button.setTag(featureCheckinQuestion);
 					answered.setVisibility(View.INVISIBLE);
 				}
-				
+				if (featureCheckinQuestion.hasExplanationHTML()) {
+					View ae = child.findViewById(R.id.answer_explanation);
+					ae.setVisibility(View.VISIBLE);
+					ae.setTag(featureCheckinQuestion);
+				}
 			} else {
 				if (featureCheckinQuestion instanceof FeatureCheckinQuestionFreeText) {
 					child = layoutInflater.inflate(R.layout.feature_checkin_question_freetext_question_row_loggedout,null);
