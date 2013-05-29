@@ -5,6 +5,9 @@ import org.apache.http.client.HttpClient;
 import java.io.File;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.SocketException;
+import java.net.UnknownHostException;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -19,6 +22,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.HttpHostConnectException;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
@@ -122,6 +126,12 @@ public abstract class BaseCall {
 			is = entity.getContent();   
 
 			Xml.parse(is, Xml.Encoding.UTF_8, root.getContentHandler());
+		} catch (SocketException e) {
+			errorCode = "A1";
+			errorMessage = "Can not connect to internet";
+		} catch (UnknownHostException e) {
+			errorCode = "A2";
+			errorMessage = "Can not connect to internet";			
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
