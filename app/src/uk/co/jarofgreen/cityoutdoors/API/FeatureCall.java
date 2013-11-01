@@ -34,10 +34,12 @@ import android.util.Log;
  */
 public class FeatureCall extends BaseCall {
 
-	
-
 	public FeatureCall(Context context) {
 		super(context);
+	}
+	
+	public FeatureCall(InformationNeededFromContext informationNeededFromContext) {
+		super(informationNeededFromContext);
 	}
 	
 	Content lastContent = null; 

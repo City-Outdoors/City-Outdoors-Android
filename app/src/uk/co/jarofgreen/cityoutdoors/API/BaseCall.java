@@ -40,13 +40,18 @@ import uk.co.jarofgreen.cityoutdoors.R;
  */
 public abstract class BaseCall {
 	
-	Context context;
+	InformationNeededFromContext informationNeededFromContext;
 	
-	public BaseCall(Context context) {
+	public BaseCall(InformationNeededFromContext informationNeededFromContext) {
 		super();
-		this.context = context;
+		this.informationNeededFromContext = informationNeededFromContext;
 	}
 
+	public BaseCall(Context context) {
+		super();
+		this.informationNeededFromContext = new InformationNeededFromContext(context);
+	}
+	
 	protected String errorMessage;
 	protected String errorCode;
 	
@@ -60,14 +65,13 @@ public abstract class BaseCall {
 	
 	protected void setUpCall(String url) {
 		httpclient = new DefaultHttpClient();                      
-		httppost = new HttpPost(context.getString(R.string.server_url) + url);
+		httppost = new HttpPost(informationNeededFromContext.getServerURL() + url);
 		multipartEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);  
 
-		SharedPreferences settings=PreferenceManager.getDefaultSharedPreferences(context);
-		int userID = settings.getInt("userID", -1);
+		int userID = informationNeededFromContext.getSettings().getInt("userID", -1);
 		if (userID > 0) {
 			addDataToCall("userID", userID);
-			addDataToCall("userToken", settings.getString("userToken",""));
+			addDataToCall("userToken", informationNeededFromContext.getSettings().getString("userToken",""));
 			isUserTokenAttached = true;
 		}		
 	}

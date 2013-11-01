@@ -24,6 +24,10 @@ public class LogInOrSignUpCall extends BaseCall {
 	public LogInOrSignUpCall(Context context) {
 		super(context);
 	}
+
+	public LogInOrSignUpCall(InformationNeededFromContext informationNeededFromContext) {
+		super(informationNeededFromContext);
+	}
 	
 	
 	Integer userID = null;
@@ -60,8 +64,7 @@ public class LogInOrSignUpCall extends BaseCall {
     
     public boolean saveResults() {
         if (userID != null) {
-	        SharedPreferences settings=PreferenceManager.getDefaultSharedPreferences(context);
-	        SharedPreferences.Editor editor = settings.edit();
+	        SharedPreferences.Editor editor = informationNeededFromContext.getSettings().edit();
 	        editor.putInt("userID", userID);
 	        if (score != null) editor.putInt("userScore", score);
 	        if (token != null) editor.putString("userToken", token);

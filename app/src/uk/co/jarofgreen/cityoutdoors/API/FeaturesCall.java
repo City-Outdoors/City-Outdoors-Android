@@ -26,6 +26,10 @@ import android.sax.StartElementListener;
  */
 public class FeaturesCall extends BaseCall {
 
+	public FeaturesCall(InformationNeededFromContext informationNeededFromContext) {
+		super(informationNeededFromContext);
+	}
+
 	public FeaturesCall(Context context) {
 		super(context);
 	}
@@ -36,7 +40,7 @@ public class FeaturesCall extends BaseCall {
         RootElement root = new RootElement("data");
         Element features = root.getChild("features");
         Element feature = features.getChild("feature");
-        final Storage storage = new Storage(context);
+        final Storage storage = informationNeededFromContext.getStorage();
 
         
         

@@ -26,6 +26,10 @@ public class IndexCall extends BaseCall {
 		super(context);
 	}
 
+	public IndexCall(InformationNeededFromContext informationNeededFromContext) {
+		super(informationNeededFromContext);
+	}
+
 	Float startingBoundsMinLat;
 	Float startingBoundsMaxLat;
 	Float startingBoundsMinLng;
@@ -71,8 +75,7 @@ public class IndexCall extends BaseCall {
         setUpCall("/api/v1/index.php?showLinks=0&");
         makeCall(root);
 
-        SharedPreferences settings=PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor editor = settings.edit();
+        SharedPreferences.Editor editor = informationNeededFromContext.getSettings().edit();
         if (startingBoundsMaxLat != null && startingBoundsMinLat != null && startingBoundsMaxLng != null && startingBoundsMinLng != null) {
         	editor.putFloat("startingBoundsMaxLat", startingBoundsMaxLat);
         	editor.putFloat("startingBoundsMinLat", startingBoundsMinLat);

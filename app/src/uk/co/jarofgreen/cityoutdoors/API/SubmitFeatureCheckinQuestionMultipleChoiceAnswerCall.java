@@ -24,6 +24,10 @@ public class SubmitFeatureCheckinQuestionMultipleChoiceAnswerCall extends BaseCa
 		super(context);
 	}
 
+	public SubmitFeatureCheckinQuestionMultipleChoiceAnswerCall(InformationNeededFromContext informationNeededFromContext) {
+		super(informationNeededFromContext);
+	}
+
 	protected Integer resultSuccessCode;
 	protected String explanationValueHTML;
 

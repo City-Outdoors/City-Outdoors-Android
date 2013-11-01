@@ -14,6 +14,10 @@ public class SubmitFeatureReportCall extends BaseSubmitContentOrReportCall {
 		super(context);
 	}
 
+	public SubmitFeatureReportCall(InformationNeededFromContext informationNeededFromContext) {
+		super(informationNeededFromContext);
+	}
+
 	String resultSuccess;
 
 	protected String email;

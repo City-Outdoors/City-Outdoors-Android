@@ -26,15 +26,17 @@ public class CollectionsCall extends BaseCall {
 		super(context);
 	}
 
+	public CollectionsCall(InformationNeededFromContext informationNeededFromContext) {
+		super(informationNeededFromContext);
+	}
+
 	Collection lastCollection;
-	Storage storage;
 	
     public void execute() {
-    	storage = new Storage(context);
         RootElement root = new RootElement("data");
         Element collections = root.getChild("collections");
         Element collection = collections.getChild("collection");
-        final Storage storage = new Storage(context);
+        final Storage storage = informationNeededFromContext.getStorage();
         
         collection.setStartElementListener(new StartElementListener(){
 			public void start(Attributes attributes) {

@@ -78,7 +78,7 @@ public class SendFeatureReportService extends IntentService {
 			try {
 				call.execute();
 				if (call.getWasResultASuccess()) {
-					call.cleanUp();
+					call.cleanUp(this);
 					return true;
 				}
 			} catch (Exception e) {

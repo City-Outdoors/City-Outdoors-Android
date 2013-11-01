@@ -23,6 +23,10 @@ public class SubmitFeatureCheckinQuestionFreeTextAnswerCall extends BaseCall {
 		super(context);
 	}
 
+	public SubmitFeatureCheckinQuestionFreeTextAnswerCall(InformationNeededFromContext informationNeededFromContext) {
+		super(informationNeededFromContext);
+	}
+
 	protected Integer resultSuccessCode;
 	protected String explanationValueHTML;
 	

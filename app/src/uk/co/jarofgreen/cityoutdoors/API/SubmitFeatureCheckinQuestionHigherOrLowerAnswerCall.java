@@ -24,6 +24,10 @@ public class SubmitFeatureCheckinQuestionHigherOrLowerAnswerCall extends BaseCal
 		super(context);
 	}
 
+	public SubmitFeatureCheckinQuestionHigherOrLowerAnswerCall(InformationNeededFromContext informationNeededFromContext) {
+		super(informationNeededFromContext);
+	}
+
 	protected Integer resultSuccessCode;
 	protected Integer trueAnswerCode = 0;
 	protected String explanationValueHTML;

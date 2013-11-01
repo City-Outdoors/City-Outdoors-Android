@@ -21,11 +21,17 @@ import android.util.Log;
  */
 public class CheckCurrentUserCall extends BaseCall {
 
+	public CheckCurrentUserCall(InformationNeededFromContext informationNeededFromContext) {
+		super(informationNeededFromContext);
+	}
+
+	
 	public CheckCurrentUserCall(Context context) {
 		super(context);
 	}
-	
-	
+
+
+
 	Integer userID = null;
 	String name = null;
 	String email = null;
@@ -51,8 +57,7 @@ public class CheckCurrentUserCall extends BaseCall {
         makeCall(root);
         
         if (userID != null) {
-	        SharedPreferences settings=PreferenceManager.getDefaultSharedPreferences(context);
-	        SharedPreferences.Editor editor = settings.edit();
+	        SharedPreferences.Editor editor = informationNeededFromContext.getSettings().edit();
 	        if (score != null) editor.putInt("userScore", score);
 	        if (name != null) editor.putString("userDisplayName", name);
 	        if (email != null) editor.putString("userEmail", email);     

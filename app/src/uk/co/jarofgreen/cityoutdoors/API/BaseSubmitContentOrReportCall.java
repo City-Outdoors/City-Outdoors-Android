@@ -13,6 +13,11 @@ import android.util.Log;
 
 public abstract class BaseSubmitContentOrReportCall extends BaseCall {
 
+	public BaseSubmitContentOrReportCall(InformationNeededFromContext informationNeededFromContext) {
+		super(informationNeededFromContext);
+	}
+
+
 	public BaseSubmitContentOrReportCall(Context context) {
 		super(context);
 	}
@@ -41,8 +46,7 @@ public abstract class BaseSubmitContentOrReportCall extends BaseCall {
 		long inputFilelength = inputFile.length();
 		//Log.i("ORIGFILESIZE",Long.toString(inputFilelength));
 
-		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-		int maxFileLength = settings.getInt("uploadsMaxSize", 1024*1024);  // assume 1MB if not set.
+		int maxFileLength = informationNeededFromContext.getSettings().getInt("uploadsMaxSize", 1024*1024);  // assume 1MB if not set.
 		// maxFileLength = 512*1024; // for testing you may want to make the limit really low 
 		//Log.i("MAXFILESIZE",Integer.toString(maxFileLength));
 
@@ -51,7 +55,7 @@ public abstract class BaseSubmitContentOrReportCall extends BaseCall {
 
 			Float scale = 0.9f;
 
-			File outputFile = File.createTempFile("photo", ".jpg", context.getCacheDir());
+			File outputFile = File.createTempFile("photo", ".jpg", informationNeededFromContext.getCacheDir());
 			long outputFileLength = inputFilelength;
 
 			FileInputStream inFile = new FileInputStream(inputFile);
@@ -87,7 +91,7 @@ public abstract class BaseSubmitContentOrReportCall extends BaseCall {
 	}
 	
 	
-	public void cleanUp() {
+	public void cleanUp(Context context) {
 		if (photoDetails != null && photoDetails.deleteAfterUse) {
 			context.deleteFile(photoDetails.fileName);
 			photoDetails = null;

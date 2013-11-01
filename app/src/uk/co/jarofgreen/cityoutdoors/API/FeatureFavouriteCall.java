@@ -20,6 +20,10 @@ public class FeatureFavouriteCall extends BaseCall {
 		super(context);
 	}
 
+	public FeatureFavouriteCall(InformationNeededFromContext informationNeededFromContext) {
+		super(informationNeededFromContext);
+	}
+
     public boolean execute(FeatureFavourite featureFavourite) {
 
     	setUpCall("/api/v1/newFeatureFavourite.php?showLinks=0&");
@@ -39,8 +43,7 @@ public class FeatureFavouriteCall extends BaseCall {
     	
 
 
-    	Storage storage = new Storage(context);
-    	storage.featureFavouriteSentToServer(featureFavourite);
+    	informationNeededFromContext.getStorage().featureFavouriteSentToServer(featureFavourite);
 
     	return true;
     }
