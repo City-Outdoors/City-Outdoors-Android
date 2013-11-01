@@ -134,10 +134,8 @@
 		</service>		
 		<service android:name="uk.co.jarofgreen.cityoutdoors.Service.LoadDataIfStaleService" android:exported="false">
 		</service>		
-        <service android:name="uk.co.jarofgreen.cityoutdoors.Service.SendFeatureContentService" android:exported="false">
-		</service>
-        <service android:name="uk.co.jarofgreen.cityoutdoors.Service.SendFeatureReportService" android:exported="false">
-		</service>						
+        <service android:name="uk.co.jarofgreen.cityoutdoors.Service.SendFeatureContentOrReportService" android:exported="false">
+		</service>					
 		<service android:name="uk.co.jarofgreen.cityoutdoors.Service.SendFeatureFavouriteService" android:exported="false">
 		</service>
 		

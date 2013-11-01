@@ -10,8 +10,11 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
+import uk.co.jarofgreen.cityoutdoors.OurApplication;
 import uk.co.jarofgreen.cityoutdoors.R;
-import uk.co.jarofgreen.cityoutdoors.Service.SendFeatureContentService;
+import uk.co.jarofgreen.cityoutdoors.Model.UploadFeatureContent;
+import uk.co.jarofgreen.cityoutdoors.Model.UploadFeatureReport;
+import uk.co.jarofgreen.cityoutdoors.Service.SendFeatureContentOrReportService;
 /**
  * 
  * @author James Baster  <james@jarofgreen.co.uk>
@@ -21,19 +24,25 @@ import uk.co.jarofgreen.cityoutdoors.Service.SendFeatureContentService;
  */
 public class NewFeatureContentActivity extends BaseNewFeatureContentOrReportActivity {
 	
-
-	
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_feature_content);  
         TitleBar.populate(this);
         
+
+        uploadData = new UploadFeatureContent(this);
+        
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
-			featureID = extras.getInt("featureID",-1);
-			Log.d("FEATURE from INTENT",Integer.toString(featureID));
-			lat = (float)extras.getFloat("lat",0);
-			lng = (float)extras.getFloat("lng",0);
+			int fid = extras.getInt("featureID",-1);
+			if (fid != -1) { 
+				uploadData.setFeatureID(fid); 
+			}
+			float lat = (float)extras.getFloat("lat",0);
+			float lng = (float)extras.getFloat("lng",0);
+			if (lat != 0.0 || lng != 0.0) {
+				uploadData.setLatLng(lat,lng);
+			}
 		}   
 
         if (isUserLoggedIn()) {
@@ -59,35 +68,27 @@ public class NewFeatureContentActivity extends BaseNewFeatureContentOrReportActi
     		}
     	}
     	
-    	if (!hasPosition()) {
+    	if (!uploadData.hasPosition()) {
     		Toast.makeText(this, getString(R.string.new_feature_content_still_getting_position), Toast.LENGTH_LONG).show();
 			return;
 		}
     	
-    	Intent i = new Intent(this,SendFeatureContentService.class);
-    	i.putExtra("featureID", featureID);
-    	i.putExtra("lat", lat);
-    	i.putExtra("lng", lng);
-    	
     	TextView tv = (TextView)findViewById(R.id.comment);
-    	i.putExtra("comment", tv.getText().toString());
-
+    	uploadData.setComment(tv.getText().toString());
 
 		if (!isUserLoggedIn()) {
 			SharedPreferences settings=PreferenceManager.getDefaultSharedPreferences(this);
 			SharedPreferences.Editor editor = settings.edit();
 			tv = (TextView)findViewById(R.id.name);
 			String name = tv.getText().toString();
-			i.putExtra("name", name);
+			uploadData.setName(name);
 			editor.putString("newFeatureContentName", name);
 			editor.commit();
 		}
-
-    	if (hasPhoto) {
-    		i.putExtra("photoFileName", photoFileName);
-    	}
     	
-    	startService(i);
+		((OurApplication)getApplication()).addToUploadQue(uploadData);
+		
+    	startService(new Intent(this, SendFeatureContentOrReportService.class));
     	
     	Toast.makeText(this, getString(R.string.new_feature_content_starting_to_send), Toast.LENGTH_LONG).show();
     	

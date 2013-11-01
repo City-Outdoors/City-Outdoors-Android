@@ -6,12 +6,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import uk.co.jarofgreen.cityoutdoors.R;
+import uk.co.jarofgreen.cityoutdoors.Model.BaseUploadContentOrReport;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.location.LocationListener;
@@ -33,10 +35,6 @@ import android.widget.ImageView;
  */
 public class BaseNewFeatureContentOrReportActivity extends BaseActivity  {
 
-	protected int featureID = -1;
-	protected float lat = 0;
-	protected float lng = 0;
-	
 	protected static final int ACTION_TAKE_PHOTO = 1;
 	protected static final int ACTION_SELECT_PHOTO = 2;
 	
@@ -44,17 +42,14 @@ public class BaseNewFeatureContentOrReportActivity extends BaseActivity  {
 	protected static final String JPEG_FILE_SUFFIX = ".jpg";
 	
 	protected String photoFileName;
-	protected boolean hasPhoto = false;
 	
 	protected LocationManager locationManager;
 	
-	protected boolean hasPosition() {
-		return (featureID != -1 || lat != 0 || lng != 0);
-	}
+	protected BaseUploadContentOrReport uploadData;
 	
     protected void promptForPosition() {
         
-    	if (!hasPosition()) {
+    	if (!uploadData.hasPosition()) {
 
     		locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
     		final boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
@@ -82,7 +77,7 @@ public class BaseNewFeatureContentOrReportActivity extends BaseActivity  {
     @Override
     public void onResume() {
     	super.onResume();
-    	if (!hasPosition()) locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+    	if (!uploadData.hasPosition()) locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
     }
 
     @Override
@@ -165,13 +160,6 @@ public class BaseNewFeatureContentOrReportActivity extends BaseActivity  {
     	if (requestCode == ACTION_TAKE_PHOTO && resultCode == RESULT_OK) {
     		Log.d("PHOTO","Got Photo Back (Taken)");
     		
-    		hasPhoto = true;
-    		
-    		// set preview image
-    		//Bundle extras = intent.getExtras();
-    		//ImageView mImageView = (ImageView)findViewById(R.id.photo_preview);
-    		//mImageView.setImageBitmap((Bitmap) extras.get("data"));
-
     	} else if (requestCode == ACTION_SELECT_PHOTO && resultCode == RESULT_OK) {
     		Log.d("PHOTO","Got Photo Back (selected)");
     		
@@ -184,38 +172,23 @@ public class BaseNewFeatureContentOrReportActivity extends BaseActivity  {
             int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
             photoFileName = cursor.getString(columnIndex);
             cursor.close();
-            
-            hasPhoto = true;
-            
     		
     	}
     	
     	
     	if (photoFileName != null) {
-			Bitmap bitmap = new BitmapDrawable(photoFileName).getBitmap();
-			//Log.i("OLDWIDTH",Integer.toString(bitmap.getWidth()));
-			//Log.i("OLDHEIGHT",Integer.toString(bitmap.getHeight()));
-			
-			float scale = Math.max(1.0f,Math.max((float)bitmap.getWidth()/200f, (float)bitmap.getHeight()/200f));
-			//Log.i("SCALE", Float.toString(scale));
-			
-			int scaleWidth = (int)(bitmap.getWidth() / scale);
-			int scaleHeight = (int)(bitmap.getHeight() / scale);
-			//Log.i("NEWWIDTH",Integer.toString(scaleWidth));
-			//Log.i("NEWHEIGHT",Integer.toString(scaleHeight));
-
-			Bitmap newBitmap = Bitmap.createScaledBitmap(bitmap, scaleWidth, scaleHeight, true);
-			
+    		
+    		uploadData.setPhotoFileName(photoFileName);
+    		
 			ImageView ivPhoto = (ImageView)findViewById(R.id.photo_preview);
-			ivPhoto.setImageBitmap(newBitmap);
+			ivPhoto.setImageBitmap(uploadData.getPhotoThumbNailBitmap());
 			ivPhoto.setVisibility(View.VISIBLE);
     	}
     }
     
     protected final LocationListener locationListener = new LocationListener() {
     	public void onLocationChanged(Location location) {
-	    	lat = (float)location.getLatitude();
-	    	lng = (float)location.getLongitude();
+	    	uploadData.setLatLng((float)location.getLatitude(),(float)location.getLongitude());
     	}
 
     	public void onStatusChanged(String provider, int status, Bundle extras) {}

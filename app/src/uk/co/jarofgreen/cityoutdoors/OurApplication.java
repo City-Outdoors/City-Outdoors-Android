@@ -1,8 +1,10 @@
 package uk.co.jarofgreen.cityoutdoors;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import uk.co.jarofgreen.cityoutdoors.Model.BaseUploadContentOrReport;
 import uk.co.jarofgreen.cityoutdoors.Model.Content;
 import uk.co.jarofgreen.cityoutdoors.Model.Feature;
 
@@ -70,6 +72,39 @@ public class OurApplication extends Application {
 
     public void setLoadDataSerivceState(int getDataSerivceState) {
     	this.loadDataSerivceState = getDataSerivceState;
+    }
+    
+
+    /** ------------- Upload Content Or Report Que ---------------- **/
+    protected List<BaseUploadContentOrReport> uploadQue = new ArrayList<BaseUploadContentOrReport>();
+    private Object uploadQueLock = new Object();
+
+    public void addToUploadQue(BaseUploadContentOrReport upload) {
+    	synchronized(uploadQueLock) {
+    		uploadQue.add(upload);
+    	}
+    }
+
+    public BaseUploadContentOrReport getNextToUpload() {
+    	synchronized(uploadQueLock) {
+    		if (uploadQue.size() > 0) {
+    			return uploadQue.get(0);
+    		}
+    		return null;
+    	}                
+    }
+
+    public boolean hasMoreToUpload() {
+    	synchronized(uploadQueLock) {
+    		return uploadQue.size() > 0;
+    	}                
+    }
+
+
+    public void removeUploadFromQue(BaseUploadContentOrReport upload) {
+    	synchronized(uploadQueLock) {
+    		uploadQue.remove(upload);
+    	}
     }
 	
 }

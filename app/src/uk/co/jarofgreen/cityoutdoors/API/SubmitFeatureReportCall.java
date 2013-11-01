@@ -3,6 +3,7 @@ package uk.co.jarofgreen.cityoutdoors.API;
 import org.xml.sax.Attributes;
 
 import uk.co.jarofgreen.cityoutdoors.OurApplication;
+import uk.co.jarofgreen.cityoutdoors.Model.UploadFeatureReport;
 
 
 import android.content.Context;
@@ -24,22 +25,8 @@ public class SubmitFeatureReportCall extends BaseSubmitContentOrReportCall {
 
 	protected String email;
 	
-	public void setUpCall(int featureID, float lat, float lng, String comment, String name, String email, String photoFileName) {
-		this.featureID = featureID;
-		this.lat = lat;
-		this.lng = lng;
-		this.comment = comment;
-		this.name = name;
-		this.email = email;
-		this.photoFileName = photoFileName;
-			
-		if (photoFileName != null) {
-			try {
-				photoDetails = getPhotoDetailsForSending(photoFileName);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+	public void setUpCall(UploadFeatureReport uploadReport) {
+		this.uploadData = uploadReport;
 	}
 	
 	public void execute() {
@@ -53,20 +40,19 @@ public class SubmitFeatureReportCall extends BaseSubmitContentOrReportCall {
 
 		setUpCall("/api/v1/newFeatureReport.php?showLinks=0&");
 
-		if (featureID > 0) {
-			addDataToCall("featureID",featureID);
-		} else if (lat != 0 && lng != 0) {
-			// technically this could cause problems for others as 0,0 is a valid position but it von't for Edinburgh so left for new.
-			addDataToCall("lat", lat);
-			addDataToCall("lng", lng);
+		if (uploadData.hasFeatureID()) {
+			addDataToCall("featureID",uploadData.getFeatureID());
+		} else if (uploadData.hasLatLng()) {
+			addDataToCall("lat", uploadData.getLat());
+			addDataToCall("lng", uploadData.getLng());
 		}
 
-		addDataToCall("comment", comment);
-		addDataToCall("name", name);
-		addDataToCall("email", email);
-		
-		if (photoFileName != null) {
-			addFileToCall("photo", photoDetails.fileName);
+		addDataToCall("comment", uploadData.getComment());
+		addDataToCall("name", uploadData.getName());
+		addDataToCall("email", ((UploadFeatureReport)uploadData).getEmail());
+
+		if (uploadData.hasPhoto()) {
+			addFileToCall("photo", uploadData.getPhotoFileNameForUpload());
 		}
 		
 		makeCall(root);
