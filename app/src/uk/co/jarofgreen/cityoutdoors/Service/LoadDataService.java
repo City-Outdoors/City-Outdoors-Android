@@ -33,8 +33,10 @@ public class LoadDataService  extends IntentService {
 		long now = java.lang.System.currentTimeMillis();
 		SharedPreferences settings=PreferenceManager.getDefaultSharedPreferences(this);
 	
-		try {
+		((OurApplication)getApplication()).setLoadDataSerivceState(OurApplication.GET_DATA_SERVICE_STATE_WORKING);
 		
+		try {
+			
 			IndexCall ic = new IndexCall(this, (OurApplication)getApplication());
 			ic.execute();
 	
@@ -63,6 +65,9 @@ public class LoadDataService  extends IntentService {
 			// assume it's a net connection error. ignore. Not the best to do.
 			
 		}
+		
+		((OurApplication)getApplication()).setLoadDataSerivceState(OurApplication.GET_DATA_SERVICE_STATE_NONE);
+		
 	}
 	
 	

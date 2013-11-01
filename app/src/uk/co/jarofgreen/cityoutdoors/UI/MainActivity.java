@@ -41,8 +41,6 @@ public class MainActivity extends BaseActivity  {
         }
         v.setVisibility(View.GONE);
 
-        startService(new Intent(this, LoadDataIfStaleService.class));
-        startService(new Intent(this, SendFeatureFavouriteService.class));
         
     }
     

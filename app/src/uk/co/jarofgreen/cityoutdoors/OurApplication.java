@@ -58,5 +58,18 @@ public class OurApplication extends Application {
             }
             return storage;
     }
+    
+    /** -------------- Data Service State  ----------------------- **/
+    protected int loadDataSerivceState = 0;
+    public static final int GET_DATA_SERVICE_STATE_NONE = 0;
+    public static final int GET_DATA_SERVICE_STATE_WORKING = 1;
+
+    public int getLoadDataSerivceState() {
+    	return loadDataSerivceState;
+    }
+
+    public void setLoadDataSerivceState(int getDataSerivceState) {
+    	this.loadDataSerivceState = getDataSerivceState;
+    }
 	
 }
