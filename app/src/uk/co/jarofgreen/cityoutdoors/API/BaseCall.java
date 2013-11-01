@@ -30,6 +30,7 @@ import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.xml.sax.Attributes;
 
+import uk.co.jarofgreen.cityoutdoors.OurApplication;
 import uk.co.jarofgreen.cityoutdoors.R;
 /**
  * 
@@ -47,9 +48,9 @@ public abstract class BaseCall {
 		this.informationNeededFromContext = informationNeededFromContext;
 	}
 
-	public BaseCall(Context context) {
+	public BaseCall(Context context, OurApplication ourApplication) {
 		super();
-		this.informationNeededFromContext = new InformationNeededFromContext(context);
+		this.informationNeededFromContext = new InformationNeededFromContext(context, ourApplication);
 	}
 	
 	protected String errorMessage;

@@ -3,6 +3,8 @@ package uk.co.jarofgreen.cityoutdoors.API;
 
 import org.xml.sax.Attributes;
 
+import uk.co.jarofgreen.cityoutdoors.OurApplication;
+
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -26,8 +28,8 @@ public class CheckCurrentUserCall extends BaseCall {
 	}
 
 	
-	public CheckCurrentUserCall(Context context) {
-		super(context);
+	public CheckCurrentUserCall(Context context, OurApplication ourApplication) {
+		super(context, ourApplication);
 	}
 
 

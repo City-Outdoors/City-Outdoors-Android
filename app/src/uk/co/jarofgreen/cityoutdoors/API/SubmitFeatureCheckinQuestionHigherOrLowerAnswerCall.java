@@ -9,6 +9,7 @@ import android.sax.StartElementListener;
 
 import org.xml.sax.Attributes;
 
+import uk.co.jarofgreen.cityoutdoors.OurApplication;
 import uk.co.jarofgreen.cityoutdoors.Model.FeatureCheckinQuestionHigherOrLower;
 
 /**
@@ -20,8 +21,8 @@ import uk.co.jarofgreen.cityoutdoors.Model.FeatureCheckinQuestionHigherOrLower;
  */
 public class SubmitFeatureCheckinQuestionHigherOrLowerAnswerCall extends BaseCall {
 
-	public SubmitFeatureCheckinQuestionHigherOrLowerAnswerCall(Context context) {
-		super(context);
+	public SubmitFeatureCheckinQuestionHigherOrLowerAnswerCall(Context context, OurApplication ourApplication) {
+		super(context, ourApplication);
 	}
 
 	public SubmitFeatureCheckinQuestionHigherOrLowerAnswerCall(InformationNeededFromContext informationNeededFromContext) {

@@ -5,6 +5,7 @@ package uk.co.jarofgreen.cityoutdoors.API;
 
 import org.xml.sax.Attributes;
 
+import uk.co.jarofgreen.cityoutdoors.OurApplication;
 import uk.co.jarofgreen.cityoutdoors.Storage;
 import uk.co.jarofgreen.cityoutdoors.Model.Feature;
 
@@ -30,8 +31,8 @@ public class FeaturesCall extends BaseCall {
 		super(informationNeededFromContext);
 	}
 
-	public FeaturesCall(Context context) {
-		super(context);
+	public FeaturesCall(Context context, OurApplication ourApplication) {
+		super(context, ourApplication);
 	}
 
 	Feature lastFeature;

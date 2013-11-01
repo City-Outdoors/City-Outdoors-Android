@@ -8,6 +8,7 @@ import android.sax.RootElement;
 import android.sax.StartElementListener;
 import org.xml.sax.Attributes;
 
+import uk.co.jarofgreen.cityoutdoors.OurApplication;
 import uk.co.jarofgreen.cityoutdoors.Model.FeatureCheckinQuestionMultipleChoice;
 import uk.co.jarofgreen.cityoutdoors.Model.FeatureCheckinQuestionPossibleAnswer;
 
@@ -20,8 +21,8 @@ import uk.co.jarofgreen.cityoutdoors.Model.FeatureCheckinQuestionPossibleAnswer;
  */
 public class SubmitFeatureCheckinQuestionMultipleChoiceAnswerCall extends BaseCall {
 
-	public SubmitFeatureCheckinQuestionMultipleChoiceAnswerCall(Context context) {
-		super(context);
+	public SubmitFeatureCheckinQuestionMultipleChoiceAnswerCall(Context context, OurApplication ourApplication) {
+		super(context, ourApplication);
 	}
 
 	public SubmitFeatureCheckinQuestionMultipleChoiceAnswerCall(InformationNeededFromContext informationNeededFromContext) {

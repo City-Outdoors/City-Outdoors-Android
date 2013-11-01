@@ -3,6 +3,8 @@ package uk.co.jarofgreen.cityoutdoors.API;
 
 import org.xml.sax.Attributes;
 
+import uk.co.jarofgreen.cityoutdoors.OurApplication;
+
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -21,8 +23,8 @@ import android.util.Log;
  */
 public class LogInOrSignUpCall extends BaseCall {
 
-	public LogInOrSignUpCall(Context context) {
-		super(context);
+	public LogInOrSignUpCall(Context context, OurApplication ourApplication) {
+		super(context, ourApplication);
 	}
 
 	public LogInOrSignUpCall(InformationNeededFromContext informationNeededFromContext) {

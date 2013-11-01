@@ -23,10 +23,10 @@ public class InformationNeededFromContext {
 	protected File cacheDir;
 
 	
-	public InformationNeededFromContext(Context context) {
+	public InformationNeededFromContext(Context context, OurApplication ourApplication) {
 		serverURL = context.getString(R.string.server_url);
 		settings=PreferenceManager.getDefaultSharedPreferences(context);
-		storage = new Storage(context);
+		storage = ourApplication.getStorage();
 		cacheDir = context.getCacheDir();
 	}
 

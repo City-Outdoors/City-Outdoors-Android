@@ -11,6 +11,7 @@ import android.util.Log;
 
 import uk.co.jarofgreen.cityoutdoors.API.SubmitFeatureReportCall;
 import uk.co.jarofgreen.cityoutdoors.UI.FeatureActivity;
+import uk.co.jarofgreen.cityoutdoors.OurApplication;
 import uk.co.jarofgreen.cityoutdoors.R;
 
 /**
@@ -70,7 +71,7 @@ public class SendFeatureReportService extends IntentService {
 	
 	private boolean sendFeatureContent(int featureID, float lat, float lng, String comment, String name, String email, String photoFileName) {
 		int attempt = 0;
-		SubmitFeatureReportCall call = new SubmitFeatureReportCall(this);
+		SubmitFeatureReportCall call = new SubmitFeatureReportCall(this, (OurApplication)getApplication());
 		call.setUpCall(featureID, lat, lng, comment, name, email, photoFileName);
 		while (true) { 
 			if (attempt < 20) attempt += 1;

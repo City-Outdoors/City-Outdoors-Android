@@ -2,6 +2,7 @@ package uk.co.jarofgreen.cityoutdoors.API;
 
 
 
+import uk.co.jarofgreen.cityoutdoors.OurApplication;
 import uk.co.jarofgreen.cityoutdoors.Storage;
 import uk.co.jarofgreen.cityoutdoors.Model.FeatureFavourite;
 import android.content.Context;
@@ -16,8 +17,8 @@ import android.util.Log;
  */
 public class FeatureFavouriteCall extends BaseCall {
 
-	public FeatureFavouriteCall(Context context) {
-		super(context);
+	public FeatureFavouriteCall(Context context, OurApplication ourApplication) {
+		super(context, ourApplication);
 	}
 
 	public FeatureFavouriteCall(InformationNeededFromContext informationNeededFromContext) {

@@ -78,7 +78,7 @@ public class Storage extends SQLiteOpenHelper {
 	
 	}
 	
-	public void storeFeature(Feature feature) {
+	public synchronized void storeFeature(Feature feature) {
 		SQLiteDatabase db = this.getWritableDatabase();
 		String[]  whereArgs = { Integer.toString(feature.getId()) };
 		if (feature.isDeleted()) {
@@ -104,7 +104,7 @@ public class Storage extends SQLiteOpenHelper {
 		db.close();
 	}
 	
-	public void storeItem(Item item) {
+	public synchronized void storeItem(Item item) {
 		SQLiteDatabase db = this.getWritableDatabase();
 		String[]  whereArgs = { Integer.toString(item.getId()) };
 		if (item.isDeleted()) {
@@ -127,7 +127,7 @@ public class Storage extends SQLiteOpenHelper {
 		db.close();
 	}	
 	
-	public List<Feature> getFeatures() {
+	public synchronized List<Feature> getFeatures() {
         
 		List<Feature> features = new ArrayList<Feature>();
         SQLiteDatabase db = getReadableDatabase();
@@ -143,7 +143,7 @@ public class Storage extends SQLiteOpenHelper {
 	
 	
 
-	public List<Feature> getFeatures(Double top, Double bottom, Double left, Double right) {
+	public synchronized List<Feature> getFeatures(Double top, Double bottom, Double left, Double right) {
 		List<Feature> features = new ArrayList<Feature>();
 		SQLiteDatabase db = getReadableDatabase();
 		String[]  d = { Double.toString(top), Double.toString(bottom),  Double.toString(left), Double.toString(right) };
@@ -156,7 +156,7 @@ public class Storage extends SQLiteOpenHelper {
 		return features;
 	}
 
-	public Feature getFeature(int id) {
+	public synchronized Feature getFeature(int id) {
 		Feature f = null;
 		SQLiteDatabase db = getReadableDatabase();
 		String[]  d = { Integer.toString(id) };
@@ -170,7 +170,7 @@ public class Storage extends SQLiteOpenHelper {
 	}
 	
 		
-	public List<Collection> getCollections() {
+	public synchronized List<Collection> getCollections() {
         
 		List<Collection> collections = new ArrayList<Collection>();
         SQLiteDatabase db = getReadableDatabase();
@@ -184,7 +184,7 @@ public class Storage extends SQLiteOpenHelper {
         return collections;
 	}
 
-	public int getFeatureIdOfItem(int itemID) {
+	public synchronized int getFeatureIdOfItem(int itemID) {
 
 		List<Collection> collections = new ArrayList<Collection>();
 		SQLiteDatabase db = getReadableDatabase();
@@ -201,7 +201,7 @@ public class Storage extends SQLiteOpenHelper {
 		
 	
 	
-	public void storeCollection(Collection collection) {
+	public synchronized void storeCollection(Collection collection) {
 		SQLiteDatabase db = this.getWritableDatabase();
 		
 		ContentValues cv = new ContentValues();
@@ -228,7 +228,7 @@ public class Storage extends SQLiteOpenHelper {
 		
 	
 
-	public void featureFavourite(int featureID, Boolean server) {
+	public synchronized void featureFavourite(int featureID, Boolean server) {
 		SQLiteDatabase db = this.getWritableDatabase();
 		
 		ContentValues cv = new ContentValues();
@@ -247,7 +247,7 @@ public class Storage extends SQLiteOpenHelper {
 		db.close();		
 	}
 	
-	public List<FeatureFavourite> getFeatureFavouritesToSendToServer() {
+	public synchronized List<FeatureFavourite> getFeatureFavouritesToSendToServer() {
 		List<FeatureFavourite> featureCheckins = new ArrayList<FeatureFavourite>();
         SQLiteDatabase db = getReadableDatabase();
         String[]  d = { };
@@ -260,7 +260,7 @@ public class Storage extends SQLiteOpenHelper {
 		return featureCheckins;
 	}
 	
-	public void featureFavouriteSentToServer(FeatureFavourite featureFavourite) {
+	public synchronized void featureFavouriteSentToServer(FeatureFavourite featureFavourite) {
 		SQLiteDatabase db = this.getWritableDatabase();
 		
         String[]  d2 = { Integer.toString(featureFavourite.getFeatureID()) };
@@ -272,7 +272,7 @@ public class Storage extends SQLiteOpenHelper {
 	
 	
 	
-	public void deleteUserData() {
+	public synchronized void deleteUserData() {
 		SQLiteDatabase db = this.getWritableDatabase();
 		String[]  d2 = { };
 		db.execSQL("DELETE FROM feature_favourite", d2);

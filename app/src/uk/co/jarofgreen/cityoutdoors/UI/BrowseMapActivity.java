@@ -19,6 +19,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import uk.co.jarofgreen.cityoutdoors.OurApplication;
 import uk.co.jarofgreen.cityoutdoors.Storage;
 import uk.co.jarofgreen.cityoutdoors.Model.Collection;
 import uk.co.jarofgreen.cityoutdoors.Model.Feature;
@@ -159,7 +160,7 @@ public class BrowseMapActivity extends android.support.v4.app.FragmentActivity i
 
 		// icons
 
-		Storage s = new Storage(this);
+		Storage s = ((OurApplication)getApplication()).getStorage();
 		for (Collection collection : s.getCollections()) {
 			// normal icon
 			BitmapDescriptor icon = null;
@@ -224,18 +225,19 @@ public class BrowseMapActivity extends android.support.v4.app.FragmentActivity i
 	private class MarkerTask extends AsyncTask<Boolean, Void, Boolean> {
 		List<Feature> features;
 		Double top,bottom,left,right;
-
+		Storage storage;
+		
 		public MarkerTask(Double top, Double bottom, Double left, Double right) {
 			super();
 			this.top = top;
 			this.bottom = bottom;
 			this.right = right;
 			this.left = left;
+			this.storage = ((OurApplication)getApplication()).getStorage();
 		}
 
 		protected Boolean doInBackground(Boolean... dummy) {
-			Storage s = new Storage(BrowseMapActivity.this);
-			features = s.getFeatures(top, bottom, left, right);
+			features = storage.getFeatures(top, bottom, left, right);
 			return false;
 		}
 

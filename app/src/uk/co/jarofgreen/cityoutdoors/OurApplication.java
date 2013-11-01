@@ -49,5 +49,14 @@ public class OurApplication extends Application {
 	}
 	
 	
+	/** -------------- Singleton Storage ----------------------- **/
+    Storage storage = null;
+    
+    public Storage getStorage() {
+            if (storage == null) {
+                    storage = new Storage(this);
+            }
+            return storage;
+    }
 	
 }

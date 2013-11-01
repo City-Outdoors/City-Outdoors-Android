@@ -2,6 +2,7 @@ package uk.co.jarofgreen.cityoutdoors.UI;
 
 
 
+import uk.co.jarofgreen.cityoutdoors.OurApplication;
 import uk.co.jarofgreen.cityoutdoors.Storage;
 import uk.co.jarofgreen.cityoutdoors.R;
 import android.content.Intent;
@@ -45,7 +46,7 @@ public class FavouritesActivity extends BaseListActivity {
 			collectionID = extras.getInt("collectionID");
 		}
 		
-		 Storage storage = new Storage(getApplicationContext());
+		 Storage storage = ((OurApplication)getApplication()).getStorage();
          SQLiteDatabase db = storage.getReadableDatabase();
 
          final String args[] = { };
@@ -65,7 +66,7 @@ public class FavouritesActivity extends BaseListActivity {
          lv.setOnItemClickListener(new OnItemClickListener() {
                  public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                          Intent intent = new Intent(FavouritesActivity.this, FeatureActivity.class);
-                         Storage s = new Storage(FavouritesActivity.this.getApplicationContext());
+                         Storage s = ((OurApplication)getApplication()).getStorage();
                          int featureID = s.getFeatureIdOfItem((int)id);
                          intent.putExtra("featureID",featureID);
                          startActivity(intent);

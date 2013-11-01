@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
+import uk.co.jarofgreen.cityoutdoors.OurApplication;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -18,8 +20,8 @@ public abstract class BaseSubmitContentOrReportCall extends BaseCall {
 	}
 
 
-	public BaseSubmitContentOrReportCall(Context context) {
-		super(context);
+	public BaseSubmitContentOrReportCall(Context context, OurApplication ourApplication) {
+		super(context, ourApplication);
 	}
 
 

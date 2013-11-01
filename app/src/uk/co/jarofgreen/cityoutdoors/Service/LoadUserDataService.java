@@ -1,6 +1,7 @@
 package uk.co.jarofgreen.cityoutdoors.Service;
 
 
+import uk.co.jarofgreen.cityoutdoors.OurApplication;
 import uk.co.jarofgreen.cityoutdoors.API.CheckCurrentUserCall;
 import uk.co.jarofgreen.cityoutdoors.API.FeaturesCall;
 import android.app.IntentService;
@@ -29,11 +30,11 @@ public class LoadUserDataService  extends IntentService {
 		try {
 	
 			// get latest data for answeredAllQuestions variable 
-			FeaturesCall fc = new FeaturesCall(this);
+			FeaturesCall fc = new FeaturesCall(this, (OurApplication)getApplication());
 			fc.execute();
 	
 			// get latest score
-			CheckCurrentUserCall cu = new CheckCurrentUserCall(this);
+			CheckCurrentUserCall cu = new CheckCurrentUserCall(this, (OurApplication)getApplication());
 			cu.execute();
 		
 		} catch (Exception e) {

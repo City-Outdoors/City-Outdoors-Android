@@ -100,7 +100,7 @@ public class FeatureActivity extends BaseActivity {
 
 
 	public void onClickFavourite(View v) {
-		Storage s = new Storage(this);
+		Storage s = ((OurApplication)getApplication()).getStorage();
 		s.featureFavourite(featureID, false);
 		startService(new Intent(this, SendFeatureFavouriteService.class));
 		Toast.makeText(this, getString(R.string.feature_add_to_favourites_result_success), Toast.LENGTH_SHORT).show();
@@ -144,7 +144,7 @@ public class FeatureActivity extends BaseActivity {
 	}
 	
 	public void onClickMap(View v) {
-		Storage s = new Storage(this);
+		Storage s = ((OurApplication)getApplication()).getStorage();
 		Feature f = s.getFeature(featureID);
 		Log.d("CLICK",Integer.toString(featureID));
 		if (f != null) {
@@ -342,7 +342,7 @@ public class FeatureActivity extends BaseActivity {
 
 			try{
 
-				call = new FeatureCall(FeatureActivity.this);
+				call = new FeatureCall(FeatureActivity.this, (OurApplication)getApplication());
 				call.execute(featureID);
 
 			} catch(Exception e) {
@@ -666,7 +666,7 @@ public class FeatureActivity extends BaseActivity {
 
 		protected Boolean doInBackground(Boolean... dummy) {
 			try{
-				call = new SubmitFeatureCheckinQuestionFreeTextAnswerCall(FeatureActivity.this);
+				call = new SubmitFeatureCheckinQuestionFreeTextAnswerCall(FeatureActivity.this, (OurApplication)getApplication());
 				call.execute(featureCheckinQuestion, answer);
 			} catch(Exception e) {				
 				Log.d("ERRORINLOGIN",e.toString());
@@ -712,7 +712,7 @@ public class FeatureActivity extends BaseActivity {
 
 		protected Boolean doInBackground(Boolean... dummy) {
 			try{
-				call = new SubmitFeatureCheckinQuestionHigherOrLowerAnswerCall(FeatureActivity.this);
+				call = new SubmitFeatureCheckinQuestionHigherOrLowerAnswerCall(FeatureActivity.this, (OurApplication)getApplication());
 				call.execute(featureCheckinQuestion, answer);
 			} catch(Exception e) {
 				Log.d("ERRORINLOGIN",e.toString());
@@ -762,7 +762,7 @@ public class FeatureActivity extends BaseActivity {
 
 		protected Boolean doInBackground(Boolean... dummy) {
 			try{
-				call = new SubmitFeatureCheckinQuestionMultipleChoiceAnswerCall(FeatureActivity.this);
+				call = new SubmitFeatureCheckinQuestionMultipleChoiceAnswerCall(FeatureActivity.this, (OurApplication)getApplication());
 				call.execute(featureCheckinQuestion, answer);
 			} catch(Exception e) {
 				Log.d("ERRORINLOGIN",e.toString());

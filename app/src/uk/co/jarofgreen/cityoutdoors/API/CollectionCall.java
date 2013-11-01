@@ -3,6 +3,7 @@ package uk.co.jarofgreen.cityoutdoors.API;
 
 import org.xml.sax.Attributes;
 
+import uk.co.jarofgreen.cityoutdoors.OurApplication;
 import uk.co.jarofgreen.cityoutdoors.Storage;
 import uk.co.jarofgreen.cityoutdoors.Model.Item;
 import android.content.Context;
@@ -21,8 +22,8 @@ import android.sax.StartElementListener;
  */
 public class CollectionCall extends BaseCall {
 
-	public CollectionCall(Context context) {
-		super(context);
+	public CollectionCall(Context context, OurApplication ourApplication) {
+		super(context, ourApplication);
 	}
 
 	public CollectionCall(InformationNeededFromContext informationNeededFromContext) {

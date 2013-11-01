@@ -1,6 +1,7 @@
 package uk.co.jarofgreen.cityoutdoors.UI;
 
 
+import uk.co.jarofgreen.cityoutdoors.OurApplication;
 import uk.co.jarofgreen.cityoutdoors.Storage;
 import uk.co.jarofgreen.cityoutdoors.R;
 import android.content.Intent;
@@ -42,7 +43,7 @@ public class CollectionsActivity extends BaseListActivity {
 		listView.setCacheColorHint(Color.WHITE);
 		
 		// data
-		 Storage storage = new Storage(getApplicationContext());
+		 Storage storage = ((OurApplication)getApplication()).getStorage();
          SQLiteDatabase db = storage.getReadableDatabase();
 
          final String fields[] = { BaseColumns._ID, "title", "description"};

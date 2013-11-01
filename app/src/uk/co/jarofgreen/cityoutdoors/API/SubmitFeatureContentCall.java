@@ -6,6 +6,8 @@ import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.xml.sax.Attributes;
 
+import uk.co.jarofgreen.cityoutdoors.OurApplication;
+
 import android.content.Context;
 import android.sax.Element;
 import android.sax.RootElement;
@@ -13,8 +15,8 @@ import android.sax.StartElementListener;
 
 public class SubmitFeatureContentCall extends BaseSubmitContentOrReportCall {
 
-	public SubmitFeatureContentCall(Context context) {
-		super(context);
+	public SubmitFeatureContentCall(Context context, OurApplication ourApplication) {
+		super(context, ourApplication);
 	}
 
 	public SubmitFeatureContentCall(InformationNeededFromContext informationNeededFromContext) {

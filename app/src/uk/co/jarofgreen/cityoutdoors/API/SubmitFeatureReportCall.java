@@ -2,6 +2,8 @@ package uk.co.jarofgreen.cityoutdoors.API;
 
 import org.xml.sax.Attributes;
 
+import uk.co.jarofgreen.cityoutdoors.OurApplication;
+
 
 import android.content.Context;
 import android.sax.Element;
@@ -10,8 +12,8 @@ import android.sax.StartElementListener;
 
 public class SubmitFeatureReportCall extends BaseSubmitContentOrReportCall {
 
-	public SubmitFeatureReportCall(Context context) {
-		super(context);
+	public SubmitFeatureReportCall(Context context, OurApplication ourApplication) {
+		super(context, ourApplication);
 	}
 
 	public SubmitFeatureReportCall(InformationNeededFromContext informationNeededFromContext) {

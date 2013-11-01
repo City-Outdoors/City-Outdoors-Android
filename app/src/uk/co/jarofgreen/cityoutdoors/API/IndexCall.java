@@ -4,6 +4,8 @@ package uk.co.jarofgreen.cityoutdoors.API;
 
 import org.xml.sax.Attributes;
 
+import uk.co.jarofgreen.cityoutdoors.OurApplication;
+
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -22,8 +24,8 @@ import android.util.Log;
  */
 public class IndexCall extends BaseCall {
 
-	public IndexCall(Context context) {
-		super(context);
+	public IndexCall(Context context, OurApplication ourApplication) {
+		super(context, ourApplication);
 	}
 
 	public IndexCall(InformationNeededFromContext informationNeededFromContext) {

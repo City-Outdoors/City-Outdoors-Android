@@ -5,6 +5,7 @@ package uk.co.jarofgreen.cityoutdoors.UI;
 import uk.co.jarofgreen.cityoutdoors.API.LogInOrSignUpCall;
 import uk.co.jarofgreen.cityoutdoors.Service.LoadUserDataService;
 import uk.co.jarofgreen.cityoutdoors.Service.SendFeatureFavouriteService;
+import uk.co.jarofgreen.cityoutdoors.OurApplication;
 import uk.co.jarofgreen.cityoutdoors.R;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -76,7 +77,7 @@ public class LogInOrSignUpActivity extends BaseActivity {
         protected Boolean doInBackground(Boolean... dummy) {
         	
             try{
-            	logInOrSignUpCall = new LogInOrSignUpCall(LogInOrSignUpActivity.this);
+            	logInOrSignUpCall = new LogInOrSignUpCall(LogInOrSignUpActivity.this, (OurApplication)getApplication());
             	return logInOrSignUpCall.execute(Email, Password);
             } catch(Exception e) {
             	Log.d("ERRORINLOGIN",e.toString());

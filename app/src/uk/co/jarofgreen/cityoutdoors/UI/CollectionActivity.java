@@ -3,6 +3,7 @@ package uk.co.jarofgreen.cityoutdoors.UI;
 
 import java.util.List;
 
+import uk.co.jarofgreen.cityoutdoors.OurApplication;
 import uk.co.jarofgreen.cityoutdoors.Storage;
 import uk.co.jarofgreen.cityoutdoors.R;
 import android.content.Intent;
@@ -52,7 +53,7 @@ public class CollectionActivity extends BaseListActivity {
 			collectionID = extras.getInt("collectionID");
 		}
 		
-		 Storage storage = new Storage(getApplicationContext());
+		 Storage storage = ((OurApplication)getApplication()).getStorage();
          SQLiteDatabase db = storage.getReadableDatabase();
 
          final String fields[] = { BaseColumns._ID, "title"};
@@ -69,7 +70,7 @@ public class CollectionActivity extends BaseListActivity {
          listView.setOnItemClickListener(new OnItemClickListener() {
                  public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                          Intent intent = new Intent(CollectionActivity.this, FeatureActivity.class);
-                         Storage s = new Storage(CollectionActivity.this.getApplicationContext());
+                         Storage s = ((OurApplication)getApplication()).getStorage();
                          int featureID = s.getFeatureIdOfItem((int)id);
                          intent.putExtra("featureID",featureID);
                          startActivity(intent);

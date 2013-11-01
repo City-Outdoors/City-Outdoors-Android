@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import uk.co.jarofgreen.cityoutdoors.API.SubmitFeatureContentCall;
 import uk.co.jarofgreen.cityoutdoors.UI.FeatureActivity;
+import uk.co.jarofgreen.cityoutdoors.OurApplication;
 import uk.co.jarofgreen.cityoutdoors.R;
 
 /**
@@ -70,7 +71,7 @@ public class SendFeatureContentService extends IntentService {
 
 	private boolean sendFeatureContent(int featureID, float lat, float lng, String comment, String name, String photoFileName) {
 		int attempt = 0;
-		SubmitFeatureContentCall call = new SubmitFeatureContentCall(this);
+		SubmitFeatureContentCall call = new SubmitFeatureContentCall(this, (OurApplication)getApplication());
 		call.setUpCall(featureID, lat, lng, comment, name, photoFileName);
 		while (true) { 
 			if (attempt < 20) attempt += 1;

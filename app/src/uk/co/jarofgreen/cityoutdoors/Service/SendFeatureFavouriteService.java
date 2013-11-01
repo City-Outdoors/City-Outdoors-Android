@@ -1,6 +1,7 @@
 package uk.co.jarofgreen.cityoutdoors.Service;
 
 
+import uk.co.jarofgreen.cityoutdoors.OurApplication;
 import uk.co.jarofgreen.cityoutdoors.Storage;
 import uk.co.jarofgreen.cityoutdoors.API.FeatureFavouriteCall;
 import uk.co.jarofgreen.cityoutdoors.Model.FeatureFavourite;
@@ -33,9 +34,9 @@ public class SendFeatureFavouriteService extends IntentService {
 		
 		// ok lets go
 		Log.d("FAVOURITE","Starting Sending All Unsent");
-		Storage s = new Storage(this);
+		Storage s = ((OurApplication)getApplication()).getStorage();
 		
-		FeatureFavouriteCall call = new FeatureFavouriteCall(this);
+		FeatureFavouriteCall call = new FeatureFavouriteCall(this, (OurApplication)getApplication());
 		
 		try {
 			for (FeatureFavourite featureFavourite : s.getFeatureFavouritesToSendToServer()) {

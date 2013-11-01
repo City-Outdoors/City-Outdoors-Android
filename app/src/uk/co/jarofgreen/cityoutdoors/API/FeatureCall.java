@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.xml.sax.Attributes;
 
+import uk.co.jarofgreen.cityoutdoors.OurApplication;
 import uk.co.jarofgreen.cityoutdoors.Model.Content;
 import uk.co.jarofgreen.cityoutdoors.Model.Feature;
 import uk.co.jarofgreen.cityoutdoors.Model.FeatureCheckinQuestion;
@@ -34,8 +35,8 @@ import android.util.Log;
  */
 public class FeatureCall extends BaseCall {
 
-	public FeatureCall(Context context) {
-		super(context);
+	public FeatureCall(Context context, OurApplication ourApplication) {
+		super(context, ourApplication);
 	}
 	
 	public FeatureCall(InformationNeededFromContext informationNeededFromContext) {

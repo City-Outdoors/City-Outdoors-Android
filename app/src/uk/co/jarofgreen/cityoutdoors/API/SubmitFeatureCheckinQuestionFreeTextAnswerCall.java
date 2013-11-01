@@ -8,6 +8,7 @@ import android.sax.RootElement;
 import android.sax.StartElementListener;
 import org.xml.sax.Attributes;
 
+import uk.co.jarofgreen.cityoutdoors.OurApplication;
 import uk.co.jarofgreen.cityoutdoors.Model.FeatureCheckinQuestionFreeText;
 
 /**
@@ -19,8 +20,8 @@ import uk.co.jarofgreen.cityoutdoors.Model.FeatureCheckinQuestionFreeText;
  */
 public class SubmitFeatureCheckinQuestionFreeTextAnswerCall extends BaseCall {
 
-	public SubmitFeatureCheckinQuestionFreeTextAnswerCall(Context context) {
-		super(context);
+	public SubmitFeatureCheckinQuestionFreeTextAnswerCall(Context context, OurApplication ourApplication) {
+		super(context, ourApplication);
 	}
 
 	public SubmitFeatureCheckinQuestionFreeTextAnswerCall(InformationNeededFromContext informationNeededFromContext) {

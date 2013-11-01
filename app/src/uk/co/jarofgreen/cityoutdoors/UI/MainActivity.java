@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+import uk.co.jarofgreen.cityoutdoors.OurApplication;
 import uk.co.jarofgreen.cityoutdoors.Storage;
 import uk.co.jarofgreen.cityoutdoors.Service.LoadDataIfStaleService;
 import uk.co.jarofgreen.cityoutdoors.Service.LoadDataService;
@@ -103,7 +104,7 @@ public class MainActivity extends BaseActivity  {
     			editor.remove("userToken");
     			editor.commit();
 
-    			Storage s = new Storage(MainActivity.this);
+    			Storage s = ((OurApplication)getApplication()).getStorage();
     			s.deleteUserData();
 
     			View vb;

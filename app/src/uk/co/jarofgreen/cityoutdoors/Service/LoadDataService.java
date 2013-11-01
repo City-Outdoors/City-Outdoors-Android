@@ -2,6 +2,7 @@ package uk.co.jarofgreen.cityoutdoors.Service;
 
 
 
+import uk.co.jarofgreen.cityoutdoors.OurApplication;
 import uk.co.jarofgreen.cityoutdoors.Storage;
 import uk.co.jarofgreen.cityoutdoors.API.CheckCurrentUserCall;
 import uk.co.jarofgreen.cityoutdoors.API.CollectionCall;
@@ -34,22 +35,22 @@ public class LoadDataService  extends IntentService {
 	
 		try {
 		
-			IndexCall ic = new IndexCall(this);
+			IndexCall ic = new IndexCall(this, (OurApplication)getApplication());
 			ic.execute();
 	
-			FeaturesCall fc = new FeaturesCall(this);
+			FeaturesCall fc = new FeaturesCall(this, (OurApplication)getApplication());
 			fc.execute();
 	
-			CollectionsCall cc = new CollectionsCall(this);
+			CollectionsCall cc = new CollectionsCall(this, (OurApplication)getApplication());
 			cc.execute();
 	
-			Storage s = new Storage(getApplicationContext());
-			CollectionCall collectionCall = new CollectionCall(this);
+			Storage s = ((OurApplication)getApplication()).getStorage();
+			CollectionCall collectionCall = new CollectionCall(this, (OurApplication)getApplication());
 			for(Collection collection: s.getCollections()) {
 				collectionCall.execute(collection.getId());
 			}
 	
-			CheckCurrentUserCall cu = new CheckCurrentUserCall(this);
+			CheckCurrentUserCall cu = new CheckCurrentUserCall(this, (OurApplication)getApplication());
 			cu.execute();
 			
 			SharedPreferences.Editor editor = settings.edit();
