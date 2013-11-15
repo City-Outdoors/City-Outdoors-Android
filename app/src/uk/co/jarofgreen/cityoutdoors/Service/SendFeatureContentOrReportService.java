@@ -9,13 +9,14 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import uk.co.jarofgreen.cityoutdoors.API.SubmitFeatureContentCall;
 import uk.co.jarofgreen.cityoutdoors.API.SubmitFeatureReportCall;
 import uk.co.jarofgreen.cityoutdoors.Model.BaseUploadContentOrReport;
 import uk.co.jarofgreen.cityoutdoors.Model.UploadFeatureContent;
 import uk.co.jarofgreen.cityoutdoors.Model.UploadFeatureReport;
-import uk.co.jarofgreen.cityoutdoors.UI.FeatureActivity;
+import uk.co.jarofgreen.cityoutdoors.UI.SendFeatureContentOrReportProgressActivity;
 import uk.co.jarofgreen.cityoutdoors.OurApplication;
 import uk.co.jarofgreen.cityoutdoors.R;
 
@@ -32,6 +33,9 @@ public class SendFeatureContentOrReportService extends IntentService {
 		super("SendFeatureContentOrReportService");
 	}
 
+
+	protected static final int NOTIFICATION_ID = 1000;
+	
 	protected void onHandleIntent(Intent intent) {	
 
 		OurApplication ourApp = (OurApplication)getApplication();
@@ -47,12 +51,7 @@ public class SendFeatureContentOrReportService extends IntentService {
 			long when = System.currentTimeMillis();
 			Notification notification = new Notification(icon, "Sending", when);
 
-			Intent notificationIntent = new Intent(this, FeatureActivity.class);
-			// without this set action line, when you try to make more than one PendingIntent with only extra data different, the original is overwritten!
-			// we use requestID as the action, so user only sees one notification per request no matter haw many replies there are.
-			// http://stackoverflow.com/questions/3140072/android-keeps-caching-my-intents-extras-how-to-declare-a-pending-intent-that-ke
-			notificationIntent.setAction("featureID".concat(Integer.toString(featureID)));
-			notificationIntent.putExtra("featureID", featureID);
+			Intent notificationIntent = new Intent(this, SendFeatureContentOrReportProgressActivity.class);
 			PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
 			notification.setLatestEventInfo(getApplicationContext(), "Sending", "Sending", contentIntent);
@@ -62,7 +61,7 @@ public class SendFeatureContentOrReportService extends IntentService {
 			notification.flags |= Notification.FLAG_ONGOING_EVENT;
 
 			NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-			mNotificationManager.notify(featureID, notification);
+			mNotificationManager.notify(SendFeatureContentOrReportService.NOTIFICATION_ID, notification);
 
 
 			//------------ Send
@@ -75,8 +74,11 @@ public class SendFeatureContentOrReportService extends IntentService {
 			//----------- Remove from que
 			ourApp.removeUploadFromQue(upload);
 
+			
 			// ---------- End Ongoing Notification
-			mNotificationManager.cancel(featureID);
+			if (!ourApp.hasMoreToUpload()) {
+				mNotificationManager.cancel(SendFeatureContentOrReportService.NOTIFICATION_ID);
+			}
 
 		}
 
@@ -92,6 +94,7 @@ public class SendFeatureContentOrReportService extends IntentService {
 			try {
 				call.execute();
 				if (call.getWasResultASuccess()) {
+					Log.d("SENDFEATURECONTENT","Sent");
 					upload.cleanUp(this);
 					return true;
 				}
@@ -110,10 +113,11 @@ public class SendFeatureContentOrReportService extends IntentService {
 		call.setUpCall(upload);
 		while (true) { 
 			if (attempt < 20) attempt += 1;
-			Log.d("SENDFEATURECONTENT","Trying to send feature report ...");
+			Log.d("SENDFEATUREREPORT","Trying to send feature report ...");
 			try {
 				call.execute();
 				if (call.getWasResultASuccess()) {
+					Log.d("SENDFEATUREREPORT","Sent");
 					upload.cleanUp(this);
 					return true;
 				}

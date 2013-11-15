@@ -2,7 +2,7 @@
 <resources>
     
 	<string name="server_url">http://192.168.1.37:20132/</string>
-    
+
 	<string name="photo_album_name">CityOutdoorsPhotos</string>
     
     <string name="app_name">City Outdoors</string>
@@ -120,4 +120,7 @@
     <string name="feature_login_to_checkin">Please login to answer questions!</string> 
     
     <string name="splash_still_loading">We are still loading data, please wait. Do you have an internet connection?</string>
+    
+    <string name="send_feature_content_or_report_progress_all_uploaded">Everything has been uploaded!</string>
+    <string name="send_feature_content_or_report_progress_uploading">Currently uploading data.</string>
 </resources>
