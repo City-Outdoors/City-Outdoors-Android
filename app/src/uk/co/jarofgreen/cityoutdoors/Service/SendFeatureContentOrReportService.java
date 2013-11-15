@@ -54,7 +54,8 @@ public class SendFeatureContentOrReportService extends IntentService {
 			Intent notificationIntent = new Intent(this, SendFeatureContentOrReportProgressActivity.class);
 			PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
-			notification.setLatestEventInfo(getApplicationContext(), "Sending", "Sending", contentIntent);
+			notification.setLatestEventInfo(getApplicationContext(), getString(R.string.send_feature_content_or_report_service_notification_content_title), 
+					getString(R.string.send_feature_content_or_report_service_notification_content_text), contentIntent);
 			notification.flags = Notification.DEFAULT_SOUND;
 			notification.flags |= Notification.DEFAULT_VIBRATE;
 			notification.flags |= Notification.DEFAULT_LIGHTS;

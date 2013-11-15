@@ -121,6 +121,9 @@
     
     <string name="splash_still_loading">We are still loading data, please wait. Do you have an internet connection?</string>
     
+    <string name="send_feature_content_or_report_service_notification_content_title">Sending ...</string>
+    <string name="send_feature_content_or_report_service_notification_content_text">Sending ...</string>
+    
     <string name="send_feature_content_or_report_progress_all_uploaded">Everything has been uploaded!</string>
     <string name="send_feature_content_or_report_progress_uploading">Currently uploading data.</string>
 </resources>
