@@ -116,6 +116,7 @@
     <string name="feature_menu_share">Share</string>
     <string name="feature_menu_email">Email</string>
     <string name="feature_menu_phone">Phone</string>
+    <string name="feature_menu_children">Features</string>
     
     <string name="feature_login_to_checkin">Please login to answer questions!</string> 
     

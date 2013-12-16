@@ -19,6 +19,7 @@ public class Item {
 	private String title;
 	private List<ItemField> fields;
 	private boolean deleted = false;
+	private int parent_item_id = 0;
 	
 	
 	
@@ -95,6 +96,22 @@ public class Item {
 			this.deleted = (deleted.compareTo("1") == 0 || deleted.compareTo("yes") == 0);
 		}
 	}
+
+
+	public int getParentItemId() {
+		return parent_item_id;
+	}
+
+	public void setParentItemId(int parent_item_id) {
+		this.parent_item_id = parent_item_id;
+	}
 	
-	
+
+	public void setParentItemId(String parent_item_id) {
+		if (parent_item_id != null && parent_item_id.length() > 0) {
+			this.parent_item_id = Integer.parseInt(parent_item_id);
+		} else {
+			this.parent_item_id = 0;
+		}
+	}
 }

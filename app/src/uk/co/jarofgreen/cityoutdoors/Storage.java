@@ -25,7 +25,7 @@ import android.util.Log;
  */
 public class Storage extends SQLiteOpenHelper {
 	
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 6;
     /** This is the old name for the project that now has to be left for backwards-compatibility reasons. **/
     private static final String DATABASE_NAME = "heresatree.db";
 
@@ -62,7 +62,8 @@ public class Storage extends SQLiteOpenHelper {
       	         " collection_id INTEGER NOT NULL, "+
       	         " feature_id INTEGER NOT NULL, "+
       	         " slug VARCHAR(255) NOT NULL, "+
-      	         " title VARCHAR(255) NULL "+
+      	         " title VARCHAR(255) NULL," +
+      	         " parent_item_id INTEGER NULL "+
       	         ");");              
     }
 	
@@ -75,7 +76,9 @@ public class Storage extends SQLiteOpenHelper {
 			arg0.execSQL("ALTER TABLE feature ADD answeredAllQuestions BOOLEAN NOT NULL DEFAULT 1 " );
 			arg0.execSQL("ALTER TABLE collection ADD questionIconURL VARCHAR(255) NULL " );
 		}
-	
+		if (arg1 < 6) {
+			arg0.execSQL("ALTER TABLE item ADD parent_item_id INTEGER NULL" );
+		}
 	}
 	
 	public synchronized void storeFeature(Feature feature) {
@@ -116,6 +119,7 @@ public class Storage extends SQLiteOpenHelper {
 			cv.put("feature_id", item.getFeatureId());
 			cv.put("slug", item.getSlug());
 			cv.put("title", item.getTitle());
+			cv.put("parent_item_id", item.getParentItemId());
 			if (0 == db.update("item", cv,  BaseColumns._ID+"=?", whereArgs)){
 				cv.put(BaseColumns._ID,item.getId());
 				db.insert("item", null, cv);
@@ -246,6 +250,40 @@ public class Storage extends SQLiteOpenHelper {
 		
 		db.close();		
 	}
+
+	public synchronized boolean isFeatureHaveChilden(int featureID) {
+		SQLiteDatabase db = getReadableDatabase();
+		String[]  d = { Integer.toString(featureID) };
+		Cursor c = db.rawQuery("SELECT itemChildren."+BaseColumns._ID+" AS c  FROM item AS itemParents  "+
+				" JOIN item AS itemChildren ON  itemChildren.parent_item_id = itemParents."+BaseColumns._ID+" "+
+				" WHERE itemParents.feature_id = ?", d);
+		int i = c.getCount();
+		db.close();
+		return (i > 0);
+	}
+
+
+
+	public synchronized List<Item> getChildItemsOfFeature(int featureID) {
+
+		List<Item> items = new ArrayList<Item>();
+		SQLiteDatabase db = getReadableDatabase();
+		String[]  d = { Integer.toString(featureID) };
+		Cursor c = db.rawQuery("SELECT itemChildren."+BaseColumns._ID+", itemChildren.title, itemChildren.feature_id AS c  FROM item AS itemParents  "+
+				" JOIN item AS itemChildren ON  itemChildren.parent_item_id = itemParents."+BaseColumns._ID+" "+
+				" WHERE itemParents.feature_id = ?", d);
+		for(int i = 0; i < c.getCount(); i++) {
+			c.moveToPosition(i);
+			Item item = new Item();
+			item.setId(c.getInt(0));
+			item.setTitle(c.getString(1));
+			item.setFeatureId(c.getString(2));
+			items.add(item); 
+		}
+		db.close();
+		return items;
+	}
+	
 	
 	public synchronized List<FeatureFavourite> getFeatureFavouritesToSendToServer() {
 		List<FeatureFavourite> featureCheckins = new ArrayList<FeatureFavourite>();

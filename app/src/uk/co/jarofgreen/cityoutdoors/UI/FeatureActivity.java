@@ -64,6 +64,7 @@ public class FeatureActivity extends BaseActivity {
 	FeatureTask featureTask;
 	DownloadImagesTask downloadImagesTask;
 	String shareURL;
+	boolean isFeatureHaveChilden = false;
 	
 	String email;
 	String telephone;
@@ -95,6 +96,9 @@ public class FeatureActivity extends BaseActivity {
     	mDialog.show();
 
 		featureTask.execute(true);
+		
+	
+		
 
 	}
 
@@ -273,6 +277,13 @@ public class FeatureActivity extends BaseActivity {
 		startIntentForPhoneNumber(phone);
 	}
 
+
+	public void onClickFeatureChildren(View v) {
+		Intent i = new Intent(this, FeatureChildrenActivity.class);
+		i.putExtra("featureID", featureID);
+		startActivity(i);
+	}
+	
 	protected void startIntentForPhoneNumber(String phone) {
 		String uri = "tel:" + phone;
 		Intent intent = new Intent(Intent.ACTION_DIAL);
@@ -295,6 +306,7 @@ public class FeatureActivity extends BaseActivity {
        	if (telephone == null) {
        		menu.findItem(R.id.phone).setVisible(false);
        	}       	
+       	menu.findItem(R.id.children).setVisible(isFeatureHaveChilden);
         return true;
     }
 
@@ -322,6 +334,9 @@ public class FeatureActivity extends BaseActivity {
         case R.id.email:
         	startIntentForEmailAddress(email);
         	return true;
+        case R.id.children:
+        	onClickFeatureChildren(null);
+        	return true;
         default:
             return super.onOptionsItemSelected(item);
         }
@@ -344,12 +359,15 @@ public class FeatureActivity extends BaseActivity {
 
 				call = new FeatureCall(FeatureActivity.this, (OurApplication)getApplication());
 				call.execute(featureID);
-
+			
 			} catch(Exception e) {
 				Log.d("ERRORINLOGIN",e.toString());
 				if (e.getMessage() != null) Log.d("ERRORINLOGIN",e.getMessage());
 			}
 
+			Storage storage = ((OurApplication)getApplication()).getStorage();
+			isFeatureHaveChilden = storage.isFeatureHaveChilden(featureID);
+			
 			return false;
 
 		}

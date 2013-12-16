@@ -32,6 +32,10 @@
         android:id="@+id/phone"
         android:title="@string/feature_menu_phone"/>
     
+    <item
+        android:id="@+id/children"
+        android:title="@string/feature_menu_children"/>
+    
 </menu>
 
 
