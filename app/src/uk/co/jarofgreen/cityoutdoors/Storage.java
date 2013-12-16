@@ -271,7 +271,7 @@ public class Storage extends SQLiteOpenHelper {
 		String[]  d = { Integer.toString(featureID) };
 		Cursor c = db.rawQuery("SELECT itemChildren."+BaseColumns._ID+", itemChildren.title, itemChildren.feature_id AS c  FROM item AS itemParents  "+
 				" JOIN item AS itemChildren ON  itemChildren.parent_item_id = itemParents."+BaseColumns._ID+" "+
-				" WHERE itemParents.feature_id = ?", d);
+				" WHERE itemParents.feature_id = ? ORDER BY  itemChildren.title ASC", d);
 		for(int i = 0; i < c.getCount(); i++) {
 			c.moveToPosition(i);
 			Item item = new Item();
