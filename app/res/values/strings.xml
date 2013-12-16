@@ -72,7 +72,8 @@
     <string name="feature_add_to_favourites_result_success">This has been added to your favourites</string>  
     <string name="feature_share_chooser_title">How do you want to share?</string>
     <string name="feature_email_chooser_title">Send mail...</string>
-    <string name="feature_no_email_clients_error">There are no email clients installed.</string>
+    <string name="feature_no_email_clients_error">Sorry, there are no email clients installed.</string>
+    <string name="feature_no_telephone_clients_error">Sorry, We can\'t find a telephone!</string>
     <string name="feature_content_posted_by">Posted by </string>
     
         

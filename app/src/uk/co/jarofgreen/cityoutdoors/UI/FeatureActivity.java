@@ -27,6 +27,7 @@ import uk.co.jarofgreen.cityoutdoors.Service.SendFeatureFavouriteService;
 import uk.co.jarofgreen.cityoutdoors.R;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
@@ -288,7 +289,12 @@ public class FeatureActivity extends BaseActivity {
 		String uri = "tel:" + phone;
 		Intent intent = new Intent(Intent.ACTION_DIAL);
 		intent.setData(Uri.parse(uri));
-		startActivity(intent);
+		try {
+			startActivity(intent);
+		} catch (ActivityNotFoundException e) {
+			Toast.makeText(this, getString(R.string.feature_no_telephone_clients_error), Toast.LENGTH_SHORT).show();
+			
+		}
 	}
 	
     @Override
